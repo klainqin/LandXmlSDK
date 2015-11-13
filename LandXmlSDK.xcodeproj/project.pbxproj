@@ -462,6 +462,7 @@
 		20D418351BF5CD86003B33C5 /* ZoneWidthCollectionImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D416701BF5CD86003B33C5 /* ZoneWidthCollectionImpl.cpp */; };
 		20D418361BF5CD86003B33C5 /* ZoneWidthImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D416711BF5CD86003B33C5 /* ZoneWidthImpl.cpp */; };
 		20D4183A1BF5D07C003B33C5 /* LandXmlSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D418391BF5D07C003B33C5 /* LandXmlSDK.m */; };
+		20D4183F1BF5E611003B33C5 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D4183E1BF5E611003B33C5 /* XPathQuery.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2164,6 +2165,8 @@
 		20D418371BF5D006003B33C5 /* StdAfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StdAfx.h; path = Source/StdAfx.h; sourceTree = SOURCE_ROOT; };
 		20D418381BF5D07C003B33C5 /* LandXmlSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandXmlSDK.h; path = Source/LandXmlSDK.h; sourceTree = SOURCE_ROOT; };
 		20D418391BF5D07C003B33C5 /* LandXmlSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandXmlSDK.m; path = Source/LandXmlSDK.m; sourceTree = SOURCE_ROOT; };
+		20D4183D1BF5E611003B33C5 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
+		20D4183E1BF5E611003B33C5 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2229,6 +2232,7 @@
 				20D410441BF5CD81003B33C5 /* ValueNode.cpp */,
 				20D410451BF5CD81003B33C5 /* ValueTypesObjectsImpl.cpp */,
 				20D410461BF5CD81003B33C5 /* Win32Exception.cpp */,
+				20D4183C1BF5E611003B33C5 /* libxml2 */,
 				20D40FF21BF5CD81003B33C5 /* privateinclude */,
 				20D410261BF5CD81003B33C5 /* publicinclude */,
 				20D410471BF5CD81003B33C5 /* xs_privateinclude */,
@@ -3963,6 +3967,16 @@
 			path = nodes;
 			sourceTree = "<group>";
 		};
+		20D4183C1BF5E611003B33C5 /* libxml2 */ = {
+			isa = PBXGroup;
+			children = (
+				20D4183D1BF5E611003B33C5 /* XPathQuery.h */,
+				20D4183E1BF5E611003B33C5 /* XPathQuery.m */,
+			);
+			name = libxml2;
+			path = Source/libxml2;
+			sourceTree = SOURCE_ROOT;
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4423,6 +4437,7 @@
 				20D4176A1BF5CD86003B33C5 /* LXNodes43.cpp in Sources */,
 				20D416CE1BF5CD86003B33C5 /* CornerImpl.cpp in Sources */,
 				20D416771BF5CD86003B33C5 /* DocumentImpl.cpp in Sources */,
+				20D4183F1BF5E611003B33C5 /* XPathQuery.m in Sources */,
 				20D416E61BF5CD86003B33C5 /* DefinitionImpl.cpp in Sources */,
 				20D4170A1BF5CD86003B33C5 /* FeatureImpl.cpp in Sources */,
 				20D417CC1BF5CD86003B33C5 /* RawObservationCollectionImpl.cpp in Sources */,
