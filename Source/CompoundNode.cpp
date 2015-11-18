@@ -33,7 +33,7 @@ ILxNode* CompoundNode::getChild (int nIndex) const
 
 int CompoundNode::numberChildren () const
 {
-	return m_arrChildren.size();
+	return (int)m_arrChildren.size();
 }
 
 ILxNode* CompoundNode::removeChild (int nIndex)

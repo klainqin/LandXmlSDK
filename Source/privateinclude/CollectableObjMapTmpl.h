@@ -10,6 +10,7 @@
 
 #include "LXDefs.h"
 #include "NamedObjMapTmpl.h"
+class XRefItem;
 
 namespace LX
 {

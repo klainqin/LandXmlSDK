@@ -11,7 +11,6 @@
 		20D416721BF5CD86003B33C5 /* CollectionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */; };
 		20D416731BF5CD86003B33C5 /* CompoundNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */; };
 		20D416741BF5CD86003B33C5 /* CompoundNode.h.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE61BF5CD81003B33C5 /* CompoundNode.h.cpp */; };
-		20D416751BF5CD86003B33C5 /* DateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE71BF5CD81003B33C5 /* DateTime.cpp */; };
 		20D416761BF5CD86003B33C5 /* Debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE81BF5CD81003B33C5 /* Debug.cpp */; };
 		20D416771BF5CD86003B33C5 /* DocumentImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE91BF5CD81003B33C5 /* DocumentImpl.cpp */; };
 		20D416781BF5CD86003B33C5 /* Exception.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FEA1BF5CD81003B33C5 /* Exception.cpp */; };
@@ -463,6 +462,7 @@
 		20D418361BF5CD86003B33C5 /* ZoneWidthImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D416711BF5CD86003B33C5 /* ZoneWidthImpl.cpp */; };
 		20D4183A1BF5D07C003B33C5 /* LandXmlSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D418391BF5D07C003B33C5 /* LandXmlSDK.m */; };
 		20D4183F1BF5E611003B33C5 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D4183E1BF5E611003B33C5 /* XPathQuery.m */; };
+		20D418411BF97EAA003B33C5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D418401BF97EAA003B33C5 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -494,7 +494,6 @@
 		20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CollectionNode.cpp; path = Source/CollectionNode.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CompoundNode.cpp; path = Source/CompoundNode.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FE61BF5CD81003B33C5 /* CompoundNode.h.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CompoundNode.h.cpp; path = Source/CompoundNode.h.cpp; sourceTree = SOURCE_ROOT; };
-		20D40FE71BF5CD81003B33C5 /* DateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DateTime.cpp; path = Source/DateTime.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FE81BF5CD81003B33C5 /* Debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Debug.cpp; path = Source/Debug.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FE91BF5CD81003B33C5 /* DocumentImpl.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DocumentImpl.cpp; path = Source/DocumentImpl.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FEA1BF5CD81003B33C5 /* Exception.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Exception.cpp; path = Source/Exception.cpp; sourceTree = SOURCE_ROOT; };
@@ -2167,6 +2166,7 @@
 		20D418391BF5D07C003B33C5 /* LandXmlSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandXmlSDK.m; path = Source/LandXmlSDK.m; sourceTree = SOURCE_ROOT; };
 		20D4183D1BF5E611003B33C5 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
 		20D4183E1BF5E611003B33C5 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
+		20D418401BF97EAA003B33C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2174,6 +2174,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20D418411BF97EAA003B33C5 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2191,6 +2192,7 @@
 		20B552961BF5BA08003EB42C = {
 			isa = PBXGroup;
 			children = (
+				20D418401BF97EAA003B33C5 /* libxml2.dylib */,
 				20B552A11BF5BA08003EB42C /* Source */,
 				20B552AE1BF5BA08003EB42C /* Tests */,
 				20B552A01BF5BA08003EB42C /* Products */,
@@ -2215,7 +2217,6 @@
 				20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */,
 				20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */,
 				20D40FE61BF5CD81003B33C5 /* CompoundNode.h.cpp */,
-				20D40FE71BF5CD81003B33C5 /* DateTime.cpp */,
 				20D40FE81BF5CD81003B33C5 /* Debug.cpp */,
 				20D40FE91BF5CD81003B33C5 /* DocumentImpl.cpp */,
 				20D40FEA1BF5CD81003B33C5 /* Exception.cpp */,
@@ -4362,7 +4363,6 @@
 				20D417131BF5CD86003B33C5 /* GPSPositionCollectionImpl.cpp in Sources */,
 				20D417981BF5CD86003B33C5 /* OutSpiralImpl.cpp in Sources */,
 				20D416F01BF5CD86003B33C5 /* DocFileRefCollectionImpl.cpp in Sources */,
-				20D416751BF5CD86003B33C5 /* DateTime.cpp in Sources */,
 				20D416781BF5CD86003B33C5 /* Exception.cpp in Sources */,
 				20D417821BF5CD86003B33C5 /* LXNodes65.cpp in Sources */,
 				20D417361BF5CD86003B33C5 /* LaserSetupCollectionImpl.cpp in Sources */,
@@ -4622,6 +4622,16 @@
 		20B552B41BF5BA08003EB42C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/opt/libxml2/include/libxml2,
+					./source/publicinclude,
+					./source/privateinclude,
+					./source/xs_publicinclude,
+					./source/xs_privateinclude,
+					./source/libxml2,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -4631,6 +4641,16 @@
 		20B552B51BF5BA08003EB42C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/opt/libxml2/include/libxml2,
+					./source/publicinclude,
+					./source/privateinclude,
+					./source/xs_publicinclude,
+					./source/xs_privateinclude,
+					./source/libxml2,
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

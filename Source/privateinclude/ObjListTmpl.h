@@ -114,22 +114,25 @@ template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
 class ObjListTmpl_IteratorImpl : public T_Iterator, public CollectionLocation
 {
 public:
+    
+     typedef ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> ObjListTmpl_t;
+    
      ObjListTmpl_IteratorImpl< T_Obj, T_Base, T_Iterator, T_ConstIterator> (
-        typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList, 
+        ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList,
         typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterator stlIterator);
 
     virtual bool next ();
 
-    virtual typename T_Obj* current ();
+    virtual T_Obj* current ();
 
-    virtual typename T_Obj* remove ();
+    virtual T_Obj* remove ();
 
     virtual bool atEnd ();
 
     virtual void release ();
 
 private:
-    typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& m_objectList;
+    ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& m_objectList;
     typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterator m_stlIterator;
 };
 
@@ -154,7 +157,7 @@ class ObjListTmpl_ConstIteratorImpl : public T_ConstIterator
 {
 public:
     ObjListTmpl_ConstIteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> (
-        const typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList, 
+        const ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList,
         typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator);
 
     virtual bool next ();
@@ -166,7 +169,7 @@ public:
     virtual void release ();
 
 private:
-    const typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& m_objectList;
+    const ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& m_objectList;
     typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::const_iterator m_stlIterator;
 };
 

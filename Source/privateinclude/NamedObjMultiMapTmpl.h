@@ -184,7 +184,7 @@ protected:
     friend class NamedObjMultiMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>;
 //    friend class NamedObjMultiMapTmpl_XRefItem;
 
-    typedef typename NamedObjMultiMapTmpl_XRefItem<T_Obj, T_Id> XRefItem;
+    typedef NamedObjMultiMapTmpl_XRefItem<T_Obj, T_Id> XRefItem;
 
     // Define the hashmap type.
     typedef typename XRefItem::list_t list_t;

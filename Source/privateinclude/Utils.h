@@ -31,7 +31,7 @@ public:
 		const wchar_t* str, 
 		int nLength);
 
-    static void Utils::PrettyPrintXML(String filename);
+    static void PrettyPrintXML(String filename);
 
 	const static wchar_t* k_strDelimiters;
 

@@ -10,7 +10,7 @@ const wchar_t* Utils::k_strDelimiters = L" \n\t";
 
 
 void Utils::print(
-	wchar_t* strBuffer, 
+	wchar_t* strBuffer,
 	const wchar_t * pwchFmt,
     const wchar_t *pwchVal,
     int cchVal)
@@ -19,7 +19,8 @@ void Utils::print(
 	cchVal = cchVal>999 ? 999 : cchVal;
     wcsncpy( val, pwchVal, cchVal );
 	val[cchVal] = 0;
-    swprintf(strBuffer, pwchFmt,val);
+    //swprintf(strBuffer, pwchFmt,val);
+    swprintf(strBuffer, sizeof(strBuffer)/sizeof(wchar_t), pwchFmt, val); //@IOS
 }
 
 
@@ -106,7 +107,15 @@ int Utils::findNextNonDigit (
 
 void Utils::PrettyPrintXML(String filename)
 {
-      FILE*pFileRead = _wfopen(filename.c_str(), L"r");
+      char fn[1024];
+      mbstate_t mbs;
+      mbrlen (NULL,0,&mbs);
+      const wchar_t* str = filename.c_str();
+      size_t ret = wcsrtombs(fn, &str, 1024, &mbs);
+      if (ret == (size_t) - 1)
+          return;
+    
+      FILE* pFileRead = fopen(fn, "r");
       String sPretty;
       wchar_t buffer [100024];
       int iTabCnt = 0;
@@ -114,7 +123,7 @@ void Utils::PrettyPrintXML(String filename)
       const int openE = 1;
       const int endE = 3;
       const int termE = 4;
-      int numRead = 0;
+      size_t numRead = 0;
       char a = ' ';
       char aNext = ' ';
 
@@ -204,9 +213,9 @@ void Utils::PrettyPrintXML(String filename)
 
       // rewrite new file with pretty formatting
 
-      FILE* pFileWrite = _wfopen(filename.c_str(), L"w+");
+      FILE* pFileWrite = fopen(fn, "w+");
 
-      int iPrettyLen = sPretty.length();
+      size_t iPrettyLen = sPretty.length();
 
       fwrite(sPretty.c_str(), sizeof( wchar_t ), iPrettyLen, pFileWrite );
 

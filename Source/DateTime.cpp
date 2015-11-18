@@ -26,8 +26,8 @@ namespace LX
 DateTime::DateTime () 
 {
 	m_time = 0;
-	m_nTZOffsetHours = INT_MAX;
-	m_nTZOffsetMinutes = INT_MAX;
+    m_nTZOffsetHours = INT32_MAX;
+	m_nTZOffsetMinutes = INT32_MAX;
 	m_dSeconds = 0.0;
 
 }
@@ -35,7 +35,7 @@ DateTime::DateTime ()
 DateTime::DateTime (
 	const String& strValue)
 {
-	if (initFromString(strValue.c_str(), strValue.size()))
+	if (initFromString(strValue.c_str(), (int)strValue.size()))
 		m_bNothing = false;
 }
 
@@ -72,7 +72,7 @@ void DateTime::toStream (
 		strBuffer2[0] = L'\0';
 
 		// Check for valid time zone offsets.
-		if (m_nTZOffsetHours != INT_MAX && m_nTZOffsetMinutes != INT_MAX)
+		if (m_nTZOffsetHours != INT32_MAX && m_nTZOffsetMinutes != INT32_MAX)
 		{
 			// Check for ZULU time.
 			if (m_nTZOffsetHours == 0 && m_nTZOffsetMinutes == 0)
@@ -87,7 +87,8 @@ void DateTime::toStream (
 				else
 					wcscpy(strSign, kstrNegative);
 
-				swprintf (strBuffer1, kstrTimeZoneOffsetFormat, strSign, m_nTZOffsetMinutes, m_nTZOffsetMinutes);
+				//swprintf (strBuffer1, kstrTimeZoneOffsetFormat, strSign, m_nTZOffsetMinutes, m_nTZOffsetMinutes);
+                swprintf (strBuffer1, 100, kstrTimeZoneOffsetFormat, strSign, m_nTZOffsetMinutes, m_nTZOffsetMinutes); //@IOS
 			}
 		}
 
@@ -99,10 +100,14 @@ void DateTime::toStream (
 		pTimeStruct= gmtime(&m_time);
 
 		// Build the string.
-		swprintf (strBuffer2, kstrTimeFormat, 
-			      pTimeStruct->tm_year, pTimeStruct->tm_mon, pTimeStruct->tm_mday, 
-				  pTimeStruct->tm_hour, pTimeStruct->tm_min, pTimeStruct->tm_sec, 
-				  strBuffer1);
+		//swprintf (strBuffer2, kstrTimeFormat,
+		//	      pTimeStruct->tm_year, pTimeStruct->tm_mon, pTimeStruct->tm_mday,
+		//		  pTimeStruct->tm_hour, pTimeStruct->tm_min, pTimeStruct->tm_sec,
+		//		  strBuffer1);
+        swprintf (strBuffer2, 200, kstrTimeFormat,
+                  pTimeStruct->tm_year, pTimeStruct->tm_mon, pTimeStruct->tm_mday,
+                  pTimeStruct->tm_hour, pTimeStruct->tm_min, pTimeStruct->tm_sec,
+                  strBuffer1);
 
 		// Write the string
 		stream.write(strBuffer2);
@@ -122,8 +127,8 @@ bool DateTime::initFromString (
 	unsigned int nSeconds = 0;
 	unsigned int nTimeZoneOffset = 0;
 	unsigned int nSecondsFrac = 0;
-	unsigned int nTimeZoneOffsetHours = INT_MAX;
-	unsigned int nTimeZoneOffsetMinutes = INT_MAX;
+	unsigned int nTimeZoneOffsetHours = INT32_MAX;
+	unsigned int nTimeZoneOffsetMinutes = INT32_MAX;
 
 	int nPosition = 0;
 
