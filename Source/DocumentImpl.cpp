@@ -17,7 +17,6 @@
  *
  */
 #include "stdafx.h"
-#include "windows.h"
 #include "Exception.h"
 
 #include "FactoryImpl.h"
@@ -25,7 +24,6 @@
 #include "cargador.h"
 #include "LXEnumTypesImpl.h"
 
-#include <xercesc/dom/DOM.hpp>
 #include "DocumentImpl.h"
 
 #include <sys/timeb.h>
@@ -71,8 +69,6 @@ DocumentImpl::~DocumentImpl ()
 	m_pFactory = NULL;
 
 	releaseDOMDocument();
-
-	XERCES_CPP_NAMESPACE::XMLPlatformUtils::Terminate();
 }
 
 
@@ -87,8 +83,6 @@ void DocumentImpl::initialize ()
     {
         throw Exception(Exception::kUnableToCreateDocumentObject, L"Unable to create inner factory object.");
     }
-
-	XERCES_CPP_NAMESPACE::XMLPlatformUtils::Initialize();
 }
 
 
@@ -102,80 +96,59 @@ void DocumentImpl::loadXml (
 	const wchar_t* strURL, 
 	IParserEventSink* pEventSink)
 {
-	wchar_t* strURLCopy = NULL;
+    // convert the file name from wchar to char
+    char filename[1024];
+    mbstate_t mbs;
+    mbrlen (NULL, 0, &mbs);
+    size_t ret = wcsrtombs(filename, &strURL, 1024, &mbs);
+    if (ret == (size_t) - 1)
+        return;
 
-	// Copy the const into a local string.
-	strURLCopy = new wchar_t[wcslen(strURL) + 1];
-	wcscpy(strURLCopy, strURL);		
-
+#ifdef DEBUG
+    //unsigned long dwStartTime, dwEndTime, dwThirdTime;
+    //FILE* fp = fopen("c:\\temp\\LandXMLSDK_time08.txt", "a");
+    
+    //dwStartTime = GetTickCount();
+#endif
+    
 	//this section is used to load file into a DOM tree.
+    m_domDoc = xmlReadFile(filename, NULL, 0);
 
-	XERCES_CPP_NAMESPACE::XercesDOMParser *parser = NULL;
-	parser = new XERCES_CPP_NAMESPACE::XercesDOMParser;
+#ifdef DEBUG
+//	dwEndTime = GetTickCount();
+#endif
+    
+    if (m_domDoc) {
+        m_pRoot = loadDataFromDOMTree(m_domDoc);
+    }
 
-	if (parser)
-	{
-
-	
-/*	
-		unsigned long dwStartTime, dwEndTime, dwThirdTime;
-	#ifdef _DEBUG
-		FILE* fp = fopen("c:\\temp\\LandXMLSDK_time08D.txt", "a");
-	#else
-		FILE* fp = fopen("c:\\temp\\LandXMLSDK08_time.txt", "a");
-	#endif
+#ifdef DEBUG
+//	dwThirdTime	= GetTickCount();
+    
+/*
+    char buf[256]={0};
+    sprintf(buf, "LandXML File: %s\n", strURLCopy);
+    fprintf(fp, buf);
+     
+    sprintf(buf, "s1 = %d\n", dwEndTime - dwStartTime );
+    fprintf(fp, buf);
+    sprintf(buf, "s2 = %d\n", dwThirdTime - dwEndTime);
+    fprintf(fp, buf);
+    sprintf(buf, "----------------------------------------\n\n");
+    fprintf(fp, buf);
+    fclose(fp);
 */
-//		dwStartTime = GetTickCount();
-	
+#endif
+}
 
-		parser->parse((XMLCh*)(strURLCopy));
-	   
-		m_domDoc = parser->getDocument();
-
-//		dwEndTime = GetTickCount();
-
-		if (m_domDoc)
-			m_pRoot = loadDataFromDOMTree(m_domDoc);
-
-//		dwThirdTime	= GetTickCount();
-
-		delete parser;
-/*	
-	    char buf[256]={0};
-	    sprintf(buf, "LandXML File: %s\n", strURLCopy);
-	    fprintf(fp, buf);
-
-	    sprintf(buf, "s1 = %d\n", dwEndTime - dwStartTime );
-	    fprintf(fp, buf);
-	    sprintf(buf, "s2 = %d\n", dwThirdTime - dwEndTime);
-	    fprintf(fp, buf);
-	    sprintf(buf, "----------------------------------------\n\n");
-	    fprintf(fp, buf);
-	    fclose(fp);
-*/
-	}
-
-	
-
-
-
-	if (strURLCopy)
-		delete [] strURLCopy;
- }
-
-LandXML* DocumentImpl::loadDataFromDOMTree(XERCES_CPP_NAMESPACE::DOMDocument* doc)
+LandXML* DocumentImpl::loadDataFromDOMTree(xmlDocPtr doc)
 {	
 	LX::Cargador cargador(this);
     
-    XERCES_CPP_NAMESPACE::DOMNodeList *nList    = NULL;
-    XERCES_CPP_NAMESPACE::DOMElement *elem      = NULL;
+    // Get the root element node for "LandXML"
+    xmlNodePtr root_element = xmlDocGetRootElement(doc);
 
-    nList = doc->getElementsByTagName((XMLCh*)(L"LandXML"));
-    
-    if (nList->getLength() > 0)
-         elem = static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(nList->item(0));
-
-	return cargador.LoadLandXML(elem);	
+	return cargador.LoadLandXML(root_element);
 }
 
 LandXML* DocumentImpl::rootObject () const
@@ -190,7 +163,7 @@ LandXML* DocumentImpl::setRootObject (
     if (pNewRoot->getDocument() != dynamic_cast<Document*>(this))
         throw Exception(Exception::kObjectDoesNotBelongToDocument, L"Object was not instantiated with this document.");
 
-    LandXML* oldRoot = m_pRoot;
+    // LandXML* oldRoot = m_pRoot;
     m_pRoot = pNewRoot;
     return m_pRoot;
 }
@@ -230,14 +203,23 @@ void DocumentImpl::release ()
     delete this;
 }
 
-XERCES_CPP_NAMESPACE::DOMDocument* DocumentImpl::getDOMDocument()
+xmlDocPtr DocumentImpl::getDOMDocument()
 {
 	return m_domDoc;
 }
 
 short DocumentImpl::releaseDOMDocument()
 {
-	m_domDoc=NULL;
+    /*free the document */
+    xmlFreeDoc(m_domDoc);
+    
+    /*
+     *Free the global variables that may
+     *have been allocated by the parser.
+     */
+    xmlCleanupParser();
+    
+    m_domDoc=NULL;
 
 	return 1;
 }

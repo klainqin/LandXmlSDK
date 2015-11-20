@@ -19,7 +19,7 @@ AlignmentCollection* createAlignmentCollectionObject (DocumentImpl* pDocument);
 class AlignmentCollectionImpl : public GlobalObjMapTmpl<Alignment, AlignmentCollection, String, AlignmentCollectionIterator, AlignmentCollectionConstIterator>
 {
 public:
-    AlignmentCollectionImpl::AlignmentCollectionImpl (DocumentImpl* pDocument);
+    AlignmentCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

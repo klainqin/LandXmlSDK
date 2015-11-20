@@ -17,12 +17,12 @@ namespace LX
 {
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::~NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> ()
+NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::~NamedObjMultiMapTmpl()
 {
     // CLEARS THE COLLECTION AND DEALLOCATES THE OBJECTS IN THE COLLECTION.
 
     // Iterate through the list.  Delete all the objects.
-    for (list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         // Make sure there is an XrefItem object.
         if (*iter)
@@ -49,7 +49,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 void NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::toXml (
     IStream& stream)
 {
-    for (list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         (*iter)->m_pObject->toXml(stream);
     }
@@ -60,7 +60,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_Iterator* NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::addItemReturnIterator (
 	T_Obj* pObject)
 {
-    list_t::iterator stlIterator = addItemHelper(pObject);
+    typename list_t::iterator stlIterator = addItemHelper(pObject);
     T_Iterator *pIter = new NamedObjMultiMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(*this,  stlIterator);
     if (!pIter)
         throw Exception(Exception::kUnableToAllocateMemory, L"Could not allocate iterator.");
@@ -120,7 +120,7 @@ typename NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>:
         if (pId) 
         {
             // Add the xref to the map using the id.
-            hashmap_t::iterator mapPosition = m_map.insert(hashmap_t::value_type(*pId, pXref));
+            typename hashmap_t::iterator mapPosition = m_map.insert(hashmap_t::value_type(*pId, pXref));
 
             // Set the map position.
             pXref->m_mapPosition = mapPosition;
@@ -174,7 +174,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_Iterator* NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::find(
 	const T_Id& id)  
 {
-    hashmap_t::iterator iter = m_map.find(id);
+    typename hashmap_t::iterator iter = m_map.find(id);
 	if (iter != m_map.end())
     {
         T_Iterator* pIterator = new NamedObjMultiMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(*this, iter);
@@ -193,7 +193,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_Obj* NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::findFirstMatch(
 	const T_Id& id)  
 {
-    hashmap_t::iterator iter = m_map.find(id);
+    typename hashmap_t::iterator iter = m_map.find(id);
 	if (iter != m_map.end())
         return iter->second->m_pObject;
 	else
@@ -205,7 +205,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_ConstIterator* NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::find(
 	const T_Id& id) const
 {
-    hashmap_t::const_iterator iter = m_map.find(id);
+    typename hashmap_t::const_iterator iter = m_map.find(id);
 	if (iter != m_map.end())
     {
         T_ConstIterator* pIterator = new NamedObjMultiMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(*this, iter);
@@ -224,7 +224,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 const T_Obj* NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::findFirstMatch(
 	const T_Id& id) const
 {
-    hashmap_t::const_iterator iter = m_map.find(id);
+    typename hashmap_t::const_iterator iter = m_map.find(id);
 	if (iter != m_map.end())
         return iter->second->m_pObject;
 	else
@@ -301,7 +301,7 @@ Object::ValidityEnum NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_Con
     int nCount = 0;
     Object::ValidityEnum returnSts = Object::kValid;
 
-    for (list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         nCount++;
         if ((*iter)->m_pObject->validate(pEventSink) != Object::kValid)
@@ -315,7 +315,7 @@ Object::ValidityEnum NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_Con
 // NamedObjMultiMapTmpl_CoreIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_CoreIteratorImpl (
     NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap)
     : m_objectMap(objectMap)
 {
@@ -364,7 +364,7 @@ typename    NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterato
     if (pId)
     {
         // Add the xref to the map using the id.
-        NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator mapPosition; 
+        typename NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator mapPosition;
         mapPosition = m_objectMap.m_map.insert( NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::value_type(*pId, pXRef));
 
         // Set the map position.
@@ -389,7 +389,7 @@ void NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_Co
 // NamedObjMultiMapTmpl::IteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMultiMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMultiMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_ListIteratorImpl (
     NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
    typename NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator stlIterator)
     : NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(objectMap), 
@@ -430,7 +430,7 @@ T_Obj* NamedObjMultiMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_
 {
     if (atEnd())
 		throw Exception(Exception::kIteratorCurrentElementDoesNotExist, L"There is not an element for this iterator.");
-    NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator tmpIter = m_stlIterator;
+    typename NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator tmpIter = m_stlIterator;
     ++m_stlIterator;    // Move past element being removed
     return NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::remove(*tmpIter);
 }
@@ -467,7 +467,7 @@ void NamedObjMultiMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_Co
 // NamedObjMultiMapTmpl_MapIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMultiMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMultiMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_MapIteratorImpl (
     NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
 typename    NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator stlIterator)
     : NamedObjMultiMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(objectMap),
@@ -522,7 +522,7 @@ bool NamedObjMultiMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_Con
 // NamedObjMultiMapTmpl_ListConstIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMultiMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMultiMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_ListConstIteratorImpl (
     const NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
 typename    NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator)
     : m_objectMap(objectMap),
@@ -568,7 +568,7 @@ void NamedObjMultiMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator,
 // NamedObjMultiMapTmpl_MapConstIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMultiMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMultiMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMultiMapTmpl_MapConstIteratorImpl (
     const NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
    typename NamedObjMultiMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::const_iterator stlIterator)
     : m_objectMap(objectMap),

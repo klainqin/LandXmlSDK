@@ -33,12 +33,12 @@ namespace LX
     
 // StringObject
 template<class T>
-StringObjectTmpl<T>::StringObjectTmpl<T> () 
+StringObjectTmpl<T>::StringObjectTmpl ()
 {
 }
 
 template<class T>
-StringObjectTmpl<T>::StringObjectTmpl<T> (
+StringObjectTmpl<T>::StringObjectTmpl (
     DocumentImpl* pDoc) 
 : ValueObjectTmpl<T>(pDoc)
 {
@@ -46,7 +46,7 @@ StringObjectTmpl<T>::StringObjectTmpl<T> (
 
 
 template<class T>
-StringObjectTmpl<T>::StringObjectTmpl<T> (
+StringObjectTmpl<T>::StringObjectTmpl (
 	const String& strValue)
 	: m_strValue(strValue)
 {
@@ -55,7 +55,7 @@ StringObjectTmpl<T>::StringObjectTmpl<T> (
 
 
 template<class T>
-StringObjectTmpl<T>::StringObjectTmpl<T> (
+StringObjectTmpl<T>::StringObjectTmpl (
 	wchar_t* strValue) 
 	: m_strValue(strValue)
 {
@@ -64,7 +64,7 @@ StringObjectTmpl<T>::StringObjectTmpl<T> (
 
 
 template<class T>
-StringObjectTmpl<T>::StringObjectTmpl<T> (
+StringObjectTmpl<T>::StringObjectTmpl (
 	wchar_t* strValue, 
 	int nValueLen) 
 	: m_strValue(strValue, nValueLen)
@@ -197,13 +197,13 @@ void StringObjectTmpl<T>::streamOut (
 
 // DoubleObject
 template<class T>
-DoubleObjectTmpl<T>::DoubleObjectTmpl<T> ()
+DoubleObjectTmpl<T>::DoubleObjectTmpl ()
 {
 	m_dValue = 0.0;
 }
 
 template<class T>
-DoubleObjectTmpl<T>::DoubleObjectTmpl<T> (
+DoubleObjectTmpl<T>::DoubleObjectTmpl (
     DocumentImpl* pDoc) 
 : ValueObjectTmpl<T>(pDoc)
 {
@@ -212,7 +212,7 @@ DoubleObjectTmpl<T>::DoubleObjectTmpl<T> (
 
 
 template<class T>
-DoubleObjectTmpl<T>::DoubleObjectTmpl<T> (
+DoubleObjectTmpl<T>::DoubleObjectTmpl (
 	double dValue)
 {
 	m_dValue = dValue;
@@ -279,8 +279,10 @@ double DoubleObjectTmpl<T>::parseString (
 	int nValueLen)
 {
 	String strVal = StringObjectTmpl<StringObject>::parseString(strValue, nValueLen);
+    // transform it into upper case string
+    std::transform(strVal.begin(), strVal.end(), strVal.begin(), toupper);
 	double dValue = 0.0;
-    if (_wcsicmp(strVal.c_str(), L"INF"))
+    if (strVal == L"INF")
         dValue = wcstod(strVal.c_str(), NULL);
     else
         dValue = DBL_MAX;
@@ -296,7 +298,9 @@ IParserEventSink::EventCode DoubleObjectTmpl<T>::parseString (
 	double &dValue)
 {
 	String strVal = StringObjectTmpl<StringObject>::parseString(strValue, nValueLen);
-    if (_wcsicmp(strVal.c_str(), L"INF"))
+    // transform it into upper case string
+    std::transform(strVal.begin(), strVal.end(), strVal.begin(), toupper);
+    if (strVal == L"INF")
     	dValue = wcstod(strVal.c_str(), NULL);
     else
         dValue = DBL_MAX;
@@ -328,14 +332,14 @@ void DoubleObjectTmpl<T>::streamOut (
 
 // IntegerObject
 template<class T>
-IntegerObjectTmpl<T>::IntegerObjectTmpl<T> ()
+IntegerObjectTmpl<T>::IntegerObjectTmpl ()
 {
 	m_nValue = 0;
 }
 
 
 template<class T>
-IntegerObjectTmpl<T>::IntegerObjectTmpl<T> (
+IntegerObjectTmpl<T>::IntegerObjectTmpl (
     DocumentImpl* pDoc) 
 : ValueObjectTmpl<T>(pDoc)
 {
@@ -344,7 +348,7 @@ IntegerObjectTmpl<T>::IntegerObjectTmpl<T> (
 
 
 template<class T>
-IntegerObjectTmpl<T>::IntegerObjectTmpl<T> (
+IntegerObjectTmpl<T>::IntegerObjectTmpl (
 	int nValue)
 {
 	m_nValue = nValue;
@@ -443,13 +447,13 @@ const wchar_t* BooleanObjectTmpl<T>::kstrFalse = L"false";
 
 
 template<class T>
-BooleanObjectTmpl<T>::BooleanObjectTmpl<T> ()
+BooleanObjectTmpl<T>::BooleanObjectTmpl ()
 {
 	m_bValue = false;
 }
 
 template<class T>
-BooleanObjectTmpl<T>::BooleanObjectTmpl<T> (
+BooleanObjectTmpl<T>::BooleanObjectTmpl (
     DocumentImpl* pDoc) 
 : ValueObjectTmpl<T>(pDoc)
 {
@@ -457,7 +461,7 @@ BooleanObjectTmpl<T>::BooleanObjectTmpl<T> (
 }
 
 template<class T>
-BooleanObjectTmpl<T>::BooleanObjectTmpl<T> (
+BooleanObjectTmpl<T>::BooleanObjectTmpl (
 	bool bValue)
 {
 	m_bValue = bValue;
@@ -561,13 +565,13 @@ void BooleanObjectTmpl<T>::streamOut (
 
 // UIntegerObject
 template<class T>
-UIntegerObjectTmpl<T>::UIntegerObjectTmpl<T> ()
+UIntegerObjectTmpl<T>::UIntegerObjectTmpl ()
 {
 	m_nValue = 0;
 }
 
 template<class T>
-UIntegerObjectTmpl<T>::UIntegerObjectTmpl<T> (
+UIntegerObjectTmpl<T>::UIntegerObjectTmpl (
     DocumentImpl* pDoc) 
 : ValueObjectTmpl<T>(pDoc)
 {
@@ -575,7 +579,7 @@ UIntegerObjectTmpl<T>::UIntegerObjectTmpl<T> (
 }
 
 template<class T>
-UIntegerObjectTmpl<T>::UIntegerObjectTmpl<T> (
+UIntegerObjectTmpl<T>::UIntegerObjectTmpl (
 	unsigned int nValue)
 {
 	m_nValue = nValue;

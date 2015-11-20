@@ -19,7 +19,7 @@ CgPointsCollection* createCgPointsCollectionObject (DocumentImpl* pDocument);
 class CgPointsCollectionImpl : public NamedObjMultiMapTmpl<CgPoints, CgPointsCollection, String, CgPointsCollectionIterator, CgPointsCollectionConstIterator>
 {
 public:
-    CgPointsCollectionImpl::CgPointsCollectionImpl (DocumentImpl* pDocument);
+    CgPointsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

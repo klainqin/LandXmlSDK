@@ -50,7 +50,7 @@ void GlobalObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::itemPre
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
 void GlobalObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::itemAdded (
-    typename GlobalObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXref)   
+    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXref)
 {
     NamedCollectionLocation* pLocalLocation = NULL;
     T_Iterator* pGlobalIter = NULL;

@@ -19,7 +19,7 @@ PipeCollection* createPipeCollectionObject (DocumentImpl* pDocument);
 class PipeCollectionImpl : public GlobalObjMapTmpl<Pipe, PipeCollection, String, PipeCollectionIterator, PipeCollectionConstIterator>
 {
 public:
-    PipeCollectionImpl::PipeCollectionImpl (DocumentImpl* pDocument);
+    PipeCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

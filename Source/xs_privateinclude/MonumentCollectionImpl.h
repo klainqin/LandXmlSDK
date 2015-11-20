@@ -19,7 +19,7 @@ MonumentCollection* createMonumentCollectionObject (DocumentImpl* pDocument);
 class MonumentCollectionImpl : public GlobalObjMapTmpl<Monument, MonumentCollection, String, MonumentCollectionIterator, MonumentCollectionConstIterator>
 {
 public:
-    MonumentCollectionImpl::MonumentCollectionImpl (DocumentImpl* pDocument);
+    MonumentCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

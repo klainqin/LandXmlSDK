@@ -13,6 +13,7 @@
 #include "IFactory.h"
 #include "GlobalNamedObjects.h"
 #include "ilxnode.h"
+#include <libxml/tree.h>
 
 
 namespace LX
@@ -77,7 +78,7 @@ public:
 		const wchar_t* strURL, 
 		IParserEventSink* pEventSink) = 0;
 
-    virtual	LandXML* loadDataFromDOMTree(XERCES_CPP_NAMESPACE::DOMDocument* doc) = 0;
+    virtual	LandXML* loadDataFromDOMTree(xmlDocPtr doc) = 0;
 
     /**
      * Builds the nodal object model from the LandXML model.  The document must have a root object
@@ -139,12 +140,12 @@ public:
      */
 	virtual short releaseDOMDocument() = 0;
 
-	    /**
-     * Returns the Xerces DOM document
+    /**
+     * Returns the libxml DOM document
      *
-     * @return the Xerces DOM document object.
+     * @return the libxml DOM document object.
      */
-	virtual XERCES_CPP_NAMESPACE::DOMDocument* getDOMDocument() = 0;
+	virtual xmlDocPtr getDOMDocument() = 0;
 
 };
 

@@ -60,7 +60,7 @@ template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
 class ObjListTmpl : public ObjCollectionTmpl<T_Obj, T_Base>
 {
 public:	
-    virtual ~ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> ();
+    virtual ~ObjListTmpl ();
 
     virtual void toXml (
         IStream& stream);
@@ -117,7 +117,7 @@ public:
     
      typedef ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> ObjListTmpl_t;
     
-     ObjListTmpl_IteratorImpl< T_Obj, T_Base, T_Iterator, T_ConstIterator> (
+     ObjListTmpl_IteratorImpl (
         ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList,
         typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterator stlIterator);
 
@@ -156,7 +156,7 @@ template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
 class ObjListTmpl_ConstIteratorImpl : public T_ConstIterator
 {
 public:
-    ObjListTmpl_ConstIteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> (
+    ObjListTmpl_ConstIteratorImpl (
         const ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList,
         typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator);
 

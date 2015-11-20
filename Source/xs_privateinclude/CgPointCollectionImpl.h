@@ -19,7 +19,7 @@ CgPointCollection* createCgPointCollectionObject (DocumentImpl* pDocument);
 class CgPointCollectionImpl : public GlobalObjMapTmpl<CgPoint, CgPointCollection, String, CgPointCollectionIterator, CgPointCollectionConstIterator>
 {
 public:
-    CgPointCollectionImpl::CgPointCollectionImpl (DocumentImpl* pDocument);
+    CgPointCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

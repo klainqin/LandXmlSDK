@@ -19,7 +19,7 @@ RoadwayCollection* createRoadwayCollectionObject (DocumentImpl* pDocument);
 class RoadwayCollectionImpl : public GlobalObjMapTmpl<Roadway, RoadwayCollection, String, RoadwayCollectionIterator, RoadwayCollectionConstIterator>
 {
 public:
-    RoadwayCollectionImpl::RoadwayCollectionImpl (DocumentImpl* pDocument);
+    RoadwayCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

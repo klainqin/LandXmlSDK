@@ -19,7 +19,7 @@ StructCollection* createStructCollectionObject (DocumentImpl* pDocument);
 class StructCollectionImpl : public GlobalObjMapTmpl<Struct, StructCollection, String, StructCollectionIterator, StructCollectionConstIterator>
 {
 public:
-    StructCollectionImpl::StructCollectionImpl (DocumentImpl* pDocument);
+    StructCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "ObjectTmpl.h"
 #include "DocumentImpl.h"
+#include "Exception.h"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -20,14 +21,14 @@ namespace LX
 {
 
 template<class T>
-ObjectTmpl<T>::ObjectTmpl<T> ()
+ObjectTmpl<T>::ObjectTmpl ()
 {
     m_pDoc = NULL;
     m_pCollectionLocation = NULL;
 }
 
 template<class T>
-ObjectTmpl<T>::ObjectTmpl<T> (DocumentImpl* pDoc)
+ObjectTmpl<T>::ObjectTmpl (DocumentImpl* pDoc)
 {
     m_pDoc = pDoc;
     m_pCollectionLocation = NULL;
@@ -35,7 +36,7 @@ ObjectTmpl<T>::ObjectTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ObjectTmpl<T>::~ObjectTmpl<T> ()
+ObjectTmpl<T>::~ObjectTmpl ()
 {
 
 }

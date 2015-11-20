@@ -19,7 +19,7 @@ SurfaceCollection* createSurfaceCollectionObject (DocumentImpl* pDocument);
 class SurfaceCollectionImpl : public GlobalObjMapTmpl<Surface, SurfaceCollection, String, SurfaceCollectionIterator, SurfaceCollectionConstIterator>
 {
 public:
-    SurfaceCollectionImpl::SurfaceCollectionImpl (DocumentImpl* pDocument);
+    SurfaceCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

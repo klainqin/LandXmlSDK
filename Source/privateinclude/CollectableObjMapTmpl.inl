@@ -31,7 +31,7 @@ void CollectableObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::it
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
 void CollectableObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::itemAdded (
-    typename CollectableObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXref)   
+    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXref)
 {
     CollectionLocation* pLocation = NULL;
     ICollectable* pCollectable = castObjectToICollectable(pXref->m_pObject);

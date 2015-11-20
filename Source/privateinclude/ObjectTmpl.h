@@ -26,11 +26,11 @@ template <class T>
 class ObjectTmpl : public T, public ICollectable
 {
 public:
-    ObjectTmpl<T> ();
+    ObjectTmpl ();
 
-    ObjectTmpl<T> (DocumentImpl* pDoc);
+    ObjectTmpl (DocumentImpl* pDoc);
 
-   	virtual ~ObjectTmpl<T> ();
+   	virtual ~ObjectTmpl ();
 
 	virtual void toXml (
 		IStream& stream);

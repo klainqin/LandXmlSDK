@@ -26,9 +26,9 @@ template <class T>
 class ValueObjectTmpl : public ObjectTmpl<T>
 {
 public:
-	ValueObjectTmpl<T> ();
+	ValueObjectTmpl ();
 
-    ValueObjectTmpl<T> (
+    ValueObjectTmpl (
         DocumentImpl* pDoc);
 
 	bool isNothing () const;

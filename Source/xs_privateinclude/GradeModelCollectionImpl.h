@@ -19,7 +19,7 @@ GradeModelCollection* createGradeModelCollectionObject (DocumentImpl* pDocument)
 class GradeModelCollectionImpl : public GlobalObjMapTmpl<GradeModel, GradeModelCollection, String, GradeModelCollectionIterator, GradeModelCollectionConstIterator>
 {
 public:
-    GradeModelCollectionImpl::GradeModelCollectionImpl (DocumentImpl* pDocument);
+    GradeModelCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

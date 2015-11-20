@@ -70,7 +70,7 @@ public:
     typedef std::map<T_Id, NamedObjMapTmpl_XRefItem*, HashCompare> map_t;
     #endif
 
-    NamedObjMapTmpl_XRefItem<T_Obj, T_Id> (
+    NamedObjMapTmpl_XRefItem (
         typename map_t::iterator mapPosition, 
         typename list_t::iterator listPosition)
     {
@@ -130,7 +130,7 @@ class NamedObjMapTmpl : public ObjCollectionTmpl<T_Obj, T_Base>
 {
 public:	
 
-	virtual ~NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> ();
+	virtual ~NamedObjMapTmpl ();
 
     virtual void toXml (
         IStream& stream);
@@ -223,7 +223,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 class NamedObjMapTmpl_CoreIteratorImpl : public T_Iterator
 {
 public:
-    NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+    NamedObjMapTmpl_CoreIteratorImpl (
         NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap);
 
     virtual void release ();
@@ -267,7 +267,7 @@ class NamedObjMapTmpl_ListIteratorImpl : public NamedObjMapTmpl_CoreIteratorImpl
                                          public NamedCollectionLocation
 {
 public:
-    NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+    NamedObjMapTmpl_ListIteratorImpl (
         NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
        typename  NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator stlIterator);
 
@@ -315,7 +315,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 class NamedObjMapTmpl_MapIteratorImpl : public NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>
 {
 public:
-    NamedObjMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+    NamedObjMapTmpl_MapIteratorImpl (
         NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
        typename  NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef);
 
@@ -350,7 +350,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 class NamedObjMapTmpl_ListConstIteratorImpl : public T_ConstIterator
 {
 public:
-    NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+    NamedObjMapTmpl_ListConstIteratorImpl (
         const NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
        typename  NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator);
 
@@ -385,7 +385,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 class NamedObjMapTmpl_MapConstIteratorImpl : public T_ConstIterator
 {
 public:
-    NamedObjMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+    NamedObjMapTmpl_MapConstIteratorImpl (
         const NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
         const typename  NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef);
 

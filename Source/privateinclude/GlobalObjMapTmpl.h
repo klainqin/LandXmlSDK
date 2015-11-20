@@ -25,7 +25,7 @@ protected:
     // Callbacks for derived classes.
     virtual void itemPreAdd (T_Obj* pObject);
 
-    virtual void itemAdded (XRefItem* pItem);
+    virtual void itemAdded (typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pItem);
 
     virtual void itemRemoved (T_Obj* pObject);
 

@@ -26,17 +26,17 @@ class StringObjectTmpl : public ValueObjectTmpl<T>
 public:
 	typedef String Type;
 
-	StringObjectTmpl<T> ();
+	StringObjectTmpl ();
 
-   	StringObjectTmpl<T> (DocumentImpl* pDoc);
+   	StringObjectTmpl  (DocumentImpl* pDoc);
 
-	StringObjectTmpl<T> (
+	StringObjectTmpl  (
 		const String& strValue);
 
-	StringObjectTmpl<T> (
+	StringObjectTmpl  (
 		wchar_t* strValue);
 
-	StringObjectTmpl<T> (
+	StringObjectTmpl  (
 		wchar_t* strValue, 
 		int nValueLen);
 
@@ -77,11 +77,11 @@ class DoubleObjectTmpl : public ValueObjectTmpl<T>
 public:
 	typedef double Type;
 
-	DoubleObjectTmpl<T> ();
+	DoubleObjectTmpl  ();
 
-   	DoubleObjectTmpl<T> (DocumentImpl* pDoc);
+   	DoubleObjectTmpl  (DocumentImpl* pDoc);
 
-	DoubleObjectTmpl<T> (
+	DoubleObjectTmpl  (
 		double dValue);
 
 	double value() const;
@@ -121,11 +121,11 @@ class IntegerObjectTmpl : public ValueObjectTmpl<T>
 public:
 	typedef int Type;
 
-	IntegerObjectTmpl<T> ();
+	IntegerObjectTmpl  ();
 
-   	IntegerObjectTmpl<T> (DocumentImpl* pDoc);
+   	IntegerObjectTmpl  (DocumentImpl* pDoc);
 
-	IntegerObjectTmpl<T> (
+	IntegerObjectTmpl  (
 		int nValue);
 
 	int value() const;
@@ -164,11 +164,11 @@ class UIntegerObjectTmpl : public ValueObjectTmpl<T>
 public:
 	typedef unsigned int Type;
 
-	UIntegerObjectTmpl<T> ();
+	UIntegerObjectTmpl  ();
 
-    UIntegerObjectTmpl<T> (DocumentImpl* pDoc);
+    UIntegerObjectTmpl  (DocumentImpl* pDoc);
 
-	UIntegerObjectTmpl<T> (
+	UIntegerObjectTmpl  (
 		unsigned int nValue);
 
 	unsigned int value() const;
@@ -207,11 +207,11 @@ class BooleanObjectTmpl : public ValueObjectTmpl<T>
 public:
 	typedef bool Type;
 
-	BooleanObjectTmpl<T> ();
+	BooleanObjectTmpl  ();
 
-    BooleanObjectTmpl<T> (DocumentImpl* pDoc);
+    BooleanObjectTmpl  (DocumentImpl* pDoc);
 
-	BooleanObjectTmpl<T> (
+	BooleanObjectTmpl  (
 		bool nValue);
 
 	bool value() const;

@@ -19,7 +19,7 @@ CoordGeomCollection* createCoordGeomCollectionObject (DocumentImpl* pDocument);
 class CoordGeomCollectionImpl : public GlobalObjMapTmpl<CoordGeom, CoordGeomCollection, String, CoordGeomCollectionIterator, CoordGeomCollectionConstIterator>
 {
 public:
-    CoordGeomCollectionImpl::CoordGeomCollectionImpl (DocumentImpl* pDocument);
+    CoordGeomCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

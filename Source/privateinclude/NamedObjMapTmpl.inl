@@ -16,12 +16,12 @@ namespace LX
 
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::~NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> ()
+NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::~NamedObjMapTmpl()
 {
     // CLEARS THE COLLECTION AND DEALLOCATES THE OBJECTS IN THE COLLECTION.
 
     // Iterate through the list.  Delete all the objects.
-    for (list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         // Make sure there is an XrefItem object.
         if (*iter)
@@ -51,7 +51,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 void NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::toXml (
     IStream& stream)
 {
-    for (list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         (*iter)->m_pObject->toXml(stream);
     }
@@ -69,7 +69,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_Iterator* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::addItemReturnIterator (
 	T_Obj* pObject)
 {
-    list_t::iterator stlIterator = addItemHelper(pObject);
+    typename list_t::iterator stlIterator = addItemHelper(pObject);
     T_Iterator *pIter = new NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(*this,  stlIterator);
     if (!pIter)
         throw Exception(Exception::kUnableToAllocateMemory, L"Could not allocate iterator.");
@@ -118,14 +118,14 @@ typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list
         {
             // We have an id.
             // Make sure the id isn't already being used.
-            hashmap_t::iterator iter = m_map.find(*pId);
+            typename hashmap_t::iterator iter = m_map.find(*pId);
 	        if (iter != m_map.end())
             {
                 throw Exception(Exception::kObjectIsAlreadyInCollection, L"Unable to add object to collection since object id is already being used in the collection.");
             }
 
             // Add the xref to the map using the id.
-            std::pair<hashmap_t::iterator, bool> returnPair;
+            std::pair<typename hashmap_t::iterator, bool> returnPair;
             returnPair = m_map.insert(hashmap_t::value_type(*pId, pXref));
 
             if (!returnPair.second)
@@ -172,7 +172,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_Iterator* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::find(
 	const T_Id& id)  
 {
-    hashmap_t::iterator iter = m_map.find(id);
+    typename hashmap_t::iterator iter = m_map.find(id);
 	if (iter != m_map.end())
     {
         T_Iterator* pIterator = new NamedObjMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(*this, iter->second);
@@ -192,7 +192,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_Obj* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::findFirstMatch(
 	const T_Id& id)  
 {
-    hashmap_t::iterator iter = m_map.find(id);
+    typename hashmap_t::iterator iter = m_map.find(id);
 	if (iter != m_map.end())
         return iter->second->m_pObject;
 	else
@@ -204,7 +204,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 T_ConstIterator* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::find(
 	const T_Id& id) const 
 {
-    hashmap_t::const_iterator iter = m_map.find(id);
+    typename hashmap_t::const_iterator iter = m_map.find(id);
 	if (iter != m_map.end())
     {
         T_ConstIterator* pIterator = new NamedObjMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(*this, iter->second);
@@ -223,7 +223,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 const T_Obj* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::findFirstMatch(
 	const T_Id& id) const
 {
-    hashmap_t::const_iterator iter = m_map.find(id);
+    typename hashmap_t::const_iterator iter = m_map.find(id);
 	if (iter != m_map.end())
         return iter->second->m_pObject;
 	else
@@ -277,7 +277,7 @@ void NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::clear ()
     // ONLY CLEARS THE COLLECTION, DOES NOT DEALLOCATE CONTAINED OBJECTS.
 
     // Iterate through the list.  Delete all the objects.
-    for (list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         // Call the removed callback.
         itemRemoved((*iter)->m_pObject);
@@ -304,7 +304,7 @@ Object::ValidityEnum NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIte
     int nCount = 0;
     Object::ValidityEnum returnSts = Object::kValid;
 
-    for (list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         nCount++;
         if ((*iter)->m_pObject->validate(pEventSink) != Object::kValid)
@@ -352,15 +352,14 @@ const T_Id* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::g
     pId->getObjectId(pObjectId);
     return pObjectId;
 }
-
-
+    
 
 // NamedObjMapTmpl_CoreIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_CoreIteratorImpl(
     NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap)
-    : m_objectMap(objectMap)
+    //:m_objectMap(objectMap)
 {
 }
 
@@ -371,7 +370,8 @@ T_Obj* NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_Const
 typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef)
 {
     T_Obj* pObject = pXRef->m_pObject;
-    ICollectable* pCollectable = m_objectMap.castObjectToICollectable(pObject);
+    // Klain - commented due to being unused
+    //ICollectable* pCollectable = m_objectMap.castObjectToICollectable(pObject);
 
 
     // Remove the item form the map and list in the object map.
@@ -407,7 +407,7 @@ bool NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
     if (pId)
     {
         // Add the xref to the map using the id.
-        std::pair<NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator, bool> returnPair;
+        std::pair<typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator, bool> returnPair;
         returnPair = m_objectMap.m_map.insert(NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::value_type(*pId, pXRef));
 
         if (!returnPair.second)
@@ -435,7 +435,7 @@ bool NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
     const T_Id* pId = m_objectMap.getObjectId(pObject);
 
     // Make sure the Id either does not exist in the map or is already mapped to this iterator's object.
-    NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator mapIterator = m_objectMap.m_map.find(*pId);
+    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator mapIterator = m_objectMap.m_map.find(*pId);
     if (mapIterator != m_objectMap.m_map.end())
     {
         // Uh Oh we have an item already associated to the objects new id.
@@ -473,8 +473,8 @@ void NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
 // NamedObjMapTmpl::IteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
-    NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
+NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_ListIteratorImpl(
+   NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap,
    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator stlIterator)
     : NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(objectMap), 
       m_stlIterator(stlIterator)
@@ -515,7 +515,7 @@ T_Obj* NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_Const
     if (atEnd())
 		throw Exception(Exception::kIteratorCurrentElementDoesNotExist, L"There is not an element for this iterator.");
 
-    NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator tmpIter = m_stlIterator;
+    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::iterator tmpIter = m_stlIterator;
     ++m_stlIterator;    // Move past element being removed
     return NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::remove(*tmpIter);
 }
@@ -553,7 +553,7 @@ void NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
 // NamedObjMapTmpl_MapIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_MapIteratorImpl(
     NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
 typename    NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef)
     : NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>(objectMap),
@@ -609,10 +609,10 @@ bool NamedObjMapTmpl_MapIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIte
 // NamedObjMapTmpl_ListConstIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
+NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_ListConstIteratorImpl (
     const NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator)
-    : m_objectMap(objectMap),
+    : //m_objectMap(objectMap),
       m_stlIterator(stlIterator)
 {
 }
@@ -655,10 +655,10 @@ void NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_Co
 // NamedObjMapTmpl_MapConstIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
-NamedObjMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator> (
-    const typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
+NamedObjMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_MapConstIteratorImpl(
+    const NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap,
     const typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef)
-    : m_objectMap(objectMap),
+    : //m_objectMap(objectMap),
       m_pXRef(pXRef)
 {
 }

@@ -19,13 +19,13 @@
 namespace LX
 {
 template<class T>
-ValueObjectTmpl<T>::ValueObjectTmpl<T> ()
+ValueObjectTmpl<T>::ValueObjectTmpl ()
 {
 	m_bNothing = true;
 }
 
 template<class T>
-ValueObjectTmpl<T>::ValueObjectTmpl<T> (
+ValueObjectTmpl<T>::ValueObjectTmpl (
     DocumentImpl* pDoc)
 : ObjectTmpl<T>(pDoc)
 {

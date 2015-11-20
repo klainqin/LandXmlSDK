@@ -24,11 +24,11 @@ int ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::count () const
 
 
 template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
-ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::~ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> ()
+ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::~ObjListTmpl ()
 {
 	// Iteratate through the map and delete all the lists in the map.
 	// Although clear the list before deleting it.
-    list_t::iterator listIterator = m_list.begin();
+    typename list_t::iterator listIterator = m_list.begin();
 
 	while (listIterator != m_list.end())
 	{
@@ -45,7 +45,7 @@ template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
 void ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::toXml (
     IStream& stream)
 {
-    for (list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         (*iter)->toXml(stream);
     }
@@ -64,7 +64,7 @@ template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
 T_Iterator* ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::addItemReturnIterator (
 	T_Obj* pObject)
 {
-    list_t::iterator stlIterator = addItemHelper(pObject);
+    typename list_t::iterator stlIterator = addItemHelper(pObject);
     T_Iterator *pIter = new ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>(*this,  stlIterator);
     if (!pIter)
         throw Exception(Exception::kUnableToAllocateMemory, L"Could not allocate iterator.");
@@ -90,7 +90,7 @@ typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterat
     }
 
     // Add the item to the list
-    list_t::iterator stlListPosition = m_list.insert(m_list.end(), pObject);
+    typename list_t::iterator stlListPosition = m_list.insert(m_list.end(), pObject);
 
     // New up an iterator
     CollectionLocation* pLocation = new ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>(*this, stlListPosition);
@@ -129,7 +129,7 @@ Object::ValidityEnum ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::va
     int nCount = 0;
     Object::ValidityEnum returnSts = Object::kValid;
 
-    for (list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
+    for (typename list_t::const_iterator iter = m_list.begin(); iter != m_list.end(); ++iter)
     {
         nCount++;
         if ((*iter)->validate(pEventSink) != Object::kValid)
@@ -143,8 +143,8 @@ Object::ValidityEnum ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::va
 // ObjListTmpl::IteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
-ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> (
-    typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList, 
+ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::ObjListTmpl_IteratorImpl(
+    ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList,
     typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterator stlIterator)
     : m_objectList(objectList), m_stlIterator(stlIterator)
 {
@@ -187,7 +187,7 @@ T_Obj* ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::rem
     // Dereference the iterator to get the object pointer.
     T_Obj* pObject = *m_stlIterator;
 
-    ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterator tIter = m_stlIterator;
+    typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterator tIter = m_stlIterator;
     ++m_stlIterator;            // pass the removed element
 
     // Remove the item form the map and list in the object map.
@@ -209,8 +209,8 @@ void ObjListTmpl_IteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::relea
 // ObjListTmpl::ConstIteratorImpl ============================================
 
 template<class T_Obj, class T_Base, class T_Iterator, class T_ConstIterator>
-ObjListTmpl_ConstIteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::ObjListTmpl_ConstIteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator> (
-    const typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList, 
+ObjListTmpl_ConstIteratorImpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::ObjListTmpl_ConstIteratorImpl (
+    const ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>& objectList, 
     typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator)
     : m_objectList(objectList), m_stlIterator(stlIterator)
 {

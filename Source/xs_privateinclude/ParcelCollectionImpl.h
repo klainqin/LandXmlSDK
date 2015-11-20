@@ -19,7 +19,7 @@ ParcelCollection* createParcelCollectionObject (DocumentImpl* pDocument);
 class ParcelCollectionImpl : public GlobalObjMapTmpl<Parcel, ParcelCollection, String, ParcelCollectionIterator, ParcelCollectionConstIterator>
 {
 public:
-    ParcelCollectionImpl::ParcelCollectionImpl (DocumentImpl* pDocument);
+    ParcelCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -16,16 +16,9 @@
 #include "LXNodes.h"
 #include "GlobalNamedObjectsImpl.h"
 
-#include <xercesc/dom/DOM.hpp>
 #include "Document.h"
-
-#include <xercesc/dom/DOMImplementation.hpp>
-#include <xercesc/dom/DOMImplementationLS.hpp>
-#include <xercesc/dom/DOMWriter.hpp>
-#include <xercesc/framework/StdOutFormatTarget.hpp>
-#include <xercesc/framework/LocalFileFormatTarget.hpp>
-#include <xercesc/parsers/XercesDOMParser.hpp>
-#include <xercesc/util/XMLUni.hpp>
+#include <libxml/parser.h>
+#include <libxml/tree.h>
 
 
 namespace LX
@@ -75,13 +68,13 @@ public:
 
     virtual LandXML* setRootObject (LandXML* pRootObj);
 
-	virtual LandXML* DocumentImpl::loadDataFromDOMTree(XERCES_CPP_NAMESPACE::DOMDocument* doc);
+	virtual LandXML* loadDataFromDOMTree(xmlDocPtr doc);
 
     virtual void release ();
 
 	virtual short releaseDOMDocument();
 
-	virtual XERCES_CPP_NAMESPACE::DOMDocument* getDOMDocument();
+	virtual xmlDocPtr getDOMDocument();
 
 private:
     void initialize ();
@@ -89,7 +82,8 @@ private:
     LandXML* m_pRoot;
     IFactory* m_pFactory;
     GlobalNamedObjectsImpl m_globalObjs;
-	XERCES_CPP_NAMESPACE::DOMDocument* m_domDoc;
+    xmlDocPtr m_domDoc;
+	//XERCES_CPP_NAMESPACE::DOMDocument* m_domDoc;
 
 };
 
