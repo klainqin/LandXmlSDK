@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    FeatureTmpl<T> (DocumentImpl* pDoc);
+    FeatureTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-ProfSurfTmpl<T>::ProfSurfTmpl<T> (DocumentImpl* pDoc)
+ProfSurfTmpl<T>::ProfSurfTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_PntList2D = createPntList2DCollectionObject(pDoc);
@@ -29,7 +29,7 @@ ProfSurfTmpl<T>::ProfSurfTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ProfSurfTmpl<T>::~ProfSurfTmpl<T> ()
+ProfSurfTmpl<T>::~ProfSurfTmpl ()
 {
     if (m_PntList2D != NULL)
     {
@@ -110,10 +110,10 @@ void ProfSurfTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

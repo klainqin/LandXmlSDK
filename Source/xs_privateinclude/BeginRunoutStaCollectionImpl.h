@@ -19,7 +19,7 @@ BeginRunoutStaCollection* createBeginRunoutStaCollectionObject (DocumentImpl* pD
 class BeginRunoutStaCollectionImpl : public ObjListTmpl<BeginRunoutSta, BeginRunoutStaCollection, BeginRunoutStaCollectionIterator, BeginRunoutStaCollectionConstIterator>
 {
 public:
-    BeginRunoutStaCollectionImpl::BeginRunoutStaCollectionImpl (DocumentImpl* pDocument);
+    BeginRunoutStaCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

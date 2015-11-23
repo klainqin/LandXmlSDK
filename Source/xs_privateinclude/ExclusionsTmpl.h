@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ExclusionsTmpl<T> (DocumentImpl* pDoc);
+    ExclusionsTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

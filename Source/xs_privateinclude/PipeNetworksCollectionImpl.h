@@ -19,7 +19,7 @@ PipeNetworksCollection* createPipeNetworksCollectionObject (DocumentImpl* pDocum
 class PipeNetworksCollectionImpl : public NamedObjMultiMapTmpl<PipeNetworks, PipeNetworksCollection, String, PipeNetworksCollectionIterator, PipeNetworksCollectionConstIterator>
 {
 public:
-    PipeNetworksCollectionImpl::PipeNetworksCollectionImpl (DocumentImpl* pDocument);
+    PipeNetworksCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

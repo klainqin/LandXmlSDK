@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ChannelTmpl<T>::ChannelTmpl<T> (DocumentImpl* pDoc)
+ChannelTmpl<T>::ChannelTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -36,7 +36,7 @@ ChannelTmpl<T>::ChannelTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ChannelTmpl<T>::~ChannelTmpl<T> ()
+ChannelTmpl<T>::~ChannelTmpl ()
 {
     if (m_Feature != NULL)
     {

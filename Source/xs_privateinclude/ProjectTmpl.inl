@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ProjectTmpl<T>::ProjectTmpl<T> (DocumentImpl* pDoc)
+ProjectTmpl<T>::ProjectTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -26,7 +26,7 @@ ProjectTmpl<T>::ProjectTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ProjectTmpl<T>::~ProjectTmpl<T> ()
+ProjectTmpl<T>::~ProjectTmpl ()
 {
     if (m_Feature != NULL)
     {
@@ -90,10 +90,10 @@ void ProjectTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

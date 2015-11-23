@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ThruLaneTmpl<T> (DocumentImpl* pDoc);
+    ThruLaneTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

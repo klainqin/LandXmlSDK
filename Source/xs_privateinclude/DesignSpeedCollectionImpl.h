@@ -19,7 +19,7 @@ DesignSpeedCollection* createDesignSpeedCollectionObject (DocumentImpl* pDocumen
 class DesignSpeedCollectionImpl : public ObjListTmpl<DesignSpeed, DesignSpeedCollection, DesignSpeedCollectionIterator, DesignSpeedCollectionConstIterator>
 {
 public:
-    DesignSpeedCollectionImpl::DesignSpeedCollectionImpl (DocumentImpl* pDocument);
+    DesignSpeedCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

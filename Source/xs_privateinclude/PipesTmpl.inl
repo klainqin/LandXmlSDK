@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-PipesTmpl<T>::PipesTmpl<T> (DocumentImpl* pDoc)
+PipesTmpl<T>::PipesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Units = NULL;
@@ -26,7 +26,7 @@ PipesTmpl<T>::PipesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PipesTmpl<T>::~PipesTmpl<T> ()
+PipesTmpl<T>::~PipesTmpl ()
 {
     if (m_Units != NULL)
     {

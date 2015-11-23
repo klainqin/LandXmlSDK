@@ -126,7 +126,7 @@ typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list
 
             // Add the xref to the map using the id.
             std::pair<typename hashmap_t::iterator, bool> returnPair;
-            returnPair = m_map.insert(hashmap_t::value_type(*pId, pXref));
+            returnPair = m_map.insert(typename hashmap_t::value_type(*pId, pXref));
 
             if (!returnPair.second)
             {
@@ -359,7 +359,7 @@ const T_Id* NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::g
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator>
 NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_CoreIteratorImpl(
     NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap)
-    //:m_objectMap(objectMap)
+    :m_objectMap(objectMap)
 {
 }
 
@@ -373,13 +373,13 @@ typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRef
     // Klain - commented due to being unused
     //ICollectable* pCollectable = m_objectMap.castObjectToICollectable(pObject);
 
-
+    
     // Remove the item form the map and list in the object map.
-    m_objectMap.m_map.erase(pXRef->m_mapPosition);
-    m_objectMap.m_list.erase(pXRef->m_listPosition);
+    this->m_objectMap.m_map.erase(pXRef->m_mapPosition);
+    this->m_objectMap.m_list.erase(pXRef->m_listPosition);
 
     // Call the callback.
-    m_objectMap.itemRemoved (pObject);
+    this->m_objectMap.itemRemoved (pObject);
 
     // Blow away the xref.
     delete pXRef;
@@ -394,13 +394,13 @@ bool NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef)
 {
     T_Obj* pObject = pXRef->m_pObject;
-    const T_Id* pId = m_objectMap.getObjectId(pObject);
+    const T_Id* pId = this->m_objectMap.getObjectId(pObject);
 
     // First make sure the object originally had an Id.
-    if (pXRef->m_mapPosition != m_objectMap.m_map.end())
+    if (pXRef->m_mapPosition != this->m_objectMap.m_map.end())
     {
         // Remove the entry from the map
-        m_objectMap.m_map.erase(pXRef->m_mapPosition);
+        this->m_objectMap.m_map.erase(pXRef->m_mapPosition);
     }
 
     // Add the object back into the map using the new name.
@@ -408,7 +408,7 @@ bool NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
     {
         // Add the xref to the map using the id.
         std::pair<typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator, bool> returnPair;
-        returnPair = m_objectMap.m_map.insert(NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::value_type(*pId, pXRef));
+        returnPair = this->m_objectMap.m_map.insert(typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::value_type(*pId, pXRef));
 
         if (!returnPair.second)
         {
@@ -420,7 +420,7 @@ bool NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
     }
     else
     {
-       pXRef->m_mapPosition = m_objectMap.m_map.end();
+       pXRef->m_mapPosition = this->m_objectMap.m_map.end();
     }
 
     return true;
@@ -432,11 +432,11 @@ bool NamedObjMapTmpl_CoreIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIt
    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef)
 {
     T_Obj* pObject = pXRef->m_pObject;
-    const T_Id* pId = m_objectMap.getObjectId(pObject);
+    const T_Id* pId = this->m_objectMap.getObjectId(pObject);
 
     // Make sure the Id either does not exist in the map or is already mapped to this iterator's object.
-    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator mapIterator = m_objectMap.m_map.find(*pId);
-    if (mapIterator != m_objectMap.m_map.end())
+    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::hashmap_t::iterator mapIterator = this->m_objectMap.m_map.find(*pId);
+    if (mapIterator != this->m_objectMap.m_map.end())
     {
         // Uh Oh we have an item already associated to the objects new id.
         // Make sure its not the same object.
@@ -496,7 +496,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 bool NamedObjMapTmpl_ListIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::atEnd ()
 {
     // Compare the iterator to the list end.
-    return m_stlIterator == m_objectMap.m_list.end();
+    return m_stlIterator == this->m_objectMap.m_list.end();
 }
 
 
@@ -612,7 +612,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_ListConstIteratorImpl (
     const NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap, 
    typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::list_t::const_iterator stlIterator)
-    : //m_objectMap(objectMap),
+    : m_objectMap(objectMap),
       m_stlIterator(stlIterator)
 {
 }
@@ -632,7 +632,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 bool NamedObjMapTmpl_ListConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::atEnd ()
 {
     // Compare the iterator to the list end.
-    return m_stlIterator == m_objectMap.m_list.end();
+    return m_stlIterator == this->m_objectMap.m_list.end();
 }
 
 
@@ -658,7 +658,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 NamedObjMapTmpl_MapConstIteratorImpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::NamedObjMapTmpl_MapConstIteratorImpl(
     const NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>& objectMap,
     const typename NamedObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::XRefItem* pXRef)
-    : //m_objectMap(objectMap),
+    : m_objectMap(objectMap),
       m_pXRef(pXRef)
 {
 }

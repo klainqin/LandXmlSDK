@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-ContourTmpl<T>::ContourTmpl<T> (DocumentImpl* pDoc)
+ContourTmpl<T>::ContourTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_PntList2D = NULL;
@@ -25,7 +25,7 @@ ContourTmpl<T>::ContourTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ContourTmpl<T>::~ContourTmpl<T> ()
+ContourTmpl<T>::~ContourTmpl ()
 {
     if (m_PntList2D != NULL)
     {

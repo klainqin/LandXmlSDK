@@ -19,7 +19,7 @@ OutletCollection* createOutletCollectionObject (DocumentImpl* pDocument);
 class OutletCollectionImpl : public NamedObjMultiMapTmpl<Outlet, OutletCollection, String, OutletCollectionIterator, OutletCollectionConstIterator>
 {
 public:
-    OutletCollectionImpl::OutletCollectionImpl (DocumentImpl* pDocument);
+    OutletCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

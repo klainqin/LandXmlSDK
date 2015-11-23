@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ZoneCrossSectStructureTmpl<T> (DocumentImpl* pDoc);
+    ZoneCrossSectStructureTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

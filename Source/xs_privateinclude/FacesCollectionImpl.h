@@ -19,7 +19,7 @@ FacesCollection* createFacesCollectionObject (DocumentImpl* pDocument);
 class FacesCollectionImpl : public NamedObjMultiMapTmpl<Faces, FacesCollection, String, FacesCollectionIterator, FacesCollectionConstIterator>
 {
 public:
-    FacesCollectionImpl::FacesCollectionImpl (DocumentImpl* pDocument);
+    FacesCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

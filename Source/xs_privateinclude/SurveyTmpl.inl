@@ -38,7 +38,7 @@ namespace LX
 
 
 template<class T>
-SurveyTmpl<T>::SurveyTmpl<T> (DocumentImpl* pDoc)
+SurveyTmpl<T>::SurveyTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_SurveyHeader = NULL;
@@ -73,7 +73,7 @@ SurveyTmpl<T>::SurveyTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SurveyTmpl<T>::~SurveyTmpl<T> ()
+SurveyTmpl<T>::~SurveyTmpl ()
 {
     if (m_SurveyHeader != NULL)
     {

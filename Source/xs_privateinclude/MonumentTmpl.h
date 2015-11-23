@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    MonumentTmpl<T> (DocumentImpl* pDoc);
+    MonumentTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-MonumentsTmpl<T>::MonumentsTmpl<T> (DocumentImpl* pDoc)
+MonumentsTmpl<T>::MonumentsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Monument = createMonumentCollectionObject(pDoc);
@@ -29,7 +29,7 @@ MonumentsTmpl<T>::MonumentsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-MonumentsTmpl<T>::~MonumentsTmpl<T> ()
+MonumentsTmpl<T>::~MonumentsTmpl ()
 {
     if (m_Monument != NULL)
     {
@@ -136,10 +136,10 @@ void MonumentsTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

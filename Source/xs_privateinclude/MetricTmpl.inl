@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-MetricTmpl<T>::MetricTmpl<T> (DocumentImpl* pDoc)
+MetricTmpl<T>::MetricTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_AreaUnit = EnumMetArea::Values::k_null;
@@ -45,7 +45,7 @@ MetricTmpl<T>::MetricTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-MetricTmpl<T>::~MetricTmpl<T> ()
+MetricTmpl<T>::~MetricTmpl ()
 {
 }
 

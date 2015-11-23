@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ZoneHingeTmpl<T> (DocumentImpl* pDoc);
+    ZoneHingeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

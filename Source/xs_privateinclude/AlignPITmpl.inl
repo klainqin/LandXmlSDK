@@ -11,7 +11,7 @@ namespace LX
 
 
 template<class T>
-AlignPITmpl<T>::AlignPITmpl<T> (DocumentImpl* pDoc)
+AlignPITmpl<T>::AlignPITmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_PIList = createObjectCollectionObject(pDoc);
@@ -19,7 +19,7 @@ AlignPITmpl<T>::AlignPITmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-AlignPITmpl<T>::~AlignPITmpl<T> ()
+AlignPITmpl<T>::~AlignPITmpl ()
 {
     if (m_PIList != NULL)
     {

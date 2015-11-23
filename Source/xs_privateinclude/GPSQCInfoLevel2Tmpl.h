@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    GPSQCInfoLevel2Tmpl<T> (DocumentImpl* pDoc);
+    GPSQCInfoLevel2Tmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

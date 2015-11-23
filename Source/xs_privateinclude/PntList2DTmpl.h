@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    PntList2DTmpl<T> (DocumentImpl* pDoc);
+    PntList2DTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

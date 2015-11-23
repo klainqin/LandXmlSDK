@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ClimbLaneTmpl<T> (DocumentImpl* pDoc);
+    ClimbLaneTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

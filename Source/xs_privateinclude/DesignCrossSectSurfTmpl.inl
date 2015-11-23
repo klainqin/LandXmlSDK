@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-DesignCrossSectSurfTmpl<T>::DesignCrossSectSurfTmpl<T> (DocumentImpl* pDoc)
+DesignCrossSectSurfTmpl<T>::DesignCrossSectSurfTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_CrossSectPnt = createCrossSectPntCollectionObject(pDoc);
@@ -43,7 +43,7 @@ DesignCrossSectSurfTmpl<T>::DesignCrossSectSurfTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DesignCrossSectSurfTmpl<T>::~DesignCrossSectSurfTmpl<T> ()
+DesignCrossSectSurfTmpl<T>::~DesignCrossSectSurfTmpl ()
 {
     if (m_CrossSectPnt != NULL)
     {
@@ -124,10 +124,10 @@ void DesignCrossSectSurfTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

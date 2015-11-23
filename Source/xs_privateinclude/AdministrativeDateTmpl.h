@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    AdministrativeDateTmpl<T> (DocumentImpl* pDoc);
+    AdministrativeDateTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

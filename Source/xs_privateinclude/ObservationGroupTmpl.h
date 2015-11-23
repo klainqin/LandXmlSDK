@@ -26,7 +26,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ObservationGroupTmpl<T> (DocumentImpl* pDoc);
+    ObservationGroupTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

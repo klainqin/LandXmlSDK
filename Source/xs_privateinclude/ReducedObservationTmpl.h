@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ReducedObservationTmpl<T> (DocumentImpl* pDoc);
+    ReducedObservationTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-RoadsideTmpl<T>::RoadsideTmpl<T> (DocumentImpl* pDoc)
+RoadsideTmpl<T>::RoadsideTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-RoadsideTmpl<T>::~RoadsideTmpl<T> ()
+RoadsideTmpl<T>::~RoadsideTmpl ()
 {
 }
 

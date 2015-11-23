@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-DesignHourTmpl<T>::DesignHourTmpl<T> (DocumentImpl* pDoc)
+DesignHourTmpl<T>::DesignHourTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -26,7 +26,7 @@ DesignHourTmpl<T>::DesignHourTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DesignHourTmpl<T>::~DesignHourTmpl<T> ()
+DesignHourTmpl<T>::~DesignHourTmpl ()
 {
     if (m_Feature != NULL)
     {

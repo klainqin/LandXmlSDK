@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-ProfileTmpl<T>::ProfileTmpl<T> (DocumentImpl* pDoc)
+ProfileTmpl<T>::ProfileTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_ProfSurf = createProfSurfCollectionObject(pDoc);
@@ -34,7 +34,7 @@ ProfileTmpl<T>::ProfileTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ProfileTmpl<T>::~ProfileTmpl<T> ()
+ProfileTmpl<T>::~ProfileTmpl ()
 {
     if (m_ProfSurf != NULL)
     {
@@ -158,10 +158,10 @@ void ProfileTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

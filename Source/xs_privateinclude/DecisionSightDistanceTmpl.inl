@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-DecisionSightDistanceTmpl<T>::DecisionSightDistanceTmpl<T> (DocumentImpl* pDoc)
+DecisionSightDistanceTmpl<T>::DecisionSightDistanceTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -21,7 +21,7 @@ DecisionSightDistanceTmpl<T>::DecisionSightDistanceTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DecisionSightDistanceTmpl<T>::~DecisionSightDistanceTmpl<T> ()
+DecisionSightDistanceTmpl<T>::~DecisionSightDistanceTmpl ()
 {
 }
 

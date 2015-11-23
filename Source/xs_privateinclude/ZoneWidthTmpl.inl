@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ZoneWidthTmpl<T>::ZoneWidthTmpl<T> (DocumentImpl* pDoc)
+ZoneWidthTmpl<T>::ZoneWidthTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -28,7 +28,7 @@ ZoneWidthTmpl<T>::ZoneWidthTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ZoneWidthTmpl<T>::~ZoneWidthTmpl<T> ()
+ZoneWidthTmpl<T>::~ZoneWidthTmpl ()
 {
     if (m_Feature != NULL)
     {

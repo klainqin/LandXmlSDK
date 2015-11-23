@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-AdministrativeDateTmpl<T>::AdministrativeDateTmpl<T> (DocumentImpl* pDoc)
+AdministrativeDateTmpl<T>::AdministrativeDateTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_AdminDateType = L"";
@@ -21,7 +21,7 @@ AdministrativeDateTmpl<T>::AdministrativeDateTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-AdministrativeDateTmpl<T>::~AdministrativeDateTmpl<T> ()
+AdministrativeDateTmpl<T>::~AdministrativeDateTmpl ()
 {
 }
 

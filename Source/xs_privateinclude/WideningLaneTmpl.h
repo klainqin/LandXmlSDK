@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    WideningLaneTmpl<T> (DocumentImpl* pDoc);
+    WideningLaneTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

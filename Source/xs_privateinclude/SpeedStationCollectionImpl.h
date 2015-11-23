@@ -19,7 +19,7 @@ SpeedStationCollection* createSpeedStationCollectionObject (DocumentImpl* pDocum
 class SpeedStationCollectionImpl : public ObjListTmpl<SpeedStation, SpeedStationCollection, SpeedStationCollectionIterator, SpeedStationCollectionConstIterator>
 {
 public:
-    SpeedStationCollectionImpl::SpeedStationCollectionImpl (DocumentImpl* pDocument);
+    SpeedStationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-BikeFacilitiesTmpl<T>::BikeFacilitiesTmpl<T> (DocumentImpl* pDoc)
+BikeFacilitiesTmpl<T>::BikeFacilitiesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ BikeFacilitiesTmpl<T>::BikeFacilitiesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-BikeFacilitiesTmpl<T>::~BikeFacilitiesTmpl<T> ()
+BikeFacilitiesTmpl<T>::~BikeFacilitiesTmpl ()
 {
 }
 

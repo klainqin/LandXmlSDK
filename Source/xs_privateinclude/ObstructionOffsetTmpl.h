@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ObstructionOffsetTmpl<T> (DocumentImpl* pDoc);
+    ObstructionOffsetTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

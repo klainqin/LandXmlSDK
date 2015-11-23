@@ -84,7 +84,7 @@ typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterat
     }
 
     // First check to make sure the item is not already in a collection.
-    if (castObjectToICollectable(pObject)->getContainingCollectionLocation())
+    if (this->castObjectToICollectable(pObject)->getContainingCollectionLocation())
     {
         throw Exception(Exception::kItemIsAlreadyInACollection, L"Item is already in a collection.");
     }
@@ -99,7 +99,7 @@ typename ObjListTmpl<T_Obj, T_Base, T_Iterator, T_ConstIterator>::list_t::iterat
         throw Exception(Exception::kUnableToAllocateMemory, L"Could not allocate iterator.");
     }
 
-    castObjectToICollectable(pObject)->setContainingCollectionLocation(pLocation);
+    this->castObjectToICollectable(pObject)->setContainingCollectionLocation(pLocation);
 
     return stlListPosition;
 }

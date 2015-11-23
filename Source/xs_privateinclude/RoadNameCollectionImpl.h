@@ -19,7 +19,7 @@ RoadNameCollection* createRoadNameCollectionObject (DocumentImpl* pDocument);
 class RoadNameCollectionImpl : public ObjListTmpl<RoadName, RoadNameCollection, RoadNameCollectionIterator, RoadNameCollectionConstIterator>
 {
 public:
-    RoadNameCollectionImpl::RoadNameCollectionImpl (DocumentImpl* pDocument);
+    RoadNameCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

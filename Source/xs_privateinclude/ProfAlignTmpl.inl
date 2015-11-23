@@ -11,7 +11,7 @@ namespace LX
 
 
 template<class T>
-ProfAlignTmpl<T>::ProfAlignTmpl<T> (DocumentImpl* pDoc)
+ProfAlignTmpl<T>::ProfAlignTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_VertGeomList = createObjectCollectionObject(pDoc);
@@ -25,7 +25,7 @@ ProfAlignTmpl<T>::ProfAlignTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ProfAlignTmpl<T>::~ProfAlignTmpl<T> ()
+ProfAlignTmpl<T>::~ProfAlignTmpl ()
 {
     if (m_VertGeomList != NULL)
     {
@@ -89,10 +89,10 @@ void ProfAlignTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

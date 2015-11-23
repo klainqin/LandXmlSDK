@@ -19,7 +19,7 @@ ZoneCutFillCollection* createZoneCutFillCollectionObject (DocumentImpl* pDocumen
 class ZoneCutFillCollectionImpl : public ObjListTmpl<ZoneCutFill, ZoneCutFillCollection, ZoneCutFillCollectionIterator, ZoneCutFillCollectionConstIterator>
 {
 public:
-    ZoneCutFillCollectionImpl::ZoneCutFillCollectionImpl (DocumentImpl* pDocument);
+    ZoneCutFillCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

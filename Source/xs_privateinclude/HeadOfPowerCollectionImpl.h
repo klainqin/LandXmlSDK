@@ -19,7 +19,7 @@ HeadOfPowerCollection* createHeadOfPowerCollectionObject (DocumentImpl* pDocumen
 class HeadOfPowerCollectionImpl : public NamedObjMultiMapTmpl<HeadOfPower, HeadOfPowerCollection, String, HeadOfPowerCollectionIterator, HeadOfPowerCollectionConstIterator>
 {
 public:
-    HeadOfPowerCollectionImpl::HeadOfPowerCollectionImpl (DocumentImpl* pDocument);
+    HeadOfPowerCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

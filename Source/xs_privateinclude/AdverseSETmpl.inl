@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-AdverseSETmpl<T>::AdverseSETmpl<T> (DocumentImpl* pDoc)
+AdverseSETmpl<T>::AdverseSETmpl (DocumentImpl* pDoc)
     : EnumAdverseSETypeTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-AdverseSETmpl<T>::~AdverseSETmpl<T> ()
+AdverseSETmpl<T>::~AdverseSETmpl ()
 {
 }
 
@@ -31,7 +31,7 @@ void AdverseSETmpl<T>::toXml (IStream& stream)
     stream.write(L"<");
     stream.write(kstrElementName);
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

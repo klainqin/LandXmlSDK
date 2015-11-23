@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ZoneWidthTmpl<T> (DocumentImpl* pDoc);
+    ZoneWidthTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

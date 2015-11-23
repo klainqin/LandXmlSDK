@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ContourTmpl<T> (DocumentImpl* pDoc);
+    ContourTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    FullSuperStaTmpl<T> (DocumentImpl* pDoc);
+    FullSuperStaTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-TrafficVolumeTmpl<T>::TrafficVolumeTmpl<T> (DocumentImpl* pDoc)
+TrafficVolumeTmpl<T>::TrafficVolumeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_DailyTrafficVolume = NULL;
@@ -29,7 +29,7 @@ TrafficVolumeTmpl<T>::TrafficVolumeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TrafficVolumeTmpl<T>::~TrafficVolumeTmpl<T> ()
+TrafficVolumeTmpl<T>::~TrafficVolumeTmpl ()
 {
     if (m_DailyTrafficVolume != NULL)
     {

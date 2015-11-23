@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-PointFilesTmpl<T>::PointFilesTmpl<T> (DocumentImpl* pDoc)
+PointFilesTmpl<T>::PointFilesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_PointFile = createPointFileCollectionObject(pDoc);
@@ -23,7 +23,7 @@ PointFilesTmpl<T>::PointFilesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PointFilesTmpl<T>::~PointFilesTmpl<T> ()
+PointFilesTmpl<T>::~PointFilesTmpl ()
 {
     if (m_PointFile != NULL)
     {

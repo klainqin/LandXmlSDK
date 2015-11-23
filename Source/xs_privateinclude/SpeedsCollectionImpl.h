@@ -19,7 +19,7 @@ SpeedsCollection* createSpeedsCollectionObject (DocumentImpl* pDocument);
 class SpeedsCollectionImpl : public ObjListTmpl<Speeds, SpeedsCollection, SpeedsCollectionIterator, SpeedsCollectionConstIterator>
 {
 public:
-    SpeedsCollectionImpl::SpeedsCollectionImpl (DocumentImpl* pDocument);
+    SpeedsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

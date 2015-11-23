@@ -19,7 +19,7 @@ PurposeOfSurveyCollection* createPurposeOfSurveyCollectionObject (DocumentImpl* 
 class PurposeOfSurveyCollectionImpl : public NamedObjMultiMapTmpl<PurposeOfSurvey, PurposeOfSurveyCollection, String, PurposeOfSurveyCollectionIterator, PurposeOfSurveyCollectionConstIterator>
 {
 public:
-    PurposeOfSurveyCollectionImpl::PurposeOfSurveyCollectionImpl (DocumentImpl* pDocument);
+    PurposeOfSurveyCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PVITmpl<T>::PVITmpl<T> (DocumentImpl* pDoc)
+PVITmpl<T>::PVITmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
     m_Desc = L"";
@@ -19,7 +19,7 @@ PVITmpl<T>::PVITmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PVITmpl<T>::~PVITmpl<T> ()
+PVITmpl<T>::~PVITmpl ()
 {
 }
 
@@ -65,7 +65,7 @@ void PVITmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

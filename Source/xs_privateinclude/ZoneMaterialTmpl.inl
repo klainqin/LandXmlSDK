@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ZoneMaterialTmpl<T>::ZoneMaterialTmpl<T> (DocumentImpl* pDoc)
+ZoneMaterialTmpl<T>::ZoneMaterialTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -23,7 +23,7 @@ ZoneMaterialTmpl<T>::ZoneMaterialTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ZoneMaterialTmpl<T>::~ZoneMaterialTmpl<T> ()
+ZoneMaterialTmpl<T>::~ZoneMaterialTmpl ()
 {
 }
 

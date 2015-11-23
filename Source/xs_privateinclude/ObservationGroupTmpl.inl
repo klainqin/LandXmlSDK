@@ -28,7 +28,7 @@ namespace LX
 
 
 template<class T>
-ObservationGroupTmpl<T>::ObservationGroupTmpl<T> (DocumentImpl* pDoc)
+ObservationGroupTmpl<T>::ObservationGroupTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Backsight = NULL;
@@ -61,7 +61,7 @@ ObservationGroupTmpl<T>::ObservationGroupTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ObservationGroupTmpl<T>::~ObservationGroupTmpl<T> ()
+ObservationGroupTmpl<T>::~ObservationGroupTmpl ()
 {
     if (m_Backsight != NULL)
     {

@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BacksightPointTmpl<T> (DocumentImpl* pDoc);
+    BacksightPointTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

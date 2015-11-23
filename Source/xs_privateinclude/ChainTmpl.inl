@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ChainTmpl<T>::ChainTmpl<T> (DocumentImpl* pDoc)
+ChainTmpl<T>::ChainTmpl (DocumentImpl* pDoc)
     : StringCollectionTmpl<T>(pDoc)
 {
     m_Name = L"";
@@ -39,7 +39,7 @@ ChainTmpl<T>::ChainTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ChainTmpl<T>::~ChainTmpl<T> ()
+ChainTmpl<T>::~ChainTmpl ()
 {
 }
 
@@ -86,10 +86,10 @@ void ChainTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try
@@ -459,7 +459,7 @@ void ChainTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

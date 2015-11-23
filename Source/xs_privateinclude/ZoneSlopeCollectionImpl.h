@@ -19,7 +19,7 @@ ZoneSlopeCollection* createZoneSlopeCollectionObject (DocumentImpl* pDocument);
 class ZoneSlopeCollectionImpl : public ObjListTmpl<ZoneSlope, ZoneSlopeCollection, ZoneSlopeCollectionIterator, ZoneSlopeCollectionConstIterator>
 {
 public:
-    ZoneSlopeCollectionImpl::ZoneSlopeCollectionImpl (DocumentImpl* pDocument);
+    ZoneSlopeCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

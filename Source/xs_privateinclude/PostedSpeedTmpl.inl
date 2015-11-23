@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PostedSpeedTmpl<T>::PostedSpeedTmpl<T> (DocumentImpl* pDoc)
+PostedSpeedTmpl<T>::PostedSpeedTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ PostedSpeedTmpl<T>::PostedSpeedTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PostedSpeedTmpl<T>::~PostedSpeedTmpl<T> ()
+PostedSpeedTmpl<T>::~PostedSpeedTmpl ()
 {
 }
 

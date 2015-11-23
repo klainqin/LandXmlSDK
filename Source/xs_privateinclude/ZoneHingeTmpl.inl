@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ZoneHingeTmpl<T>::ZoneHingeTmpl<T> (DocumentImpl* pDoc)
+ZoneHingeTmpl<T>::ZoneHingeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -28,7 +28,7 @@ ZoneHingeTmpl<T>::ZoneHingeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ZoneHingeTmpl<T>::~ZoneHingeTmpl<T> ()
+ZoneHingeTmpl<T>::~ZoneHingeTmpl ()
 {
     if (m_Feature != NULL)
     {

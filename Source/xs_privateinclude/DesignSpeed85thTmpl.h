@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    DesignSpeed85thTmpl<T> (DocumentImpl* pDoc);
+    DesignSpeed85thTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

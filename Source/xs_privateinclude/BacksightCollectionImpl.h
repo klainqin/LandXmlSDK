@@ -19,7 +19,7 @@ BacksightCollection* createBacksightCollectionObject (DocumentImpl* pDocument);
 class BacksightCollectionImpl : public ObjListTmpl<Backsight, BacksightCollection, BacksightCollectionIterator, BacksightCollectionConstIterator>
 {
 public:
-    BacksightCollectionImpl::BacksightCollectionImpl (DocumentImpl* pDocument);
+    BacksightCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-InstrumentDetailsTmpl<T>::InstrumentDetailsTmpl<T> (DocumentImpl* pDoc)
+InstrumentDetailsTmpl<T>::InstrumentDetailsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Corrections = NULL;
@@ -48,7 +48,7 @@ InstrumentDetailsTmpl<T>::InstrumentDetailsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-InstrumentDetailsTmpl<T>::~InstrumentDetailsTmpl<T> ()
+InstrumentDetailsTmpl<T>::~InstrumentDetailsTmpl ()
 {
     if (m_Corrections != NULL)
     {

@@ -19,7 +19,7 @@ IntersectionCollection* createIntersectionCollectionObject (DocumentImpl* pDocum
 class IntersectionCollectionImpl : public ObjListTmpl<Intersection, IntersectionCollection, IntersectionCollectionIterator, IntersectionCollectionConstIterator>
 {
 public:
-    IntersectionCollectionImpl::IntersectionCollectionImpl (DocumentImpl* pDocument);
+    IntersectionCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

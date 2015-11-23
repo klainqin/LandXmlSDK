@@ -19,7 +19,7 @@ DocFileRefCollection* createDocFileRefCollectionObject (DocumentImpl* pDocument)
 class DocFileRefCollectionImpl : public NamedObjMultiMapTmpl<DocFileRef, DocFileRefCollection, String, DocFileRefCollectionIterator, DocFileRefCollectionConstIterator>
 {
 public:
-    DocFileRefCollectionImpl::DocFileRefCollectionImpl (DocumentImpl* pDocument);
+    DocFileRefCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

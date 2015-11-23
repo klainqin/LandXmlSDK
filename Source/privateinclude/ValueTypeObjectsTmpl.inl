@@ -50,7 +50,7 @@ StringObjectTmpl<T>::StringObjectTmpl (
 	const String& strValue)
 	: m_strValue(strValue)
 {
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -59,7 +59,7 @@ StringObjectTmpl<T>::StringObjectTmpl (
 	wchar_t* strValue) 
 	: m_strValue(strValue)
 {
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -69,7 +69,7 @@ StringObjectTmpl<T>::StringObjectTmpl (
 	int nValueLen) 
 	: m_strValue(strValue, nValueLen)
 {
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -85,7 +85,7 @@ void StringObjectTmpl<T>::setValue (
 	String strValue)
 {
 	m_strValue = strValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 template<class T>
@@ -107,7 +107,7 @@ template<class T>
 void StringObjectTmpl<T>::toStream (
 	IStream& stream) const
 {
-	if (!m_bNothing)
+	if (!this->m_bNothing)
 	{
 		streamOut(m_strValue, stream);	
 	}
@@ -216,7 +216,7 @@ DoubleObjectTmpl<T>::DoubleObjectTmpl (
 	double dValue)
 {
 	m_dValue = dValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -232,7 +232,7 @@ void DoubleObjectTmpl<T>::setValue (
 	double dValue)
 {
 	m_dValue = dValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 template<class T>
@@ -266,7 +266,7 @@ template<class T>
 void DoubleObjectTmpl<T>::toStream (
 	IStream& stream) const
 {
-	if (!m_bNothing)
+	if (!this->m_bNothing)
 	{
 		streamOut(m_dValue, stream);	
 	}
@@ -352,7 +352,7 @@ IntegerObjectTmpl<T>::IntegerObjectTmpl (
 	int nValue)
 {
 	m_nValue = nValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -368,7 +368,7 @@ void IntegerObjectTmpl<T>::setValue (
 	int nValue)
 {
 	m_nValue = nValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -393,7 +393,7 @@ template<class T>
 void IntegerObjectTmpl<T>::toStream (
 	IStream& stream) const
 {
-	if (!m_bNothing)
+	if (!this->m_bNothing)
 	{
 		streamOut(m_nValue, stream);	
 	}
@@ -465,7 +465,7 @@ BooleanObjectTmpl<T>::BooleanObjectTmpl (
 	bool bValue)
 {
 	m_bValue = bValue;
-	m_bNothing = false;	
+	this->m_bNothing = false;	
 }
 
 
@@ -481,7 +481,7 @@ void BooleanObjectTmpl<T>::setValue (
 	bool bValue)
 {
 	m_bValue = bValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 template<class T>
@@ -505,7 +505,7 @@ template<class T>
 void BooleanObjectTmpl<T>::toStream (
 	IStream& stream) const
 {
-	if (!m_bNothing)
+	if (!this->m_bNothing)
 	{
 		streamOut(m_bValue, stream);	
 	}
@@ -583,7 +583,7 @@ UIntegerObjectTmpl<T>::UIntegerObjectTmpl (
 	unsigned int nValue)
 {
 	m_nValue = nValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -599,7 +599,7 @@ void UIntegerObjectTmpl<T>::setValue (
 	unsigned int nValue)
 {
 	m_nValue = nValue;
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
@@ -614,7 +614,7 @@ template<class T>
 String UIntegerObjectTmpl<T>::toString() const
 {
 	wchar_t strValue[MAXCHS]={0};
-	swprintf(strValue, L"%d", m_nValue);
+	swprintf(strValue, (MAXCHS-1), L"%d", m_nValue);
 	return String(strValue);
 }
 
@@ -623,7 +623,7 @@ template<class T>
 void UIntegerObjectTmpl<T>::toStream (
 	IStream& stream) const
 {
-	if (!m_bNothing)
+	if (!this->m_bNothing)
 	{
 		streamOut(m_nValue, stream);	
 	}
@@ -660,7 +660,7 @@ void UIntegerObjectTmpl<T>::streamOut (
 	IStream& stream)
 {
 	wchar_t strValue[MAXCHS]={0};
-	swprintf(strValue, L"%d", nValue);
+	swprintf(strValue, (MAXCHS-1), L"%d", nValue);
 	stream.write(strValue);
 }
 

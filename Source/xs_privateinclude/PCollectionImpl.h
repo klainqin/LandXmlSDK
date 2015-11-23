@@ -19,7 +19,7 @@ PCollection* createPCollectionObject (DocumentImpl* pDocument);
 class PCollectionImpl : public CollectableObjMapTmpl<P, PCollection, unsigned int, PCollectionIterator, PCollectionConstIterator>
 {
 public:
-    PCollectionImpl::PCollectionImpl (DocumentImpl* pDocument);
+    PCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

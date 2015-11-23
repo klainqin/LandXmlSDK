@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-SpeedStationTmpl<T>::SpeedStationTmpl<T> (DocumentImpl* pDoc)
+SpeedStationTmpl<T>::SpeedStationTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -21,7 +21,7 @@ SpeedStationTmpl<T>::SpeedStationTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SpeedStationTmpl<T>::~SpeedStationTmpl<T> ()
+SpeedStationTmpl<T>::~SpeedStationTmpl ()
 {
 }
 

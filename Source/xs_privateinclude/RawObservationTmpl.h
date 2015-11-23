@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    RawObservationTmpl<T> (DocumentImpl* pDoc);
+    RawObservationTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

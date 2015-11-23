@@ -19,7 +19,7 @@ CantStationCollection* createCantStationCollectionObject (DocumentImpl* pDocumen
 class CantStationCollectionImpl : public ObjListTmpl<CantStation, CantStationCollection, CantStationCollectionIterator, CantStationCollectionConstIterator>
 {
 public:
-    CantStationCollectionImpl::CantStationCollectionImpl (DocumentImpl* pDocument);
+    CantStationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

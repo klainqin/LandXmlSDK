@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-DrivewayDensityTmpl<T>::DrivewayDensityTmpl<T> (DocumentImpl* pDoc)
+DrivewayDensityTmpl<T>::DrivewayDensityTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -23,7 +23,7 @@ DrivewayDensityTmpl<T>::DrivewayDensityTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DrivewayDensityTmpl<T>::~DrivewayDensityTmpl<T> ()
+DrivewayDensityTmpl<T>::~DrivewayDensityTmpl ()
 {
 }
 

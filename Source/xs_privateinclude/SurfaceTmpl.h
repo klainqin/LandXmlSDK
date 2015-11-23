@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SurfaceTmpl<T> (DocumentImpl* pDoc);
+    SurfaceTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

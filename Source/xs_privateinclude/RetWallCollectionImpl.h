@@ -19,7 +19,7 @@ RetWallCollection* createRetWallCollectionObject (DocumentImpl* pDocument);
 class RetWallCollectionImpl : public NamedObjMultiMapTmpl<RetWall, RetWallCollection, String, RetWallCollectionIterator, RetWallCollectionConstIterator>
 {
 public:
-    RetWallCollectionImpl::RetWallCollectionImpl (DocumentImpl* pDocument);
+    RetWallCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -26,7 +26,7 @@ namespace LX
 
 
 template<class T>
-LanesTmpl<T>::LanesTmpl<T> (DocumentImpl* pDoc)
+LanesTmpl<T>::LanesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_ThruLane = createThruLaneCollectionObject(pDoc);
@@ -41,7 +41,7 @@ LanesTmpl<T>::LanesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-LanesTmpl<T>::~LanesTmpl<T> ()
+LanesTmpl<T>::~LanesTmpl ()
 {
     if (m_ThruLane != NULL)
     {

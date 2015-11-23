@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-LaserDetailsTmpl<T>::LaserDetailsTmpl<T> (DocumentImpl* pDoc)
+LaserDetailsTmpl<T>::LaserDetailsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Id = L"";
@@ -27,7 +27,7 @@ LaserDetailsTmpl<T>::LaserDetailsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-LaserDetailsTmpl<T>::~LaserDetailsTmpl<T> ()
+LaserDetailsTmpl<T>::~LaserDetailsTmpl ()
 {
 }
 

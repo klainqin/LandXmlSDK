@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ProfAlignTmpl<T> (DocumentImpl* pDoc);
+    ProfAlignTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-VolumeTmpl<T>::VolumeTmpl<T> (DocumentImpl* pDoc)
+VolumeTmpl<T>::VolumeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -25,7 +25,7 @@ VolumeTmpl<T>::VolumeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-VolumeTmpl<T>::~VolumeTmpl<T> ()
+VolumeTmpl<T>::~VolumeTmpl ()
 {
 }
 

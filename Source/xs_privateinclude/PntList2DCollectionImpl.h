@@ -19,7 +19,7 @@ PntList2DCollection* createPntList2DCollectionObject (DocumentImpl* pDocument);
 class PntList2DCollectionImpl : public ObjListTmpl<PntList2D, PntList2DCollection, PntList2DCollectionIterator, PntList2DCollectionConstIterator>
 {
 public:
-    PntList2DCollectionImpl::PntList2DCollectionImpl (DocumentImpl* pDocument);
+    PntList2DCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

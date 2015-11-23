@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BoundaryTmpl<T> (DocumentImpl* pDoc);
+    BoundaryTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

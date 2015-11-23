@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-StaEquationTmpl<T>::StaEquationTmpl<T> (DocumentImpl* pDoc)
+StaEquationTmpl<T>::StaEquationTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -30,7 +30,7 @@ StaEquationTmpl<T>::StaEquationTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-StaEquationTmpl<T>::~StaEquationTmpl<T> ()
+StaEquationTmpl<T>::~StaEquationTmpl ()
 {
     if (m_Feature != NULL)
     {

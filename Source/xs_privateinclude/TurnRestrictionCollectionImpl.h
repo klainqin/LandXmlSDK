@@ -19,7 +19,7 @@ TurnRestrictionCollection* createTurnRestrictionCollectionObject (DocumentImpl* 
 class TurnRestrictionCollectionImpl : public ObjListTmpl<TurnRestriction, TurnRestrictionCollection, TurnRestrictionCollectionIterator, TurnRestrictionCollectionConstIterator>
 {
 public:
-    TurnRestrictionCollectionImpl::TurnRestrictionCollectionImpl (DocumentImpl* pDocument);
+    TurnRestrictionCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

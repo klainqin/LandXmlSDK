@@ -25,48 +25,48 @@ namespace LX
 {
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl<T, BaseT, TObject> ()
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl ()
 {
     m_arrValues.reserve(3);
 
 	// Indexed lists can never be set to "nothing" they can only be emptied.
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl (
     DocumentImpl* pDoc)
     : ValueObjectTmpl<BaseT>(pDoc)
 {
     m_arrValues.reserve(3);
 
 	// Indexed lists can never be set to "nothing" they can only be emptied.
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl (
 	const IndexedListValueCollectionTmpl<T, BaseT, TObject>& value)
 	: m_arrValues(value.m_arrValues)
 {
 	// Indexed lists can never be set to "nothing" they can only be emptied.
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl (
 	const IndexedListValueCollection<T>& value)
 {
     copy (value);
 
 	// Indexed lists can never be set to "nothing" they can only be emptied.
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl (
 	IndexedListValueCollectionTmpl<T, BaseT, TObject>* pValue)
 {
 	if (pValue)
@@ -74,21 +74,21 @@ IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmp
 		m_arrValues = pValue->m_arrValues;
 	}
 	// Indexed lists can never be set to "nothing" they can only be emptied.
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::~IndexedListValueCollectionTmpl<T, BaseT, TObject> ()
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::~IndexedListValueCollectionTmpl ()
 {
     m_arrValues.clear();
     
-	m_bNothing = false;
+	this->m_bNothing = false;
 }
 
 
 
 template <class T, class BaseT, class TObject>
-IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmpl (
 	IndexedListValueCollection<T>* pValue)
 {
 	if (pValue)
@@ -96,7 +96,7 @@ IndexedListValueCollectionTmpl<T, BaseT, TObject>::IndexedListValueCollectionTmp
         copy(*pValue);
 	}
 
-    m_bNothing = false;
+    this->m_bNothing = false;
 }
 
 
@@ -114,7 +114,7 @@ void IndexedListValueCollectionTmpl<T, BaseT, TObject>::copy (
 		m_arrValues.push_back(value.at(i));
     }
 
-    m_bNothing = false;
+    this->m_bNothing = false;
 }
 
 template <class T, class BaseT, class TObject>

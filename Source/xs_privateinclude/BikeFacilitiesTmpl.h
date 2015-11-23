@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BikeFacilitiesTmpl<T> (DocumentImpl* pDoc);
+    BikeFacilitiesTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

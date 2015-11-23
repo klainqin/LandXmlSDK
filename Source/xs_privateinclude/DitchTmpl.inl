@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-DitchTmpl<T>::DitchTmpl<T> (DocumentImpl* pDoc)
+DitchTmpl<T>::DitchTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ DitchTmpl<T>::DitchTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DitchTmpl<T>::~DitchTmpl<T> ()
+DitchTmpl<T>::~DitchTmpl ()
 {
 }
 

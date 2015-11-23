@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    DailyTrafficVolumeTmpl<T> (DocumentImpl* pDoc);
+    DailyTrafficVolumeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

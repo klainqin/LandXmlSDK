@@ -19,7 +19,7 @@ ComplexNameCollection* createComplexNameCollectionObject (DocumentImpl* pDocumen
 class ComplexNameCollectionImpl : public ObjListTmpl<ComplexName, ComplexNameCollection, ComplexNameCollectionIterator, ComplexNameCollectionConstIterator>
 {
 public:
-    ComplexNameCollectionImpl::ComplexNameCollectionImpl (DocumentImpl* pDocument);
+    ComplexNameCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

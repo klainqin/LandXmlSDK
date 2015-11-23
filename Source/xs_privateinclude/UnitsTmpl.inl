@@ -11,7 +11,7 @@ namespace LX
 
 
 template<class T>
-UnitsTmpl<T>::UnitsTmpl<T> (DocumentImpl* pDoc)
+UnitsTmpl<T>::UnitsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_SelectedUnits = NULL;
@@ -19,7 +19,7 @@ UnitsTmpl<T>::UnitsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-UnitsTmpl<T>::~UnitsTmpl<T> ()
+UnitsTmpl<T>::~UnitsTmpl ()
 {
     if (m_SelectedUnits != NULL)
     {

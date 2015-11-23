@@ -19,7 +19,7 @@ ZoneCrossSectStructureCollection* createZoneCrossSectStructureCollectionObject (
 class ZoneCrossSectStructureCollectionImpl : public NamedObjMultiMapTmpl<ZoneCrossSectStructure, ZoneCrossSectStructureCollection, String, ZoneCrossSectStructureCollectionIterator, ZoneCrossSectStructureCollectionConstIterator>
 {
 public:
-    ZoneCrossSectStructureCollectionImpl::ZoneCrossSectStructureCollectionImpl (DocumentImpl* pDocument);
+    ZoneCrossSectStructureCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

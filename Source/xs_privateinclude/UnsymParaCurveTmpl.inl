@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-UnsymParaCurveTmpl<T>::UnsymParaCurveTmpl<T> (DocumentImpl* pDoc)
+UnsymParaCurveTmpl<T>::UnsymParaCurveTmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
     m_LengthIn = 0.0;
@@ -23,7 +23,7 @@ UnsymParaCurveTmpl<T>::UnsymParaCurveTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-UnsymParaCurveTmpl<T>::~UnsymParaCurveTmpl<T> ()
+UnsymParaCurveTmpl<T>::~UnsymParaCurveTmpl ()
 {
 }
 
@@ -133,7 +133,7 @@ void UnsymParaCurveTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

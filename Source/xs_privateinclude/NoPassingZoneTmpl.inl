@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-NoPassingZoneTmpl<T>::NoPassingZoneTmpl<T> (DocumentImpl* pDoc)
+NoPassingZoneTmpl<T>::NoPassingZoneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -23,7 +23,7 @@ NoPassingZoneTmpl<T>::NoPassingZoneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-NoPassingZoneTmpl<T>::~NoPassingZoneTmpl<T> ()
+NoPassingZoneTmpl<T>::~NoPassingZoneTmpl ()
 {
 }
 

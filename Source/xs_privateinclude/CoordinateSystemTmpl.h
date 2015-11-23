@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CoordinateSystemTmpl<T> (DocumentImpl* pDoc);
+    CoordinateSystemTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

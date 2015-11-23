@@ -19,7 +19,7 @@ SurveyorCertificateCollection* createSurveyorCertificateCollectionObject (Docume
 class SurveyorCertificateCollectionImpl : public NamedObjMultiMapTmpl<SurveyorCertificate, SurveyorCertificateCollection, String, SurveyorCertificateCollectionIterator, SurveyorCertificateCollectionConstIterator>
 {
 public:
-    SurveyorCertificateCollectionImpl::SurveyorCertificateCollectionImpl (DocumentImpl* pDocument);
+    SurveyorCertificateCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

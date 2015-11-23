@@ -19,7 +19,7 @@ ExclusionsCollection* createExclusionsCollectionObject (DocumentImpl* pDocument)
 class ExclusionsCollectionImpl : public ObjListTmpl<Exclusions, ExclusionsCollection, ExclusionsCollectionIterator, ExclusionsCollectionConstIterator>
 {
 public:
-    ExclusionsCollectionImpl::ExclusionsCollectionImpl (DocumentImpl* pDocument);
+    ExclusionsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

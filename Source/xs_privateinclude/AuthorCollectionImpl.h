@@ -19,7 +19,7 @@ AuthorCollection* createAuthorCollectionObject (DocumentImpl* pDocument);
 class AuthorCollectionImpl : public ObjListTmpl<Author, AuthorCollection, AuthorCollectionIterator, AuthorCollectionConstIterator>
 {
 public:
-    AuthorCollectionImpl::AuthorCollectionImpl (DocumentImpl* pDocument);
+    AuthorCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    OffsetLaneTmpl<T> (DocumentImpl* pDoc);
+    OffsetLaneTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

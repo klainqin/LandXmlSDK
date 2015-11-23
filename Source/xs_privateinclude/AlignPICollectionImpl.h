@@ -19,7 +19,7 @@ AlignPICollection* createAlignPICollectionObject (DocumentImpl* pDocument);
 class AlignPICollectionImpl : public ObjListTmpl<AlignPI, AlignPICollection, AlignPICollectionIterator, AlignPICollectionConstIterator>
 {
 public:
-    AlignPICollectionImpl::AlignPICollectionImpl (DocumentImpl* pDocument);
+    AlignPICollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

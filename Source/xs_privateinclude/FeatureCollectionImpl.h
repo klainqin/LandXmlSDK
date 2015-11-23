@@ -19,7 +19,7 @@ FeatureCollection* createFeatureCollectionObject (DocumentImpl* pDocument);
 class FeatureCollectionImpl : public NamedObjMultiMapTmpl<Feature, FeatureCollection, String, FeatureCollectionIterator, FeatureCollectionConstIterator>
 {
 public:
-    FeatureCollectionImpl::FeatureCollectionImpl (DocumentImpl* pDocument);
+    FeatureCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

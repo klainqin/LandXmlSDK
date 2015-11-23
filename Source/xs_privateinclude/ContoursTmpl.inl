@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-ContoursTmpl<T>::ContoursTmpl<T> (DocumentImpl* pDoc)
+ContoursTmpl<T>::ContoursTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Contour = createContourCollectionObject(pDoc);
@@ -23,7 +23,7 @@ ContoursTmpl<T>::ContoursTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ContoursTmpl<T>::~ContoursTmpl<T> ()
+ContoursTmpl<T>::~ContoursTmpl ()
 {
     if (m_Contour != NULL)
     {

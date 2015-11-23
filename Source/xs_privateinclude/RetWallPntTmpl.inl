@@ -11,7 +11,7 @@ namespace LX
 
 
 template<class T>
-RetWallPntTmpl<T>::RetWallPntTmpl<T> (DocumentImpl* pDoc)
+RetWallPntTmpl<T>::RetWallPntTmpl (DocumentImpl* pDoc)
     : PointType3dReqTmpl<T>(pDoc)
 {
     m_Height = 0.0;
@@ -22,7 +22,7 @@ RetWallPntTmpl<T>::RetWallPntTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RetWallPntTmpl<T>::~RetWallPntTmpl<T> ()
+RetWallPntTmpl<T>::~RetWallPntTmpl ()
 {
 }
 
@@ -30,9 +30,9 @@ RetWallPntTmpl<T>::~RetWallPntTmpl<T> ()
 template <class T>
 bool RetWallPntTmpl<T>::getObjectId(const String*& pId) const
 {
-    if (m_bName_valueSet)
+    if (this->m_bName_valueSet)
     {
-        pId = &m_Name;
+        pId = &(this->m_Name);
         return true;
     }
     else
@@ -45,9 +45,9 @@ bool RetWallPntTmpl<T>::getObjectId(const String*& pId) const
 template <class T>
 ValueObject* RetWallPntTmpl<T>::id() const
 {
-    if (m_bName_valueSet)
+    if (this->m_bName_valueSet)
     {
-        ValueObject* pValue = new StringObjectTmpl<StringObject>(m_Name);
+        ValueObject* pValue = new StringObjectTmpl<StringObject>(this->m_Name);
         if (!pValue)
 	         throw Exception(Exception::kUnableToAllocateMemory, L"Out of Memory.");
         return pValue;
@@ -117,80 +117,80 @@ void RetWallPntTmpl<T>::toXml (IStream& stream)
     static const wchar_t* kstrElementName = L"RetWallPnt";
     stream.write(L"<");
     stream.write(kstrElementName);
-    if (m_bHeight_valueSet)
+    if (this->m_bHeight_valueSet)
     {
         stream.write(L" height=\"");
-        DoubleObjectImpl::streamOut(m_Height, stream);
+        DoubleObjectImpl::streamOut(this->m_Height, stream);
         stream.write(L"\"");
     }
-    if (m_bOffset_valueSet)
+    if (this->m_bOffset_valueSet)
     {
         stream.write(L" offset=\"");
-        DoubleObjectImpl::streamOut(m_Offset, stream);
+        DoubleObjectImpl::streamOut(this->m_Offset, stream);
         stream.write(L"\"");
     }
-    if (m_bName_valueSet)
+    if (this->m_bName_valueSet)
     {
         stream.write(L" name=\"");
-        StringObjectImpl::streamOut(m_Name, stream);
+        StringObjectImpl::streamOut(this->m_Name, stream);
         stream.write(L"\"");
     }
-    if (m_bDesc_valueSet)
+    if (this->m_bDesc_valueSet)
     {
         stream.write(L" desc=\"");
-        StringObjectImpl::streamOut(m_Desc, stream);
+        StringObjectImpl::streamOut(this->m_Desc, stream);
         stream.write(L"\"");
     }
-    if (m_bCode_valueSet)
+    if (this->m_bCode_valueSet)
     {
         stream.write(L" code=\"");
-        StringObjectImpl::streamOut(m_Code, stream);
+        StringObjectImpl::streamOut(this->m_Code, stream);
         stream.write(L"\"");
     }
-    if (m_bState_valueSet)
+    if (this->m_bState_valueSet)
     {
         stream.write(L" state=\"");
-        EnumStateTypeImpl::streamOut(m_State, stream);
+        EnumStateTypeImpl::streamOut(this->m_State, stream);
         stream.write(L"\"");
     }
-    if (m_bPntRef_valueSet)
+    if (this->m_bPntRef_valueSet)
     {
         stream.write(L" pntRef=\"");
-        StringObjectImpl::streamOut(m_PntRef, stream);
+        StringObjectImpl::streamOut(this->m_PntRef, stream);
         stream.write(L"\"");
     }
-    if (m_bFeatureRef_valueSet)
+    if (this->m_bFeatureRef_valueSet)
     {
         stream.write(L" featureRef=\"");
-        StringObjectImpl::streamOut(m_FeatureRef, stream);
+        StringObjectImpl::streamOut(this->m_FeatureRef, stream);
         stream.write(L"\"");
     }
-    if (m_bPointGeometry_valueSet)
+    if (this->m_bPointGeometry_valueSet)
     {
         stream.write(L" pointGeometry=\"");
-        EnumPointGeometryTypeImpl::streamOut(m_PointGeometry, stream);
+        EnumPointGeometryTypeImpl::streamOut(this->m_PointGeometry, stream);
         stream.write(L"\"");
     }
-    if (m_bDTMAttribute_valueSet)
+    if (this->m_bDTMAttribute_valueSet)
     {
         stream.write(L" DTMAttribute=\"");
-        EnumDTMAttributeTypeImpl::streamOut(m_DTMAttribute, stream);
+        EnumDTMAttributeTypeImpl::streamOut(this->m_DTMAttribute, stream);
         stream.write(L"\"");
     }
-    if (m_bTimeStamp_valueSet)
+    if (this->m_bTimeStamp_valueSet)
     {
         stream.write(L" timeStamp=\"");
-        StringObjectImpl::streamOut(m_TimeStamp, stream);
+        StringObjectImpl::streamOut(this->m_TimeStamp, stream);
         stream.write(L"\"");
     }
-    if (m_bRole_valueSet)
+    if (this->m_bRole_valueSet)
     {
         stream.write(L" role=\"");
-        EnumSurveyRoleTypeImpl::streamOut(m_Role, stream);
+        EnumSurveyRoleTypeImpl::streamOut(this->m_Role, stream);
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

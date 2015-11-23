@@ -41,6 +41,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator> class NamedObjMapTmpl_MapIteratorImpl;
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator> class NamedObjMapTmpl_ListConstIteratorImpl;
 template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator> class NamedObjMapTmpl_MapConstIteratorImpl;
+template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstIterator> class NamedObjMapTmpl;
 
 /////////////////////////////////////////////////////////////////////////////
 //

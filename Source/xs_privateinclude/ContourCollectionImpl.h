@@ -19,7 +19,7 @@ ContourCollection* createContourCollectionObject (DocumentImpl* pDocument);
 class ContourCollectionImpl : public ObjListTmpl<Contour, ContourCollection, ContourCollectionIterator, ContourCollectionConstIterator>
 {
 public:
-    ContourCollectionImpl::ContourCollectionImpl (DocumentImpl* pDocument);
+    ContourCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -26,7 +26,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    AlignmentTmpl<T> (DocumentImpl* pDoc);
+    AlignmentTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

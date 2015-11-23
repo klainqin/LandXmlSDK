@@ -19,7 +19,7 @@ WatershedCollection* createWatershedCollectionObject (DocumentImpl* pDocument);
 class WatershedCollectionImpl : public NamedObjMultiMapTmpl<Watershed, WatershedCollection, String, WatershedCollectionIterator, WatershedCollectionConstIterator>
 {
 public:
-    WatershedCollectionImpl::WatershedCollectionImpl (DocumentImpl* pDocument);
+    WatershedCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

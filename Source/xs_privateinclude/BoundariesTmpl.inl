@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-BoundariesTmpl<T>::BoundariesTmpl<T> (DocumentImpl* pDoc)
+BoundariesTmpl<T>::BoundariesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Boundary = createBoundaryCollectionObject(pDoc);
@@ -23,7 +23,7 @@ BoundariesTmpl<T>::BoundariesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-BoundariesTmpl<T>::~BoundariesTmpl<T> ()
+BoundariesTmpl<T>::~BoundariesTmpl ()
 {
     if (m_Boundary != NULL)
     {

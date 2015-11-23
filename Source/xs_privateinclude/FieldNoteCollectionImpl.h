@@ -19,7 +19,7 @@ FieldNoteCollection* createFieldNoteCollectionObject (DocumentImpl* pDocument);
 class FieldNoteCollectionImpl : public ObjListTmpl<FieldNote, FieldNoteCollection, FieldNoteCollectionIterator, FieldNoteCollectionConstIterator>
 {
 public:
-    FieldNoteCollectionImpl::FieldNoteCollectionImpl (DocumentImpl* pDocument);
+    FieldNoteCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ PlanFeaturesCollection* createPlanFeaturesCollectionObject (DocumentImpl* pDocum
 class PlanFeaturesCollectionImpl : public NamedObjMultiMapTmpl<PlanFeatures, PlanFeaturesCollection, String, PlanFeaturesCollectionIterator, PlanFeaturesCollectionConstIterator>
 {
 public:
-    PlanFeaturesCollectionImpl::PlanFeaturesCollectionImpl (DocumentImpl* pDocument);
+    PlanFeaturesCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

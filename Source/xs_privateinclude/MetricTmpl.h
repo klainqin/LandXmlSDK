@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    MetricTmpl<T> (DocumentImpl* pDoc);
+    MetricTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

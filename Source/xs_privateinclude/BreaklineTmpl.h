@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BreaklineTmpl<T> (DocumentImpl* pDoc);
+    BreaklineTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CenterTmpl<T> (DocumentImpl* pDoc);
+    CenterTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

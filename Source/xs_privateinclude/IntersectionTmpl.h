@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    IntersectionTmpl<T> (DocumentImpl* pDoc);
+    IntersectionTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

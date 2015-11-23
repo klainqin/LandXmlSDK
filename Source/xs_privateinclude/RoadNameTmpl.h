@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    RoadNameTmpl<T> (DocumentImpl* pDoc);
+    RoadNameTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

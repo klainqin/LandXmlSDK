@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-PipeFlowTmpl<T>::PipeFlowTmpl<T> (DocumentImpl* pDoc)
+PipeFlowTmpl<T>::PipeFlowTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -42,7 +42,7 @@ PipeFlowTmpl<T>::PipeFlowTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PipeFlowTmpl<T>::~PipeFlowTmpl<T> ()
+PipeFlowTmpl<T>::~PipeFlowTmpl ()
 {
     if (m_Feature != NULL)
     {

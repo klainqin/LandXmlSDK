@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    TrafficControlTmpl<T> (DocumentImpl* pDoc);
+    TrafficControlTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

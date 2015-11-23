@@ -19,7 +19,7 @@ InstrumentSetupCollection* createInstrumentSetupCollectionObject (DocumentImpl* 
 class InstrumentSetupCollectionImpl : public ObjListTmpl<InstrumentSetup, InstrumentSetupCollection, InstrumentSetupCollectionIterator, InstrumentSetupCollectionConstIterator>
 {
 public:
-    InstrumentSetupCollectionImpl::InstrumentSetupCollectionImpl (DocumentImpl* pDocument);
+    InstrumentSetupCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ TurnLaneCollection* createTurnLaneCollectionObject (DocumentImpl* pDocument);
 class TurnLaneCollectionImpl : public ObjListTmpl<TurnLane, TurnLaneCollection, TurnLaneCollectionIterator, TurnLaneCollectionConstIterator>
 {
 public:
-    TurnLaneCollectionImpl::TurnLaneCollectionImpl (DocumentImpl* pDocument);
+    TurnLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

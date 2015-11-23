@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    AddressPointTmpl<T> (DocumentImpl* pDoc);
+    AddressPointTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

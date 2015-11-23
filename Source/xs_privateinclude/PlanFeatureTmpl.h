@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    PlanFeatureTmpl<T> (DocumentImpl* pDoc);
+    PlanFeatureTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

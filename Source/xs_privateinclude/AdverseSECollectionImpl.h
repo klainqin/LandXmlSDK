@@ -19,7 +19,7 @@ AdverseSECollection* createAdverseSECollectionObject (DocumentImpl* pDocument);
 class AdverseSECollectionImpl : public ObjListTmpl<AdverseSE, AdverseSECollection, AdverseSECollectionIterator, AdverseSECollectionConstIterator>
 {
 public:
-    AdverseSECollectionImpl::AdverseSECollectionImpl (DocumentImpl* pDocument);
+    AdverseSECollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

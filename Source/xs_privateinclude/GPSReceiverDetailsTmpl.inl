@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-GPSReceiverDetailsTmpl<T>::GPSReceiverDetailsTmpl<T> (DocumentImpl* pDoc)
+GPSReceiverDetailsTmpl<T>::GPSReceiverDetailsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Id = L"";
@@ -25,7 +25,7 @@ GPSReceiverDetailsTmpl<T>::GPSReceiverDetailsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-GPSReceiverDetailsTmpl<T>::~GPSReceiverDetailsTmpl<T> ()
+GPSReceiverDetailsTmpl<T>::~GPSReceiverDetailsTmpl ()
 {
 }
 

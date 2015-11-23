@@ -19,7 +19,7 @@ ChainCollection* createChainCollectionObject (DocumentImpl* pDocument);
 class ChainCollectionImpl : public NamedObjMultiMapTmpl<Chain, ChainCollection, String, ChainCollectionIterator, ChainCollectionConstIterator>
 {
 public:
-    ChainCollectionImpl::ChainCollectionImpl (DocumentImpl* pDocument);
+    ChainCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

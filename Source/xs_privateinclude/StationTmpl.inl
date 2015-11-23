@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-StationTmpl<T>::StationTmpl<T> (DocumentImpl* pDoc)
+StationTmpl<T>::StationTmpl (DocumentImpl* pDoc)
     : DoubleObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-StationTmpl<T>::~StationTmpl<T> ()
+StationTmpl<T>::~StationTmpl ()
 {
 }
 
@@ -31,7 +31,7 @@ void StationTmpl<T>::toXml (IStream& stream)
     stream.write(L"<");
     stream.write(kstrElementName);
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

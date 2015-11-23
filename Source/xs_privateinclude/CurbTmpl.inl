@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-CurbTmpl<T>::CurbTmpl<T> (DocumentImpl* pDoc)
+CurbTmpl<T>::CurbTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ CurbTmpl<T>::CurbTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CurbTmpl<T>::~CurbTmpl<T> ()
+CurbTmpl<T>::~CurbTmpl ()
 {
 }
 

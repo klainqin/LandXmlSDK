@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-OutletStructTmpl<T>::OutletStructTmpl<T> (DocumentImpl* pDoc)
+OutletStructTmpl<T>::OutletStructTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -20,7 +20,7 @@ OutletStructTmpl<T>::OutletStructTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-OutletStructTmpl<T>::~OutletStructTmpl<T> ()
+OutletStructTmpl<T>::~OutletStructTmpl ()
 {
     if (m_Feature != NULL)
     {

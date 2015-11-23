@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-IntersectionTmpl<T>::IntersectionTmpl<T> (DocumentImpl* pDoc)
+IntersectionTmpl<T>::IntersectionTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_RoadwayRef = L"";
@@ -27,7 +27,7 @@ IntersectionTmpl<T>::IntersectionTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-IntersectionTmpl<T>::~IntersectionTmpl<T> ()
+IntersectionTmpl<T>::~IntersectionTmpl ()
 {
 }
 

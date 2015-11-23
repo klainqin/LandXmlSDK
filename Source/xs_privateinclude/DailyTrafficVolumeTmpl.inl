@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-DailyTrafficVolumeTmpl<T>::DailyTrafficVolumeTmpl<T> (DocumentImpl* pDoc)
+DailyTrafficVolumeTmpl<T>::DailyTrafficVolumeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -30,7 +30,7 @@ DailyTrafficVolumeTmpl<T>::DailyTrafficVolumeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DailyTrafficVolumeTmpl<T>::~DailyTrafficVolumeTmpl<T> ()
+DailyTrafficVolumeTmpl<T>::~DailyTrafficVolumeTmpl ()
 {
     if (m_Feature != NULL)
     {

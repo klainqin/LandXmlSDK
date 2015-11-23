@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-BacksightTmpl<T>::BacksightTmpl<T> (DocumentImpl* pDoc)
+BacksightTmpl<T>::BacksightTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_BacksightPoint = NULL;
@@ -36,7 +36,7 @@ BacksightTmpl<T>::BacksightTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-BacksightTmpl<T>::~BacksightTmpl<T> ()
+BacksightTmpl<T>::~BacksightTmpl ()
 {
     if (m_BacksightPoint != NULL)
     {

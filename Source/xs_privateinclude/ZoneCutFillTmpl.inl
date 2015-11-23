@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ZoneCutFillTmpl<T>::ZoneCutFillTmpl<T> (DocumentImpl* pDoc)
+ZoneCutFillTmpl<T>::ZoneCutFillTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ ZoneCutFillTmpl<T>::ZoneCutFillTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ZoneCutFillTmpl<T>::~ZoneCutFillTmpl<T> ()
+ZoneCutFillTmpl<T>::~ZoneCutFillTmpl ()
 {
 }
 

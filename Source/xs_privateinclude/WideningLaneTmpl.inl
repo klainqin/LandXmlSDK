@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-WideningLaneTmpl<T>::WideningLaneTmpl<T> (DocumentImpl* pDoc)
+WideningLaneTmpl<T>::WideningLaneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -33,7 +33,7 @@ WideningLaneTmpl<T>::WideningLaneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-WideningLaneTmpl<T>::~WideningLaneTmpl<T> ()
+WideningLaneTmpl<T>::~WideningLaneTmpl ()
 {
 }
 

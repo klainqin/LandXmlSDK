@@ -28,22 +28,22 @@ class IndexedListValueCollectionTmpl : public ValueObjectTmpl<BaseT>
 public:
 	typedef IndexedListValueCollectionTmpl<T, BaseT, TObject>* Type;
 
-	IndexedListValueCollectionTmpl<T, BaseT, TObject> ();
+	IndexedListValueCollectionTmpl ();
     
-    ~IndexedListValueCollectionTmpl<T, BaseT, TObject> ();
+    ~IndexedListValueCollectionTmpl ();
 
-	IndexedListValueCollectionTmpl<T, BaseT, TObject> (DocumentImpl* pDoc);
+	IndexedListValueCollectionTmpl (DocumentImpl* pDoc);
 
-	IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+	IndexedListValueCollectionTmpl (
 		const IndexedListValueCollectionTmpl<T, BaseT, TObject>& value);
 
-	IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+	IndexedListValueCollectionTmpl (
 		IndexedListValueCollectionTmpl<T, BaseT, TObject>* pValue);
 
-	IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+	IndexedListValueCollectionTmpl (
 		IndexedListValueCollection<T>* pValue);
 
-  	IndexedListValueCollectionTmpl<T, BaseT, TObject> (
+  	IndexedListValueCollectionTmpl (
 		const IndexedListValueCollection<T>& pValue);
 
     void copy (

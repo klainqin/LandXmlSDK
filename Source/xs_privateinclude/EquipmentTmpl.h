@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    EquipmentTmpl<T> (DocumentImpl* pDoc);
+    EquipmentTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-ControlChecksTmpl<T>::ControlChecksTmpl<T> (DocumentImpl* pDoc)
+ControlChecksTmpl<T>::ControlChecksTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-ControlChecksTmpl<T>::~ControlChecksTmpl<T> ()
+ControlChecksTmpl<T>::~ControlChecksTmpl ()
 {
 }
 

@@ -19,7 +19,7 @@ ObservationGroupCollection* createObservationGroupCollectionObject (DocumentImpl
 class ObservationGroupCollectionImpl : public ObjListTmpl<ObservationGroup, ObservationGroupCollection, ObservationGroupCollectionIterator, ObservationGroupCollectionConstIterator>
 {
 public:
-    ObservationGroupCollectionImpl::ObservationGroupCollectionImpl (DocumentImpl* pDocument);
+    ObservationGroupCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ CrashDataCollection* createCrashDataCollectionObject (DocumentImpl* pDocument);
 class CrashDataCollectionImpl : public ObjListTmpl<CrashData, CrashDataCollection, CrashDataCollectionIterator, CrashDataCollectionConstIterator>
 {
 public:
-    CrashDataCollectionImpl::CrashDataCollectionImpl (DocumentImpl* pDocument);
+    CrashDataCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

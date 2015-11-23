@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-CircCurveTmpl<T>::CircCurveTmpl<T> (DocumentImpl* pDoc)
+CircCurveTmpl<T>::CircCurveTmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
     m_Length = 0.0;
@@ -23,7 +23,7 @@ CircCurveTmpl<T>::CircCurveTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CircCurveTmpl<T>::~CircCurveTmpl<T> ()
+CircCurveTmpl<T>::~CircCurveTmpl ()
 {
 }
 
@@ -133,7 +133,7 @@ void CircCurveTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

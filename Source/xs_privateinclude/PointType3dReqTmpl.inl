@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PointType3dReqTmpl<T>::PointType3dReqTmpl<T> (DocumentImpl* pDoc)
+PointType3dReqTmpl<T>::PointType3dReqTmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
     m_Name = L"";
@@ -37,7 +37,7 @@ PointType3dReqTmpl<T>::PointType3dReqTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PointType3dReqTmpl<T>::~PointType3dReqTmpl<T> ()
+PointType3dReqTmpl<T>::~PointType3dReqTmpl ()
 {
 }
 
@@ -84,10 +84,10 @@ void PointType3dReqTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try
@@ -422,7 +422,7 @@ void PointType3dReqTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
 }
 
 template <class T>

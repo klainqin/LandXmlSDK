@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-CorrectionsTmpl<T>::CorrectionsTmpl<T> (DocumentImpl* pDoc)
+CorrectionsTmpl<T>::CorrectionsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_RefractionCoefficient = 0.0;
@@ -25,7 +25,7 @@ CorrectionsTmpl<T>::CorrectionsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CorrectionsTmpl<T>::~CorrectionsTmpl<T> ()
+CorrectionsTmpl<T>::~CorrectionsTmpl ()
 {
 }
 

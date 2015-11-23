@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-AmendmentTmpl<T>::AmendmentTmpl<T> (DocumentImpl* pDoc)
+AmendmentTmpl<T>::AmendmentTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_AmendmentItem = createAmendmentItemCollectionObject(pDoc);
@@ -26,7 +26,7 @@ AmendmentTmpl<T>::AmendmentTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-AmendmentTmpl<T>::~AmendmentTmpl<T> ()
+AmendmentTmpl<T>::~AmendmentTmpl ()
 {
     if (m_AmendmentItem != NULL)
     {

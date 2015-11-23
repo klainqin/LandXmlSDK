@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CrashHistoryTmpl<T> (DocumentImpl* pDoc);
+    CrashHistoryTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

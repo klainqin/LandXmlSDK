@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    NoPassingZoneTmpl<T> (DocumentImpl* pDoc);
+    NoPassingZoneTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

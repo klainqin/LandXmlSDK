@@ -19,7 +19,7 @@ ZoneMaterialCollection* createZoneMaterialCollectionObject (DocumentImpl* pDocum
 class ZoneMaterialCollectionImpl : public ObjListTmpl<ZoneMaterial, ZoneMaterialCollection, ZoneMaterialCollectionIterator, ZoneMaterialCollectionConstIterator>
 {
 public:
-    ZoneMaterialCollectionImpl::ZoneMaterialCollectionImpl (DocumentImpl* pDocument);
+    ZoneMaterialCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

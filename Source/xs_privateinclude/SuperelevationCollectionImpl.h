@@ -19,7 +19,7 @@ SuperelevationCollection* createSuperelevationCollectionObject (DocumentImpl* pD
 class SuperelevationCollectionImpl : public ObjListTmpl<Superelevation, SuperelevationCollection, SuperelevationCollectionIterator, SuperelevationCollectionConstIterator>
 {
 public:
-    SuperelevationCollectionImpl::SuperelevationCollectionImpl (DocumentImpl* pDocument);
+    SuperelevationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

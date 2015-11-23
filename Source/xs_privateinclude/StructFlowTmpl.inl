@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-StructFlowTmpl<T>::StructFlowTmpl<T> (DocumentImpl* pDoc)
+StructFlowTmpl<T>::StructFlowTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -38,7 +38,7 @@ StructFlowTmpl<T>::StructFlowTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-StructFlowTmpl<T>::~StructFlowTmpl<T> ()
+StructFlowTmpl<T>::~StructFlowTmpl ()
 {
     if (m_Feature != NULL)
     {

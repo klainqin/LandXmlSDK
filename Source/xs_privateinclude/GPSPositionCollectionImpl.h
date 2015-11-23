@@ -19,7 +19,7 @@ GPSPositionCollection* createGPSPositionCollectionObject (DocumentImpl* pDocumen
 class GPSPositionCollectionImpl : public ObjListTmpl<GPSPosition, GPSPositionCollection, GPSPositionCollectionIterator, GPSPositionCollectionConstIterator>
 {
 public:
-    GPSPositionCollectionImpl::GPSPositionCollectionImpl (DocumentImpl* pDocument);
+    GPSPositionCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

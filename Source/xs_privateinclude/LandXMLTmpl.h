@@ -33,7 +33,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    LandXMLTmpl<T> (DocumentImpl* pDoc);
+    LandXMLTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

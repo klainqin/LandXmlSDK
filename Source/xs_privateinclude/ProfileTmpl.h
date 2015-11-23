@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ProfileTmpl<T> (DocumentImpl* pDoc);
+    ProfileTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

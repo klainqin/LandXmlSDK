@@ -19,7 +19,7 @@ PropertyCollection* createPropertyCollectionObject (DocumentImpl* pDocument);
 class PropertyCollectionImpl : public ObjListTmpl<Property, PropertyCollection, PropertyCollectionIterator, PropertyCollectionConstIterator>
 {
 public:
-    PropertyCollectionImpl::PropertyCollectionImpl (DocumentImpl* pDocument);
+    PropertyCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

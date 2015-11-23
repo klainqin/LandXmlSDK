@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-TimingTmpl<T>::TimingTmpl<T> (DocumentImpl* pDoc)
+TimingTmpl<T>::TimingTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -25,7 +25,7 @@ TimingTmpl<T>::TimingTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TimingTmpl<T>::~TimingTmpl<T> ()
+TimingTmpl<T>::~TimingTmpl ()
 {
 }
 

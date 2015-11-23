@@ -29,7 +29,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SurveyHeaderTmpl<T> (DocumentImpl* pDoc);
+    SurveyHeaderTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

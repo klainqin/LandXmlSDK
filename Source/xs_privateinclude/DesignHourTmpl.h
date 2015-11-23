@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    DesignHourTmpl<T> (DocumentImpl* pDoc);
+    DesignHourTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

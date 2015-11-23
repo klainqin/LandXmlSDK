@@ -24,7 +24,7 @@ namespace LX
 
 
 template<class T>
-SourceDataTmpl<T>::SourceDataTmpl<T> (DocumentImpl* pDoc)
+SourceDataTmpl<T>::SourceDataTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Chain = createChainCollectionObject(pDoc);
@@ -38,7 +38,7 @@ SourceDataTmpl<T>::SourceDataTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SourceDataTmpl<T>::~SourceDataTmpl<T> ()
+SourceDataTmpl<T>::~SourceDataTmpl ()
 {
     if (m_Chain != NULL)
     {

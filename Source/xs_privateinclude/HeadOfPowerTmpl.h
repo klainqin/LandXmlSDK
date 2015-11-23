@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    HeadOfPowerTmpl<T> (DocumentImpl* pDoc);
+    HeadOfPowerTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

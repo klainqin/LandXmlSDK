@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    Curve1Tmpl<T> (DocumentImpl* pDoc);
+    Curve1Tmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

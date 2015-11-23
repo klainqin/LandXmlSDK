@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-RectPipeTmpl<T>::RectPipeTmpl<T> (DocumentImpl* pDoc)
+RectPipeTmpl<T>::RectPipeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -34,7 +34,7 @@ RectPipeTmpl<T>::RectPipeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RectPipeTmpl<T>::~RectPipeTmpl<T> ()
+RectPipeTmpl<T>::~RectPipeTmpl ()
 {
     if (m_Feature != NULL)
     {

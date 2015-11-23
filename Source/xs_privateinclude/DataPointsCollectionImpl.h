@@ -19,7 +19,7 @@ DataPointsCollection* createDataPointsCollectionObject (DocumentImpl* pDocument)
 class DataPointsCollectionImpl : public NamedObjMultiMapTmpl<DataPoints, DataPointsCollection, String, DataPointsCollectionIterator, DataPointsCollectionConstIterator>
 {
 public:
-    DataPointsCollectionImpl::DataPointsCollectionImpl (DocumentImpl* pDocument);
+    DataPointsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

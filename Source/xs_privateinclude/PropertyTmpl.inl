@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PropertyTmpl<T>::PropertyTmpl<T> (DocumentImpl* pDoc)
+PropertyTmpl<T>::PropertyTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Label = L"";
@@ -21,7 +21,7 @@ PropertyTmpl<T>::PropertyTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PropertyTmpl<T>::~PropertyTmpl<T> ()
+PropertyTmpl<T>::~PropertyTmpl ()
 {
 }
 

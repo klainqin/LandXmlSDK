@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-WatershedsTmpl<T>::WatershedsTmpl<T> (DocumentImpl* pDoc)
+WatershedsTmpl<T>::WatershedsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Watershed = createWatershedCollectionObject(pDoc);
@@ -23,7 +23,7 @@ WatershedsTmpl<T>::WatershedsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-WatershedsTmpl<T>::~WatershedsTmpl<T> ()
+WatershedsTmpl<T>::~WatershedsTmpl ()
 {
     if (m_Watershed != NULL)
     {

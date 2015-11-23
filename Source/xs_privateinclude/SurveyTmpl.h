@@ -31,7 +31,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SurveyTmpl<T> (DocumentImpl* pDoc);
+    SurveyTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-OffsetValsTmpl<T>::OffsetValsTmpl<T> (DocumentImpl* pDoc)
+OffsetValsTmpl<T>::OffsetValsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_OffsetInOut = 0.0;
@@ -23,7 +23,7 @@ OffsetValsTmpl<T>::OffsetValsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-OffsetValsTmpl<T>::~OffsetValsTmpl<T> ()
+OffsetValsTmpl<T>::~OffsetValsTmpl ()
 {
 }
 

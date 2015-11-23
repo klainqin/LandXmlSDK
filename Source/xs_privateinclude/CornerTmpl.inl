@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-CornerTmpl<T>::CornerTmpl<T> (DocumentImpl* pDoc)
+CornerTmpl<T>::CornerTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -23,7 +23,7 @@ CornerTmpl<T>::CornerTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CornerTmpl<T>::~CornerTmpl<T> ()
+CornerTmpl<T>::~CornerTmpl ()
 {
 }
 

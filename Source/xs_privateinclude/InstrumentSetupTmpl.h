@@ -25,7 +25,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    InstrumentSetupTmpl<T> (DocumentImpl* pDoc);
+    InstrumentSetupTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    DrivewayDensityTmpl<T> (DocumentImpl* pDoc);
+    DrivewayDensityTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-IntersectionsTmpl<T>::IntersectionsTmpl<T> (DocumentImpl* pDoc)
+IntersectionsTmpl<T>::IntersectionsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-IntersectionsTmpl<T>::~IntersectionsTmpl<T> ()
+IntersectionsTmpl<T>::~IntersectionsTmpl ()
 {
 }
 

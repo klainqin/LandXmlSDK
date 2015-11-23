@@ -19,7 +19,7 @@ TitleCollection* createTitleCollectionObject (DocumentImpl* pDocument);
 class TitleCollectionImpl : public NamedObjMultiMapTmpl<Title, TitleCollection, String, TitleCollectionIterator, TitleCollectionConstIterator>
 {
 public:
-    TitleCollectionImpl::TitleCollectionImpl (DocumentImpl* pDocument);
+    TitleCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

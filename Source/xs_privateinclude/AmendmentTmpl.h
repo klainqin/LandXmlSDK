@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    AmendmentTmpl<T> (DocumentImpl* pDoc);
+    AmendmentTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

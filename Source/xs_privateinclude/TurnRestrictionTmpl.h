@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    TurnRestrictionTmpl<T> (DocumentImpl* pDoc);
+    TurnRestrictionTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

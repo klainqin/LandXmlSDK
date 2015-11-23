@@ -19,7 +19,7 @@ MapPointCollection* createMapPointCollectionObject (DocumentImpl* pDocument);
 class MapPointCollectionImpl : public NamedObjMultiMapTmpl<MapPoint, MapPointCollection, String, MapPointCollectionIterator, MapPointCollectionConstIterator>
 {
 public:
-    MapPointCollectionImpl::MapPointCollectionImpl (DocumentImpl* pDocument);
+    MapPointCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

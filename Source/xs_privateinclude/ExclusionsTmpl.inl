@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ExclusionsTmpl<T>::ExclusionsTmpl<T> (DocumentImpl* pDoc)
+ExclusionsTmpl<T>::ExclusionsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_ExclusionType = L"";
@@ -21,7 +21,7 @@ ExclusionsTmpl<T>::ExclusionsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ExclusionsTmpl<T>::~ExclusionsTmpl<T> ()
+ExclusionsTmpl<T>::~ExclusionsTmpl ()
 {
 }
 

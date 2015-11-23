@@ -19,7 +19,7 @@ DrivewayDensityCollection* createDrivewayDensityCollectionObject (DocumentImpl* 
 class DrivewayDensityCollectionImpl : public ObjListTmpl<DrivewayDensity, DrivewayDensityCollection, DrivewayDensityCollectionIterator, DrivewayDensityCollectionConstIterator>
 {
 public:
-    DrivewayDensityCollectionImpl::DrivewayDensityCollectionImpl (DocumentImpl* pDocument);
+    DrivewayDensityCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

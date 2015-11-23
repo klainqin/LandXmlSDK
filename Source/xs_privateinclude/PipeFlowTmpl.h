@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    PipeFlowTmpl<T> (DocumentImpl* pDoc);
+    PipeFlowTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

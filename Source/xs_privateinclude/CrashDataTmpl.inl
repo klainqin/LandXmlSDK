@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-CrashDataTmpl<T>::CrashDataTmpl<T> (DocumentImpl* pDoc)
+CrashDataTmpl<T>::CrashDataTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-CrashDataTmpl<T>::~CrashDataTmpl<T> ()
+CrashDataTmpl<T>::~CrashDataTmpl ()
 {
 }
 

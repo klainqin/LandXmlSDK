@@ -19,7 +19,7 @@ EndofRunoutStaCollection* createEndofRunoutStaCollectionObject (DocumentImpl* pD
 class EndofRunoutStaCollectionImpl : public ObjListTmpl<EndofRunoutSta, EndofRunoutStaCollection, EndofRunoutStaCollectionIterator, EndofRunoutStaCollectionConstIterator>
 {
 public:
-    EndofRunoutStaCollectionImpl::EndofRunoutStaCollectionImpl (DocumentImpl* pDocument);
+    EndofRunoutStaCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

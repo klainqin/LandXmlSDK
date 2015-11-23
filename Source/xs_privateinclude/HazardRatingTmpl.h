@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    HazardRatingTmpl<T> (DocumentImpl* pDoc);
+    HazardRatingTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

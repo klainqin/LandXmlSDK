@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    GradeModelTmpl<T> (DocumentImpl* pDoc);
+    GradeModelTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

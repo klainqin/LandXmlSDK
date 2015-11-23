@@ -19,7 +19,7 @@ LocationCollection* createLocationCollectionObject (DocumentImpl* pDocument);
 class LocationCollectionImpl : public NamedObjMultiMapTmpl<Location, LocationCollection, String, LocationCollectionIterator, LocationCollectionConstIterator>
 {
 public:
-    LocationCollectionImpl::LocationCollectionImpl (DocumentImpl* pDocument);
+    LocationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

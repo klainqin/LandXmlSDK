@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    LaserDetailsTmpl<T> (DocumentImpl* pDoc);
+    LaserDetailsTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

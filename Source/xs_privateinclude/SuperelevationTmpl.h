@@ -26,7 +26,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SuperelevationTmpl<T> (DocumentImpl* pDoc);
+    SuperelevationTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

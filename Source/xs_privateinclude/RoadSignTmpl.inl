@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-RoadSignTmpl<T>::RoadSignTmpl<T> (DocumentImpl* pDoc)
+RoadSignTmpl<T>::RoadSignTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_MUTCDCode = L"";
@@ -33,7 +33,7 @@ RoadSignTmpl<T>::RoadSignTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RoadSignTmpl<T>::~RoadSignTmpl<T> ()
+RoadSignTmpl<T>::~RoadSignTmpl ()
 {
 }
 

@@ -19,7 +19,7 @@ WideningLaneCollection* createWideningLaneCollectionObject (DocumentImpl* pDocum
 class WideningLaneCollectionImpl : public ObjListTmpl<WideningLane, WideningLaneCollection, WideningLaneCollectionIterator, WideningLaneCollectionConstIterator>
 {
 public:
-    WideningLaneCollectionImpl::WideningLaneCollectionImpl (DocumentImpl* pDocument);
+    WideningLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

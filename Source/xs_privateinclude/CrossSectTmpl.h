@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CrossSectTmpl<T> (DocumentImpl* pDoc);
+    CrossSectTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

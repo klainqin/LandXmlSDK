@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-PntsTmpl<T>::PntsTmpl<T> (DocumentImpl* pDoc)
+PntsTmpl<T>::PntsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_P = createPCollectionObject(pDoc);
@@ -20,7 +20,7 @@ PntsTmpl<T>::PntsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PntsTmpl<T>::~PntsTmpl<T> ()
+PntsTmpl<T>::~PntsTmpl ()
 {
     if (m_P != NULL)
     {

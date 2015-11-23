@@ -19,7 +19,7 @@ ZoneHingeCollection* createZoneHingeCollectionObject (DocumentImpl* pDocument);
 class ZoneHingeCollectionImpl : public ObjListTmpl<ZoneHinge, ZoneHingeCollection, ZoneHingeCollectionIterator, ZoneHingeCollectionConstIterator>
 {
 public:
-    ZoneHingeCollectionImpl::ZoneHingeCollectionImpl (DocumentImpl* pDocument);
+    ZoneHingeCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

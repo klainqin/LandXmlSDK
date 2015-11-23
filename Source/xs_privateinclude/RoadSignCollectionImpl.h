@@ -19,7 +19,7 @@ RoadSignCollection* createRoadSignCollectionObject (DocumentImpl* pDocument);
 class RoadSignCollectionImpl : public ObjListTmpl<RoadSign, RoadSignCollection, RoadSignCollectionIterator, RoadSignCollectionConstIterator>
 {
 public:
-    RoadSignCollectionImpl::RoadSignCollectionImpl (DocumentImpl* pDocument);
+    RoadSignCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PointFileTmpl<T>::PointFileTmpl<T> (DocumentImpl* pDoc)
+PointFileTmpl<T>::PointFileTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_FileName = L"";
@@ -23,7 +23,7 @@ PointFileTmpl<T>::PointFileTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PointFileTmpl<T>::~PointFileTmpl<T> ()
+PointFileTmpl<T>::~PointFileTmpl ()
 {
 }
 

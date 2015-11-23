@@ -19,7 +19,7 @@ AdministrativeDateCollection* createAdministrativeDateCollectionObject (Document
 class AdministrativeDateCollectionImpl : public ObjListTmpl<AdministrativeDate, AdministrativeDateCollection, AdministrativeDateCollectionIterator, AdministrativeDateCollectionConstIterator>
 {
 public:
-    AdministrativeDateCollectionImpl::AdministrativeDateCollectionImpl (DocumentImpl* pDocument);
+    AdministrativeDateCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

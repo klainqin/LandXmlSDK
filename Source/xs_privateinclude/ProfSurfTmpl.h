@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ProfSurfTmpl<T> (DocumentImpl* pDoc);
+    ProfSurfTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

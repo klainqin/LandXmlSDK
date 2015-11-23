@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-TurnLaneTmpl<T>::TurnLaneTmpl<T> (DocumentImpl* pDoc)
+TurnLaneTmpl<T>::TurnLaneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -33,7 +33,7 @@ TurnLaneTmpl<T>::TurnLaneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TurnLaneTmpl<T>::~TurnLaneTmpl<T> ()
+TurnLaneTmpl<T>::~TurnLaneTmpl ()
 {
 }
 

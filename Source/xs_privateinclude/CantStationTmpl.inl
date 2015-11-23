@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-CantStationTmpl<T>::CantStationTmpl<T> (DocumentImpl* pDoc)
+CantStationTmpl<T>::CantStationTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -43,7 +43,7 @@ CantStationTmpl<T>::CantStationTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CantStationTmpl<T>::~CantStationTmpl<T> ()
+CantStationTmpl<T>::~CantStationTmpl ()
 {
 }
 

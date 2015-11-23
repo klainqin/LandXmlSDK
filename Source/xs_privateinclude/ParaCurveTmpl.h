@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ParaCurveTmpl<T> (DocumentImpl* pDoc);
+    ParaCurveTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

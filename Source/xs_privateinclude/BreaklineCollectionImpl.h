@@ -19,7 +19,7 @@ BreaklineCollection* createBreaklineCollectionObject (DocumentImpl* pDocument);
 class BreaklineCollectionImpl : public NamedObjMultiMapTmpl<Breakline, BreaklineCollection, String, BreaklineCollectionIterator, BreaklineCollectionConstIterator>
 {
 public:
-    BreaklineCollectionImpl::BreaklineCollectionImpl (DocumentImpl* pDocument);
+    BreaklineCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

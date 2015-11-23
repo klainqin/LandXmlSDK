@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-DesignSpeedTmpl<T>::DesignSpeedTmpl<T> (DocumentImpl* pDoc)
+DesignSpeedTmpl<T>::DesignSpeedTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -26,7 +26,7 @@ DesignSpeedTmpl<T>::DesignSpeedTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DesignSpeedTmpl<T>::~DesignSpeedTmpl<T> ()
+DesignSpeedTmpl<T>::~DesignSpeedTmpl ()
 {
     if (m_Feature != NULL)
     {

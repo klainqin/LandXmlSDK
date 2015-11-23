@@ -19,7 +19,7 @@ TwoWayLeftTurnLaneCollection* createTwoWayLeftTurnLaneCollectionObject (Document
 class TwoWayLeftTurnLaneCollectionImpl : public ObjListTmpl<TwoWayLeftTurnLane, TwoWayLeftTurnLaneCollection, TwoWayLeftTurnLaneCollectionIterator, TwoWayLeftTurnLaneCollectionConstIterator>
 {
 public:
-    TwoWayLeftTurnLaneCollectionImpl::TwoWayLeftTurnLaneCollectionImpl (DocumentImpl* pDocument);
+    TwoWayLeftTurnLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

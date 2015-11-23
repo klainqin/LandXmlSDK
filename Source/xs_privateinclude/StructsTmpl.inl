@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-StructsTmpl<T>::StructsTmpl<T> (DocumentImpl* pDoc)
+StructsTmpl<T>::StructsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Units = NULL;
@@ -26,7 +26,7 @@ StructsTmpl<T>::StructsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-StructsTmpl<T>::~StructsTmpl<T> ()
+StructsTmpl<T>::~StructsTmpl ()
 {
     if (m_Units != NULL)
     {

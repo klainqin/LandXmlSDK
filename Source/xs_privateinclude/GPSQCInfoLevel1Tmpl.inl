@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-GPSQCInfoLevel1Tmpl<T>::GPSQCInfoLevel1Tmpl<T> (DocumentImpl* pDoc)
+GPSQCInfoLevel1Tmpl<T>::GPSQCInfoLevel1Tmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_GPSSolnType = EnumGPSSolutionTypeEnum::Values::k_null;
@@ -25,7 +25,7 @@ GPSQCInfoLevel1Tmpl<T>::GPSQCInfoLevel1Tmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-GPSQCInfoLevel1Tmpl<T>::~GPSQCInfoLevel1Tmpl<T> ()
+GPSQCInfoLevel1Tmpl<T>::~GPSQCInfoLevel1Tmpl ()
 {
 }
 

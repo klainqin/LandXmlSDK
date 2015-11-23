@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-InletStructTmpl<T>::InletStructTmpl<T> (DocumentImpl* pDoc)
+InletStructTmpl<T>::InletStructTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -20,7 +20,7 @@ InletStructTmpl<T>::InletStructTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-InletStructTmpl<T>::~InletStructTmpl<T> ()
+InletStructTmpl<T>::~InletStructTmpl ()
 {
     if (m_Feature != NULL)
     {

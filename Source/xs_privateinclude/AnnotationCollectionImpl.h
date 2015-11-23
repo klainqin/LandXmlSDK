@@ -19,7 +19,7 @@ AnnotationCollection* createAnnotationCollectionObject (DocumentImpl* pDocument)
 class AnnotationCollectionImpl : public NamedObjMultiMapTmpl<Annotation, AnnotationCollection, String, AnnotationCollectionIterator, AnnotationCollectionConstIterator>
 {
 public:
-    AnnotationCollectionImpl::AnnotationCollectionImpl (DocumentImpl* pDocument);
+    AnnotationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

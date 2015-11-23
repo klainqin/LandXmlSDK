@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SurveyorCertificateTmpl<T> (DocumentImpl* pDoc);
+    SurveyorCertificateTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

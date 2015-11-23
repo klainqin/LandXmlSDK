@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ElliPipeTmpl<T>::ElliPipeTmpl<T> (DocumentImpl* pDoc)
+ElliPipeTmpl<T>::ElliPipeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -34,7 +34,7 @@ ElliPipeTmpl<T>::ElliPipeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ElliPipeTmpl<T>::~ElliPipeTmpl<T> ()
+ElliPipeTmpl<T>::~ElliPipeTmpl ()
 {
     if (m_Feature != NULL)
     {

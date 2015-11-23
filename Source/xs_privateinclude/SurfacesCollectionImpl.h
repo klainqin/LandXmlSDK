@@ -19,7 +19,7 @@ SurfacesCollection* createSurfacesCollectionObject (DocumentImpl* pDocument);
 class SurfacesCollectionImpl : public NamedObjMultiMapTmpl<Surfaces, SurfacesCollection, String, SurfacesCollectionIterator, SurfacesCollectionConstIterator>
 {
 public:
-    SurfacesCollectionImpl::SurfacesCollectionImpl (DocumentImpl* pDocument);
+    SurfacesCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

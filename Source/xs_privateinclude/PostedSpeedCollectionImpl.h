@@ -19,7 +19,7 @@ PostedSpeedCollection* createPostedSpeedCollectionObject (DocumentImpl* pDocumen
 class PostedSpeedCollectionImpl : public ObjListTmpl<PostedSpeed, PostedSpeedCollection, PostedSpeedCollectionIterator, PostedSpeedCollectionConstIterator>
 {
 public:
-    PostedSpeedCollectionImpl::PostedSpeedCollectionImpl (DocumentImpl* pDocument);
+    PostedSpeedCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

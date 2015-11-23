@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-HazardRatingTmpl<T>::HazardRatingTmpl<T> (DocumentImpl* pDoc)
+HazardRatingTmpl<T>::HazardRatingTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -23,7 +23,7 @@ HazardRatingTmpl<T>::HazardRatingTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-HazardRatingTmpl<T>::~HazardRatingTmpl<T> ()
+HazardRatingTmpl<T>::~HazardRatingTmpl ()
 {
 }
 

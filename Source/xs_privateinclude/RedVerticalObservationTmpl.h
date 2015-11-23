@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    RedVerticalObservationTmpl<T> (DocumentImpl* pDoc);
+    RedVerticalObservationTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

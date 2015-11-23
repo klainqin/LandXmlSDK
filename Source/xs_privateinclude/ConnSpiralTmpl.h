@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ConnSpiralTmpl<T> (DocumentImpl* pDoc);
+    ConnSpiralTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

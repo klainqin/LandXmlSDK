@@ -17,7 +17,7 @@ namespace LX
 
 
 template<class T>
-PipeTmpl<T>::PipeTmpl<T> (DocumentImpl* pDoc)
+PipeTmpl<T>::PipeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_PipeGeom = NULL;
@@ -44,7 +44,7 @@ PipeTmpl<T>::PipeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PipeTmpl<T>::~PipeTmpl<T> ()
+PipeTmpl<T>::~PipeTmpl ()
 {
     if (m_PipeGeom != NULL)
     {
@@ -159,10 +159,10 @@ void PipeTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try
@@ -462,7 +462,7 @@ Struct* PipeTmpl<T>::resolveRefStart ()
 {
     if (m_bRefStart_valueSet)
     {
-        StructCollectionIterator* pIter = m_pDoc->getGlobalObjects().getStructCollection().find(m_RefStart);
+        StructCollectionIterator* pIter = this->m_pDoc->getGlobalObjects().getStructCollection().find(m_RefStart);
         if (pIter)
         {
 	         Struct* pObject = pIter->current();
@@ -481,7 +481,7 @@ Struct* PipeTmpl<T>::resolveRefEnd ()
 {
     if (m_bRefEnd_valueSet)
     {
-        StructCollectionIterator* pIter = m_pDoc->getGlobalObjects().getStructCollection().find(m_RefEnd);
+        StructCollectionIterator* pIter = this->m_pDoc->getGlobalObjects().getStructCollection().find(m_RefEnd);
         if (pIter)
         {
 	         Struct* pObject = pIter->current();
@@ -538,7 +538,7 @@ Object::ValidityEnum PipeTmpl<T>::validate (IValidationEventSink* pEventSink) co
     }
     if (m_bRefStart_valueSet)
     {
-        StructCollectionIterator* pIter = m_pDoc->getGlobalObjects().getStructCollection().find(m_RefStart);
+        StructCollectionIterator* pIter = this->m_pDoc->getGlobalObjects().getStructCollection().find(m_RefStart);
         if (!pIter)
         {
             pEventSink->onEvent(IValidationEventSink::EventCode::kUnresolvableReference, this, L"RefStart", L"Reference not set");
@@ -551,7 +551,7 @@ Object::ValidityEnum PipeTmpl<T>::validate (IValidationEventSink* pEventSink) co
     }
     if (m_bRefEnd_valueSet)
     {
-        StructCollectionIterator* pIter = m_pDoc->getGlobalObjects().getStructCollection().find(m_RefEnd);
+        StructCollectionIterator* pIter = this->m_pDoc->getGlobalObjects().getStructCollection().find(m_RefEnd);
         if (!pIter)
         {
             pEventSink->onEvent(IValidationEventSink::EventCode::kUnresolvableReference, this, L"RefEnd", L"Reference not set");

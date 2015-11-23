@@ -19,7 +19,7 @@ AlignmentsCollection* createAlignmentsCollectionObject (DocumentImpl* pDocument)
 class AlignmentsCollectionImpl : public NamedObjMultiMapTmpl<Alignments, AlignmentsCollection, String, AlignmentsCollectionIterator, AlignmentsCollectionConstIterator>
 {
 public:
-    AlignmentsCollectionImpl::AlignmentsCollectionImpl (DocumentImpl* pDocument);
+    AlignmentsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

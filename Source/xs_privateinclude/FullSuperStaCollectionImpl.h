@@ -19,7 +19,7 @@ FullSuperStaCollection* createFullSuperStaCollectionObject (DocumentImpl* pDocum
 class FullSuperStaCollectionImpl : public ObjListTmpl<FullSuperSta, FullSuperStaCollection, FullSuperStaCollectionIterator, FullSuperStaCollectionConstIterator>
 {
 public:
-    FullSuperStaCollectionImpl::FullSuperStaCollectionImpl (DocumentImpl* pDocument);
+    FullSuperStaCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

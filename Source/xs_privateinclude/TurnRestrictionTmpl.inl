@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-TurnRestrictionTmpl<T>::TurnRestrictionTmpl<T> (DocumentImpl* pDoc)
+TurnRestrictionTmpl<T>::TurnRestrictionTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -23,7 +23,7 @@ TurnRestrictionTmpl<T>::TurnRestrictionTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TurnRestrictionTmpl<T>::~TurnRestrictionTmpl<T> ()
+TurnRestrictionTmpl<T>::~TurnRestrictionTmpl ()
 {
 }
 

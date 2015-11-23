@@ -22,7 +22,7 @@ namespace LX
 
 
 template<class T>
-LaserSetupTmpl<T>::LaserSetupTmpl<T> (DocumentImpl* pDoc)
+LaserSetupTmpl<T>::LaserSetupTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_InstrumentPoint = NULL;
@@ -45,7 +45,7 @@ LaserSetupTmpl<T>::LaserSetupTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-LaserSetupTmpl<T>::~LaserSetupTmpl<T> ()
+LaserSetupTmpl<T>::~LaserSetupTmpl ()
 {
     if (m_InstrumentPoint != NULL)
     {

@@ -19,7 +19,7 @@ VolumeCollection* createVolumeCollectionObject (DocumentImpl* pDocument);
 class VolumeCollectionImpl : public ObjListTmpl<Volume, VolumeCollection, VolumeCollectionIterator, VolumeCollectionConstIterator>
 {
 public:
-    VolumeCollectionImpl::VolumeCollectionImpl (DocumentImpl* pDocument);
+    VolumeCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

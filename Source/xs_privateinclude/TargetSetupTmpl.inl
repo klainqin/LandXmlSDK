@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-TargetSetupTmpl<T>::TargetSetupTmpl<T> (DocumentImpl* pDoc)
+TargetSetupTmpl<T>::TargetSetupTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_FieldNote = createFieldNoteCollectionObject(pDoc);
@@ -31,7 +31,7 @@ TargetSetupTmpl<T>::TargetSetupTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TargetSetupTmpl<T>::~TargetSetupTmpl<T> ()
+TargetSetupTmpl<T>::~TargetSetupTmpl ()
 {
     if (m_FieldNote != NULL)
     {

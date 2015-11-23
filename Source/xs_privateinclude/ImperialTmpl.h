@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ImperialTmpl<T> (DocumentImpl* pDoc);
+    ImperialTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

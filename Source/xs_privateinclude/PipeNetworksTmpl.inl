@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-PipeNetworksTmpl<T>::PipeNetworksTmpl<T> (DocumentImpl* pDoc)
+PipeNetworksTmpl<T>::PipeNetworksTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_PipeNetwork = createPipeNetworkCollectionObject(pDoc);
@@ -29,7 +29,7 @@ PipeNetworksTmpl<T>::PipeNetworksTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PipeNetworksTmpl<T>::~PipeNetworksTmpl<T> ()
+PipeNetworksTmpl<T>::~PipeNetworksTmpl ()
 {
     if (m_PipeNetwork != NULL)
     {
@@ -136,10 +136,10 @@ void PipeNetworksTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

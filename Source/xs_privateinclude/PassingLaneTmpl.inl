@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PassingLaneTmpl<T>::PassingLaneTmpl<T> (DocumentImpl* pDoc)
+PassingLaneTmpl<T>::PassingLaneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -29,7 +29,7 @@ PassingLaneTmpl<T>::PassingLaneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PassingLaneTmpl<T>::~PassingLaneTmpl<T> ()
+PassingLaneTmpl<T>::~PassingLaneTmpl ()
 {
 }
 

@@ -19,7 +19,7 @@ PointFileCollection* createPointFileCollectionObject (DocumentImpl* pDocument);
 class PointFileCollectionImpl : public ObjListTmpl<PointFile, PointFileCollection, PointFileCollectionIterator, PointFileCollectionConstIterator>
 {
 public:
-    PointFileCollectionImpl::PointFileCollectionImpl (DocumentImpl* pDocument);
+    PointFileCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

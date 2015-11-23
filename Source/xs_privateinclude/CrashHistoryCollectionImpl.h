@@ -19,7 +19,7 @@ CrashHistoryCollection* createCrashHistoryCollectionObject (DocumentImpl* pDocum
 class CrashHistoryCollectionImpl : public ObjListTmpl<CrashHistory, CrashHistoryCollection, CrashHistoryCollectionIterator, CrashHistoryCollectionConstIterator>
 {
 public:
-    CrashHistoryCollectionImpl::CrashHistoryCollectionImpl (DocumentImpl* pDocument);
+    CrashHistoryCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

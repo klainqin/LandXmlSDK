@@ -19,7 +19,7 @@ StaEquationCollection* createStaEquationCollectionObject (DocumentImpl* pDocumen
 class StaEquationCollectionImpl : public ObjListTmpl<StaEquation, StaEquationCollection, StaEquationCollectionIterator, StaEquationCollectionConstIterator>
 {
 public:
-    StaEquationCollectionImpl::StaEquationCollectionImpl (DocumentImpl* pDocument);
+    StaEquationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

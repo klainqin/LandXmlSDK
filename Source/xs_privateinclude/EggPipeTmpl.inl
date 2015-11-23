@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-EggPipeTmpl<T>::EggPipeTmpl<T> (DocumentImpl* pDoc)
+EggPipeTmpl<T>::EggPipeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -34,7 +34,7 @@ EggPipeTmpl<T>::EggPipeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-EggPipeTmpl<T>::~EggPipeTmpl<T> ()
+EggPipeTmpl<T>::~EggPipeTmpl ()
 {
     if (m_Feature != NULL)
     {

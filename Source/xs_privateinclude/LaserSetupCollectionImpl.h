@@ -19,7 +19,7 @@ LaserSetupCollection* createLaserSetupCollectionObject (DocumentImpl* pDocument)
 class LaserSetupCollectionImpl : public ObjListTmpl<LaserSetup, LaserSetupCollection, LaserSetupCollectionIterator, LaserSetupCollectionConstIterator>
 {
 public:
-    LaserSetupCollectionImpl::LaserSetupCollectionImpl (DocumentImpl* pDocument);
+    LaserSetupCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

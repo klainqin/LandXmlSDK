@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-AlignPIsTmpl<T>::AlignPIsTmpl<T> (DocumentImpl* pDoc)
+AlignPIsTmpl<T>::AlignPIsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_AlignPI = createAlignPICollectionObject(pDoc);
@@ -20,7 +20,7 @@ AlignPIsTmpl<T>::AlignPIsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-AlignPIsTmpl<T>::~AlignPIsTmpl<T> ()
+AlignPIsTmpl<T>::~AlignPIsTmpl ()
 {
     if (m_AlignPI != NULL)
     {

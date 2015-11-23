@@ -11,7 +11,7 @@ namespace LX
 
 
 template<class T>
-EquipmentTmpl<T>::EquipmentTmpl<T> (DocumentImpl* pDoc)
+EquipmentTmpl<T>::EquipmentTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_EquipmentDetails = NULL;
@@ -19,7 +19,7 @@ EquipmentTmpl<T>::EquipmentTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-EquipmentTmpl<T>::~EquipmentTmpl<T> ()
+EquipmentTmpl<T>::~EquipmentTmpl ()
 {
     if (m_EquipmentDetails != NULL)
     {

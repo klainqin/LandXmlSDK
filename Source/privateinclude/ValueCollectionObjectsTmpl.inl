@@ -10,19 +10,19 @@ namespace LX
 {
 #define LX_INDEXED_COLLECTION_CLASS_IMPL(Type, ItemType, ItemTypeObject) \
 template <class T> \
-Type<T>::Type<T> () \
+Type<T>::Type () \
 { \
 } \
 \
 template <class T> \
-Type<T>::Type<T> (DocumentImpl* m_pDoc) \
-: IndexedListValueCollectionTmpl<ItemType, T, ItemTypeObject>(m_pDoc) \
+Type<T>::Type (DocumentImpl* pDoc) \
+: IndexedListValueCollectionTmpl<ItemType, T, ItemTypeObject>(pDoc) \
 { \
 } \
 \
 template <class T> \
-Type<T>::Type<T> (const Type<T>& value) \
-: IndexedListValueCollectionTmpl<ItemType, T, ItemTypeObject>(m_pDoc) \
+Type<T>::Type (const Type<T>& value) \
+: IndexedListValueCollectionTmpl<ItemType, T, ItemTypeObject>(value) \
 { \
 } \
 \

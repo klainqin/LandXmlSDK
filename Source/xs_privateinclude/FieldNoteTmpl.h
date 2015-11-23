@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    FieldNoteTmpl<T> (DocumentImpl* pDoc);
+    FieldNoteTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

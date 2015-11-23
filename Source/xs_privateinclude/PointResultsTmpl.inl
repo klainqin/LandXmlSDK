@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-PointResultsTmpl<T>::PointResultsTmpl<T> (DocumentImpl* pDoc)
+PointResultsTmpl<T>::PointResultsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_TargetPoint = NULL;
@@ -42,7 +42,7 @@ PointResultsTmpl<T>::PointResultsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PointResultsTmpl<T>::~PointResultsTmpl<T> ()
+PointResultsTmpl<T>::~PointResultsTmpl ()
 {
     if (m_TargetPoint != NULL)
     {

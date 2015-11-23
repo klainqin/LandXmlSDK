@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ZoneSlopeTmpl<T>::ZoneSlopeTmpl<T> (DocumentImpl* pDoc)
+ZoneSlopeTmpl<T>::ZoneSlopeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -33,7 +33,7 @@ ZoneSlopeTmpl<T>::ZoneSlopeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ZoneSlopeTmpl<T>::~ZoneSlopeTmpl<T> ()
+ZoneSlopeTmpl<T>::~ZoneSlopeTmpl ()
 {
 }
 

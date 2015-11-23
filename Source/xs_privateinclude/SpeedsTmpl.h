@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SpeedsTmpl<T> (DocumentImpl* pDoc);
+    SpeedsTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

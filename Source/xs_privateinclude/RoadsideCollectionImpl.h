@@ -19,7 +19,7 @@ RoadsideCollection* createRoadsideCollectionObject (DocumentImpl* pDocument);
 class RoadsideCollectionImpl : public ObjListTmpl<Roadside, RoadsideCollection, RoadsideCollectionIterator, RoadsideCollectionConstIterator>
 {
 public:
-    RoadsideCollectionImpl::RoadsideCollectionImpl (DocumentImpl* pDocument);
+    RoadsideCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

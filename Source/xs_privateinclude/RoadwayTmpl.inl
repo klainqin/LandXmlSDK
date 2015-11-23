@@ -32,7 +32,7 @@ namespace LX
 
 
 template<class T>
-RoadwayTmpl<T>::RoadwayTmpl<T> (DocumentImpl* pDoc)
+RoadwayTmpl<T>::RoadwayTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Classification = createClassificationCollectionObject(pDoc);
@@ -65,7 +65,7 @@ RoadwayTmpl<T>::RoadwayTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RoadwayTmpl<T>::~RoadwayTmpl<T> ()
+RoadwayTmpl<T>::~RoadwayTmpl ()
 {
     if (m_Classification != NULL)
     {
@@ -350,10 +350,10 @@ void RoadwayTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

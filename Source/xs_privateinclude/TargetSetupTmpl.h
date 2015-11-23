@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    TargetSetupTmpl<T> (DocumentImpl* pDoc);
+    TargetSetupTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

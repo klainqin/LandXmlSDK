@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-OutSpiralTmpl<T>::OutSpiralTmpl<T> (DocumentImpl* pDoc)
+OutSpiralTmpl<T>::OutSpiralTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Spiral = NULL;
@@ -20,7 +20,7 @@ OutSpiralTmpl<T>::OutSpiralTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-OutSpiralTmpl<T>::~OutSpiralTmpl<T> ()
+OutSpiralTmpl<T>::~OutSpiralTmpl ()
 {
     if (m_Spiral != NULL)
     {

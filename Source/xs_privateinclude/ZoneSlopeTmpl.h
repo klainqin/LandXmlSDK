@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ZoneSlopeTmpl<T> (DocumentImpl* pDoc);
+    ZoneSlopeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

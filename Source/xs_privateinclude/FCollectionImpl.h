@@ -19,7 +19,7 @@ FCollection* createFCollectionObject (DocumentImpl* pDocument);
 class FCollectionImpl : public ObjListTmpl<F, FCollection, FCollectionIterator, FCollectionConstIterator>
 {
 public:
-    FCollectionImpl::FCollectionImpl (DocumentImpl* pDocument);
+    FCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

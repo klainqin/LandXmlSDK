@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-SurfacesTmpl<T>::SurfacesTmpl<T> (DocumentImpl* pDoc)
+SurfacesTmpl<T>::SurfacesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Surface = createSurfaceCollectionObject(pDoc);
@@ -32,7 +32,7 @@ SurfacesTmpl<T>::SurfacesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SurfacesTmpl<T>::~SurfacesTmpl<T> ()
+SurfacesTmpl<T>::~SurfacesTmpl ()
 {
     if (m_Surface != NULL)
     {
@@ -156,10 +156,10 @@ void SurfacesTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

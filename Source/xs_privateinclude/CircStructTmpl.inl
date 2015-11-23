@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-CircStructTmpl<T>::CircStructTmpl<T> (DocumentImpl* pDoc)
+CircStructTmpl<T>::CircStructTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -32,7 +32,7 @@ CircStructTmpl<T>::CircStructTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CircStructTmpl<T>::~CircStructTmpl<T> ()
+CircStructTmpl<T>::~CircStructTmpl ()
 {
     if (m_Feature != NULL)
     {

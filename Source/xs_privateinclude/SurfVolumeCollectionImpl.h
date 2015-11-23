@@ -19,7 +19,7 @@ SurfVolumeCollection* createSurfVolumeCollectionObject (DocumentImpl* pDocument)
 class SurfVolumeCollectionImpl : public NamedObjMultiMapTmpl<SurfVolume, SurfVolumeCollection, String, SurfVolumeCollectionIterator, SurfVolumeCollectionConstIterator>
 {
 public:
-    SurfVolumeCollectionImpl::SurfVolumeCollectionImpl (DocumentImpl* pDocument);
+    SurfVolumeCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

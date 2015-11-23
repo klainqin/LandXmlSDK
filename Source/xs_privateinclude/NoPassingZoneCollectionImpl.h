@@ -19,7 +19,7 @@ NoPassingZoneCollection* createNoPassingZoneCollectionObject (DocumentImpl* pDoc
 class NoPassingZoneCollectionImpl : public ObjListTmpl<NoPassingZone, NoPassingZoneCollection, NoPassingZoneCollectionIterator, NoPassingZoneCollectionConstIterator>
 {
 public:
-    NoPassingZoneCollectionImpl::NoPassingZoneCollectionImpl (DocumentImpl* pDocument);
+    NoPassingZoneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ ProfileCollection* createProfileCollectionObject (DocumentImpl* pDocument);
 class ProfileCollectionImpl : public NamedObjMultiMapTmpl<Profile, ProfileCollection, String, ProfileCollectionIterator, ProfileCollectionConstIterator>
 {
 public:
-    ProfileCollectionImpl::ProfileCollectionImpl (DocumentImpl* pDocument);
+    ProfileCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

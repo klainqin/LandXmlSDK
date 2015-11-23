@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-LocationAddressTmpl<T>::LocationAddressTmpl<T> (DocumentImpl* pDoc)
+LocationAddressTmpl<T>::LocationAddressTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_ComplexName = createComplexNameCollectionObject(pDoc);
@@ -47,7 +47,7 @@ LocationAddressTmpl<T>::LocationAddressTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-LocationAddressTmpl<T>::~LocationAddressTmpl<T> ()
+LocationAddressTmpl<T>::~LocationAddressTmpl ()
 {
     if (m_ComplexName != NULL)
     {

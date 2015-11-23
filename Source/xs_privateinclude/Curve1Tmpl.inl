@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-Curve1Tmpl<T>::Curve1Tmpl<T> (DocumentImpl* pDoc)
+Curve1Tmpl<T>::Curve1Tmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Curve = NULL;
@@ -20,7 +20,7 @@ Curve1Tmpl<T>::Curve1Tmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-Curve1Tmpl<T>::~Curve1Tmpl<T> ()
+Curve1Tmpl<T>::~Curve1Tmpl ()
 {
     if (m_Curve != NULL)
     {

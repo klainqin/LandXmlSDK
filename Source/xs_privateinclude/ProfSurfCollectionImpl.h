@@ -19,7 +19,7 @@ ProfSurfCollection* createProfSurfCollectionObject (DocumentImpl* pDocument);
 class ProfSurfCollectionImpl : public NamedObjMultiMapTmpl<ProfSurf, ProfSurfCollection, String, ProfSurfCollectionIterator, ProfSurfCollectionConstIterator>
 {
 public:
-    ProfSurfCollectionImpl::ProfSurfCollectionImpl (DocumentImpl* pDocument);
+    ProfSurfCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

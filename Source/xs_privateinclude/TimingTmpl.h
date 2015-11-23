@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    TimingTmpl<T> (DocumentImpl* pDoc);
+    TimingTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

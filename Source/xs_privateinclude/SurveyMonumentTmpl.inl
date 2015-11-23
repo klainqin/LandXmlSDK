@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-SurveyMonumentTmpl<T>::SurveyMonumentTmpl<T> (DocumentImpl* pDoc)
+SurveyMonumentTmpl<T>::SurveyMonumentTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -40,7 +40,7 @@ SurveyMonumentTmpl<T>::SurveyMonumentTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SurveyMonumentTmpl<T>::~SurveyMonumentTmpl<T> ()
+SurveyMonumentTmpl<T>::~SurveyMonumentTmpl ()
 {
     if (m_Feature != NULL)
     {
@@ -405,7 +405,7 @@ Monument* SurveyMonumentTmpl<T>::resolveMntRef ()
 {
     if (m_bMntRef_valueSet)
     {
-        MonumentCollectionIterator* pIter = m_pDoc->getGlobalObjects().getMonumentCollection().find(m_MntRef);
+        MonumentCollectionIterator* pIter = this->m_pDoc->getGlobalObjects().getMonumentCollection().find(m_MntRef);
         if (pIter)
         {
 	         Monument* pObject = pIter->current();
@@ -442,7 +442,7 @@ Object::ValidityEnum SurveyMonumentTmpl<T>::validate (IValidationEventSink* pEve
     }
     if (m_bMntRef_valueSet)
     {
-        MonumentCollectionIterator* pIter = m_pDoc->getGlobalObjects().getMonumentCollection().find(m_MntRef);
+        MonumentCollectionIterator* pIter = this->m_pDoc->getGlobalObjects().getMonumentCollection().find(m_MntRef);
         if (!pIter)
         {
             pEventSink->onEvent(IValidationEventSink::EventCode::kUnresolvableReference, this, L"MntRef", L"Reference not set");

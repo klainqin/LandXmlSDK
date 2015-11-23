@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ImperialTmpl<T>::ImperialTmpl<T> (DocumentImpl* pDoc)
+ImperialTmpl<T>::ImperialTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_AreaUnit = EnumImpArea::Values::k_null;
@@ -45,7 +45,7 @@ ImperialTmpl<T>::ImperialTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ImperialTmpl<T>::~ImperialTmpl<T> ()
+ImperialTmpl<T>::~ImperialTmpl ()
 {
 }
 

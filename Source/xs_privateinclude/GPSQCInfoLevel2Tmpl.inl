@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-GPSQCInfoLevel2Tmpl<T>::GPSQCInfoLevel2Tmpl<T> (DocumentImpl* pDoc)
+GPSQCInfoLevel2Tmpl<T>::GPSQCInfoLevel2Tmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_CovarianceXX = 0.0;
@@ -45,7 +45,7 @@ GPSQCInfoLevel2Tmpl<T>::GPSQCInfoLevel2Tmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-GPSQCInfoLevel2Tmpl<T>::~GPSQCInfoLevel2Tmpl<T> ()
+GPSQCInfoLevel2Tmpl<T>::~GPSQCInfoLevel2Tmpl ()
 {
 }
 

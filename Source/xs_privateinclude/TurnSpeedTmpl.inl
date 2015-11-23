@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-TurnSpeedTmpl<T>::TurnSpeedTmpl<T> (DocumentImpl* pDoc)
+TurnSpeedTmpl<T>::TurnSpeedTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -23,7 +23,7 @@ TurnSpeedTmpl<T>::TurnSpeedTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TurnSpeedTmpl<T>::~TurnSpeedTmpl<T> ()
+TurnSpeedTmpl<T>::~TurnSpeedTmpl ()
 {
 }
 

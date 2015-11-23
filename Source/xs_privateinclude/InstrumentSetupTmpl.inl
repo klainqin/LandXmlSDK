@@ -26,7 +26,7 @@ namespace LX
 
 
 template<class T>
-InstrumentSetupTmpl<T>::InstrumentSetupTmpl<T> (DocumentImpl* pDoc)
+InstrumentSetupTmpl<T>::InstrumentSetupTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_InstrumentPoint = NULL;
@@ -55,7 +55,7 @@ InstrumentSetupTmpl<T>::InstrumentSetupTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-InstrumentSetupTmpl<T>::~InstrumentSetupTmpl<T> ()
+InstrumentSetupTmpl<T>::~InstrumentSetupTmpl ()
 {
     if (m_InstrumentPoint != NULL)
     {

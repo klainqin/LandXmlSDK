@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    RedHorizontalPositionTmpl<T> (DocumentImpl* pDoc);
+    RedHorizontalPositionTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

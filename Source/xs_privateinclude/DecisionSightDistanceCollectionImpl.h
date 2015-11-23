@@ -19,7 +19,7 @@ DecisionSightDistanceCollection* createDecisionSightDistanceCollectionObject (Do
 class DecisionSightDistanceCollectionImpl : public ObjListTmpl<DecisionSightDistance, DecisionSightDistanceCollection, DecisionSightDistanceCollectionIterator, DecisionSightDistanceCollectionConstIterator>
 {
 public:
-    DecisionSightDistanceCollectionImpl::DecisionSightDistanceCollectionImpl (DocumentImpl* pDocument);
+    DecisionSightDistanceCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ObstructionOffsetTmpl<T>::ObstructionOffsetTmpl<T> (DocumentImpl* pDoc)
+ObstructionOffsetTmpl<T>::ObstructionOffsetTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ ObstructionOffsetTmpl<T>::ObstructionOffsetTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ObstructionOffsetTmpl<T>::~ObstructionOffsetTmpl<T> ()
+ObstructionOffsetTmpl<T>::~ObstructionOffsetTmpl ()
 {
 }
 

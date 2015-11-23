@@ -19,7 +19,7 @@ BikeFacilitiesCollection* createBikeFacilitiesCollectionObject (DocumentImpl* pD
 class BikeFacilitiesCollectionImpl : public ObjListTmpl<BikeFacilities, BikeFacilitiesCollection, BikeFacilitiesCollectionIterator, BikeFacilitiesCollectionConstIterator>
 {
 public:
-    BikeFacilitiesCollectionImpl::BikeFacilitiesCollectionImpl (DocumentImpl* pDocument);
+    BikeFacilitiesCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

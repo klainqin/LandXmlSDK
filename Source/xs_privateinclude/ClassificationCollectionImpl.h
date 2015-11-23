@@ -19,7 +19,7 @@ ClassificationCollection* createClassificationCollectionObject (DocumentImpl* pD
 class ClassificationCollectionImpl : public ObjListTmpl<Classification, ClassificationCollection, ClassificationCollectionIterator, ClassificationCollectionConstIterator>
 {
 public:
-    ClassificationCollectionImpl::ClassificationCollectionImpl (DocumentImpl* pDocument);
+    ClassificationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

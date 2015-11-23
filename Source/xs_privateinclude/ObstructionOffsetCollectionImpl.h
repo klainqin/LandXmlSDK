@@ -19,7 +19,7 @@ ObstructionOffsetCollection* createObstructionOffsetCollectionObject (DocumentIm
 class ObstructionOffsetCollectionImpl : public ObjListTmpl<ObstructionOffset, ObstructionOffsetCollection, ObstructionOffsetCollectionIterator, ObstructionOffsetCollectionConstIterator>
 {
 public:
-    ObstructionOffsetCollectionImpl::ObstructionOffsetCollectionImpl (DocumentImpl* pDocument);
+    ObstructionOffsetCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-FTmpl<T>::FTmpl<T> (DocumentImpl* pDoc)
+FTmpl<T>::FTmpl (DocumentImpl* pDoc)
     : IntegerCollectionTmpl<T>(pDoc)
 {
     m_I = 0;
@@ -22,7 +22,7 @@ FTmpl<T>::FTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-FTmpl<T>::~FTmpl<T> ()
+FTmpl<T>::~FTmpl ()
 {
     if (m_N != NULL)
     {
@@ -123,7 +123,7 @@ void FTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

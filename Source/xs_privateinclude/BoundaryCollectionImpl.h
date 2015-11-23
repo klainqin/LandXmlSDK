@@ -19,7 +19,7 @@ BoundaryCollection* createBoundaryCollectionObject (DocumentImpl* pDocument);
 class BoundaryCollectionImpl : public NamedObjMultiMapTmpl<Boundary, BoundaryCollection, String, BoundaryCollectionIterator, BoundaryCollectionConstIterator>
 {
 public:
-    BoundaryCollectionImpl::BoundaryCollectionImpl (DocumentImpl* pDocument);
+    BoundaryCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

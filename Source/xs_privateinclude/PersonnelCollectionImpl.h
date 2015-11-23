@@ -19,7 +19,7 @@ PersonnelCollection* createPersonnelCollectionObject (DocumentImpl* pDocument);
 class PersonnelCollectionImpl : public NamedObjMultiMapTmpl<Personnel, PersonnelCollection, String, PersonnelCollectionIterator, PersonnelCollectionConstIterator>
 {
 public:
-    PersonnelCollectionImpl::PersonnelCollectionImpl (DocumentImpl* pDocument);
+    PersonnelCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

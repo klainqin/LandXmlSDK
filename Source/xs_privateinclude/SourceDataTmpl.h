@@ -24,7 +24,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SourceDataTmpl<T> (DocumentImpl* pDoc);
+    SourceDataTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

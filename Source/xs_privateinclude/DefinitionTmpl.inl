@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-DefinitionTmpl<T>::DefinitionTmpl<T> (DocumentImpl* pDoc)
+DefinitionTmpl<T>::DefinitionTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Pnts = NULL;
@@ -36,7 +36,7 @@ DefinitionTmpl<T>::DefinitionTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-DefinitionTmpl<T>::~DefinitionTmpl<T> ()
+DefinitionTmpl<T>::~DefinitionTmpl ()
 {
     if (m_Pnts != NULL)
     {

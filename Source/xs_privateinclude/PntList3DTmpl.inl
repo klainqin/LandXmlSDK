@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-PntList3DTmpl<T>::PntList3DTmpl<T> (DocumentImpl* pDoc)
+PntList3DTmpl<T>::PntList3DTmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-PntList3DTmpl<T>::~PntList3DTmpl<T> ()
+PntList3DTmpl<T>::~PntList3DTmpl ()
 {
 }
 
@@ -31,7 +31,7 @@ void PntList3DTmpl<T>::toXml (IStream& stream)
     stream.write(L"<");
     stream.write(kstrElementName);
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    VolumeTmpl<T> (DocumentImpl* pDoc);
+    VolumeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BridgeElementTmpl<T> (DocumentImpl* pDoc);
+    BridgeElementTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

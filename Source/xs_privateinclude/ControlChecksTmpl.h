@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ControlChecksTmpl<T> (DocumentImpl* pDoc);
+    ControlChecksTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

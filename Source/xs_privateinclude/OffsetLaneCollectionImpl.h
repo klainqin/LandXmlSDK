@@ -19,7 +19,7 @@ OffsetLaneCollection* createOffsetLaneCollectionObject (DocumentImpl* pDocument)
 class OffsetLaneCollectionImpl : public ObjListTmpl<OffsetLane, OffsetLaneCollection, OffsetLaneCollectionIterator, OffsetLaneCollectionConstIterator>
 {
 public:
-    OffsetLaneCollectionImpl::OffsetLaneCollectionImpl (DocumentImpl* pDocument);
+    OffsetLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

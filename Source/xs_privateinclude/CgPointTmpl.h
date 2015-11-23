@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CgPointTmpl<T> (DocumentImpl* pDoc);
+    CgPointTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

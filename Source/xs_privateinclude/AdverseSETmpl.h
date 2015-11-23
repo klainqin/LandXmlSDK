@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    AdverseSETmpl<T> (DocumentImpl* pDoc);
+    AdverseSETmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

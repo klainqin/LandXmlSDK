@@ -21,7 +21,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ReducedArcObservationTmpl<T> (DocumentImpl* pDoc);
+    ReducedArcObservationTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    PointType3dReqTmpl<T> (DocumentImpl* pDoc);
+    PointType3dReqTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

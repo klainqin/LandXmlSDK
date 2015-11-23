@@ -19,7 +19,7 @@ ZoneCollection* createZoneCollectionObject (DocumentImpl* pDocument);
 class ZoneCollectionImpl : public NamedObjMultiMapTmpl<Zone, ZoneCollection, String, ZoneCollectionIterator, ZoneCollectionConstIterator>
 {
 public:
-    ZoneCollectionImpl::ZoneCollectionImpl (DocumentImpl* pDocument);
+    ZoneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ HazardRatingCollection* createHazardRatingCollectionObject (DocumentImpl* pDocum
 class HazardRatingCollectionImpl : public ObjListTmpl<HazardRating, HazardRatingCollection, HazardRatingCollectionIterator, HazardRatingCollectionConstIterator>
 {
 public:
-    HazardRatingCollectionImpl::HazardRatingCollectionImpl (DocumentImpl* pDocument);
+    HazardRatingCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

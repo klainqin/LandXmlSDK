@@ -16,7 +16,7 @@ namespace LX
 
 
 template<class T>
-BreaklinesTmpl<T>::BreaklinesTmpl<T> (DocumentImpl* pDoc)
+BreaklinesTmpl<T>::BreaklinesTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Breakline = createBreaklineCollectionObject(pDoc);
@@ -26,7 +26,7 @@ BreaklinesTmpl<T>::BreaklinesTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-BreaklinesTmpl<T>::~BreaklinesTmpl<T> ()
+BreaklinesTmpl<T>::~BreaklinesTmpl ()
 {
     if (m_Breakline != NULL)
     {

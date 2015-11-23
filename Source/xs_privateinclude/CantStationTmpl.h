@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CantStationTmpl<T> (DocumentImpl* pDoc);
+    CantStationTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

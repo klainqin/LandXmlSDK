@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    GPSAntennaDetailsTmpl<T> (DocumentImpl* pDoc);
+    GPSAntennaDetailsTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

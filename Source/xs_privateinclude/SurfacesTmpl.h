@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SurfacesTmpl<T> (DocumentImpl* pDoc);
+    SurfacesTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

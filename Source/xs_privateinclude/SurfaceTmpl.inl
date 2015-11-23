@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-SurfaceTmpl<T>::SurfaceTmpl<T> (DocumentImpl* pDoc)
+SurfaceTmpl<T>::SurfaceTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_SourceData = NULL;
@@ -37,7 +37,7 @@ SurfaceTmpl<T>::SurfaceTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SurfaceTmpl<T>::~SurfaceTmpl<T> ()
+SurfaceTmpl<T>::~SurfaceTmpl ()
 {
     if (m_SourceData != NULL)
     {
@@ -152,10 +152,10 @@ void SurfaceTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

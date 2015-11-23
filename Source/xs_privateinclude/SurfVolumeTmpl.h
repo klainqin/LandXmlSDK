@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    SurfVolumeTmpl<T> (DocumentImpl* pDoc);
+    SurfVolumeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

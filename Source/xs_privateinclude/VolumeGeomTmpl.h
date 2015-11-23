@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    VolumeGeomTmpl<T> (DocumentImpl* pDoc);
+    VolumeGeomTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

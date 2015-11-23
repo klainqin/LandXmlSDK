@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    DesignCrossSectSurfTmpl<T> (DocumentImpl* pDoc);
+    DesignCrossSectSurfTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -19,7 +19,7 @@ TimingCollection* createTimingCollectionObject (DocumentImpl* pDocument);
 class TimingCollectionImpl : public ObjListTmpl<Timing, TimingCollection, TimingCollectionIterator, TimingCollectionConstIterator>
 {
 public:
-    TimingCollectionImpl::TimingCollectionImpl (DocumentImpl* pDocument);
+    TimingCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

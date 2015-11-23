@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-AdministrativeAreaTmpl<T>::AdministrativeAreaTmpl<T> (DocumentImpl* pDoc)
+AdministrativeAreaTmpl<T>::AdministrativeAreaTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_AdminAreaType = L"";
@@ -24,7 +24,7 @@ AdministrativeAreaTmpl<T>::AdministrativeAreaTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-AdministrativeAreaTmpl<T>::~AdministrativeAreaTmpl<T> ()
+AdministrativeAreaTmpl<T>::~AdministrativeAreaTmpl ()
 {
     if (m_PclRef != NULL)
     {

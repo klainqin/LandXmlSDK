@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BacksightTmpl<T> (DocumentImpl* pDoc);
+    BacksightTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

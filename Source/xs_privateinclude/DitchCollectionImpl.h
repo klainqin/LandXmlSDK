@@ -19,7 +19,7 @@ DitchCollection* createDitchCollectionObject (DocumentImpl* pDocument);
 class DitchCollectionImpl : public ObjListTmpl<Ditch, DitchCollection, DitchCollectionIterator, DitchCollectionConstIterator>
 {
 public:
-    DitchCollectionImpl::DitchCollectionImpl (DocumentImpl* pDocument);
+    DitchCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ SurveyCollection* createSurveyCollectionObject (DocumentImpl* pDocument);
 class SurveyCollectionImpl : public ObjListTmpl<Survey, SurveyCollection, SurveyCollectionIterator, SurveyCollectionConstIterator>
 {
 public:
-    SurveyCollectionImpl::SurveyCollectionImpl (DocumentImpl* pDocument);
+    SurveyCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

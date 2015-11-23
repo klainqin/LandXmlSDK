@@ -19,7 +19,7 @@ CrossSectPntCollection* createCrossSectPntCollectionObject (DocumentImpl* pDocum
 class CrossSectPntCollectionImpl : public NamedObjMultiMapTmpl<CrossSectPnt, CrossSectPntCollection, String, CrossSectPntCollectionIterator, CrossSectPntCollectionConstIterator>
 {
 public:
-    CrossSectPntCollectionImpl::CrossSectPntCollectionImpl (DocumentImpl* pDocument);
+    CrossSectPntCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

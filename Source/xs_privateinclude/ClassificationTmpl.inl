@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ClassificationTmpl<T>::ClassificationTmpl<T> (DocumentImpl* pDoc)
+ClassificationTmpl<T>::ClassificationTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -26,7 +26,7 @@ ClassificationTmpl<T>::ClassificationTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ClassificationTmpl<T>::~ClassificationTmpl<T> ()
+ClassificationTmpl<T>::~ClassificationTmpl ()
 {
     if (m_Feature != NULL)
     {

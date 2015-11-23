@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-TrafficControlTmpl<T>::TrafficControlTmpl<T> (DocumentImpl* pDoc)
+TrafficControlTmpl<T>::TrafficControlTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Station = 0.0;
@@ -25,7 +25,7 @@ TrafficControlTmpl<T>::TrafficControlTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-TrafficControlTmpl<T>::~TrafficControlTmpl<T> ()
+TrafficControlTmpl<T>::~TrafficControlTmpl ()
 {
 }
 

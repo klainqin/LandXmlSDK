@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    FacesTmpl<T> (DocumentImpl* pDoc);
+    FacesTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

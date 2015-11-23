@@ -19,7 +19,7 @@ FeatureDictionaryCollection* createFeatureDictionaryCollectionObject (DocumentIm
 class FeatureDictionaryCollectionImpl : public NamedObjMultiMapTmpl<FeatureDictionary, FeatureDictionaryCollection, String, FeatureDictionaryCollectionIterator, FeatureDictionaryCollectionConstIterator>
 {
 public:
-    FeatureDictionaryCollectionImpl::FeatureDictionaryCollectionImpl (DocumentImpl* pDocument);
+    FeatureDictionaryCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

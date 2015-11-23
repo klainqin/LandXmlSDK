@@ -28,7 +28,7 @@ namespace LX
 
 
 template<class T>
-SuperelevationTmpl<T>::SuperelevationTmpl<T> (DocumentImpl* pDoc)
+SuperelevationTmpl<T>::SuperelevationTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_BeginRunoutSta = createBeginRunoutStaCollectionObject(pDoc);
@@ -48,7 +48,7 @@ SuperelevationTmpl<T>::SuperelevationTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SuperelevationTmpl<T>::~SuperelevationTmpl<T> ()
+SuperelevationTmpl<T>::~SuperelevationTmpl ()
 {
     if (m_BeginRunoutSta != NULL)
     {

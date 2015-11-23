@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-SpeedsTmpl<T>::SpeedsTmpl<T> (DocumentImpl* pDoc)
+SpeedsTmpl<T>::SpeedsTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_DesignSpeed = createDesignSpeedCollectionObject(pDoc);
@@ -29,7 +29,7 @@ SpeedsTmpl<T>::SpeedsTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-SpeedsTmpl<T>::~SpeedsTmpl<T> ()
+SpeedsTmpl<T>::~SpeedsTmpl ()
 {
     if (m_DesignSpeed != NULL)
     {

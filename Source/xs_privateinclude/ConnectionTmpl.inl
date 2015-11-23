@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ConnectionTmpl<T>::ConnectionTmpl<T> (DocumentImpl* pDoc)
+ConnectionTmpl<T>::ConnectionTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -20,7 +20,7 @@ ConnectionTmpl<T>::ConnectionTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ConnectionTmpl<T>::~ConnectionTmpl<T> ()
+ConnectionTmpl<T>::~ConnectionTmpl ()
 {
     if (m_Feature != NULL)
     {

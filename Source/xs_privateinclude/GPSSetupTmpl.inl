@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-GPSSetupTmpl<T>::GPSSetupTmpl<T> (DocumentImpl* pDoc)
+GPSSetupTmpl<T>::GPSSetupTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_GPSPosition = NULL;
@@ -47,7 +47,7 @@ GPSSetupTmpl<T>::GPSSetupTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-GPSSetupTmpl<T>::~GPSSetupTmpl<T> ()
+GPSSetupTmpl<T>::~GPSSetupTmpl ()
 {
     if (m_GPSPosition != NULL)
     {

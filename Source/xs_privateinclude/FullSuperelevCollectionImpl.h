@@ -19,7 +19,7 @@ FullSuperelevCollection* createFullSuperelevCollectionObject (DocumentImpl* pDoc
 class FullSuperelevCollectionImpl : public ObjListTmpl<FullSuperelev, FullSuperelevCollection, FullSuperelevCollectionIterator, FullSuperelevCollectionConstIterator>
 {
 public:
-    FullSuperelevCollectionImpl::FullSuperelevCollectionImpl (DocumentImpl* pDocument);
+    FullSuperelevCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

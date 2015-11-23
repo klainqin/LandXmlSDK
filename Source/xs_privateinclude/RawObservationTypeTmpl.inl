@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-RawObservationTypeTmpl<T>::RawObservationTypeTmpl<T> (DocumentImpl* pDoc)
+RawObservationTypeTmpl<T>::RawObservationTypeTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_TargetPoint = NULL;
@@ -74,7 +74,7 @@ RawObservationTypeTmpl<T>::RawObservationTypeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RawObservationTypeTmpl<T>::~RawObservationTypeTmpl<T> ()
+RawObservationTypeTmpl<T>::~RawObservationTypeTmpl ()
 {
     if (m_TargetPoint != NULL)
     {

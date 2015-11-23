@@ -11,14 +11,14 @@ namespace LX
 
 
 template<class T>
-BacksightPointTmpl<T>::BacksightPointTmpl<T> (DocumentImpl* pDoc)
+BacksightPointTmpl<T>::BacksightPointTmpl (DocumentImpl* pDoc)
     : PointTypeTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-BacksightPointTmpl<T>::~BacksightPointTmpl<T> ()
+BacksightPointTmpl<T>::~BacksightPointTmpl ()
 {
 }
 
@@ -170,7 +170,7 @@ void BacksightPointTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

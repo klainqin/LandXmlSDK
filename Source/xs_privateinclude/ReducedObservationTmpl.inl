@@ -18,7 +18,7 @@ namespace LX
 
 
 template<class T>
-ReducedObservationTmpl<T>::ReducedObservationTmpl<T> (DocumentImpl* pDoc)
+ReducedObservationTmpl<T>::ReducedObservationTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_TargetPoint = NULL;
@@ -104,7 +104,7 @@ ReducedObservationTmpl<T>::ReducedObservationTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ReducedObservationTmpl<T>::~ReducedObservationTmpl<T> ()
+ReducedObservationTmpl<T>::~ReducedObservationTmpl ()
 {
     if (m_TargetPoint != NULL)
     {
@@ -964,10 +964,10 @@ void ReducedObservationTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

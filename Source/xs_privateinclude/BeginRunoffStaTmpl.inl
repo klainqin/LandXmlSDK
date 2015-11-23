@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-BeginRunoffStaTmpl<T>::BeginRunoffStaTmpl<T> (DocumentImpl* pDoc)
+BeginRunoffStaTmpl<T>::BeginRunoffStaTmpl (DocumentImpl* pDoc)
     : DoubleObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-BeginRunoffStaTmpl<T>::~BeginRunoffStaTmpl<T> ()
+BeginRunoffStaTmpl<T>::~BeginRunoffStaTmpl ()
 {
 }
 
@@ -31,7 +31,7 @@ void BeginRunoffStaTmpl<T>::toXml (IStream& stream)
     stream.write(L"<");
     stream.write(kstrElementName);
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

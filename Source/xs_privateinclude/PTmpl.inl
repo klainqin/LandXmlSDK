@@ -11,7 +11,7 @@ namespace LX
 
 
 template<class T>
-PTmpl<T>::PTmpl<T> (DocumentImpl* pDoc)
+PTmpl<T>::PTmpl (DocumentImpl* pDoc)
     : PointTypeTmpl<T>(pDoc)
 {
     m_Id = 0;
@@ -20,7 +20,7 @@ PTmpl<T>::PTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PTmpl<T>::~PTmpl<T> ()
+PTmpl<T>::~PTmpl ()
 {
 }
 
@@ -204,7 +204,7 @@ void PTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

@@ -19,7 +19,7 @@ LanesCollection* createLanesCollectionObject (DocumentImpl* pDocument);
 class LanesCollectionImpl : public ObjListTmpl<Lanes, LanesCollection, LanesCollectionIterator, LanesCollectionConstIterator>
 {
 public:
-    LanesCollectionImpl::LanesCollectionImpl (DocumentImpl* pDocument);
+    LanesCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

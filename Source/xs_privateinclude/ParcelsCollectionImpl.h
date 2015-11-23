@@ -19,7 +19,7 @@ ParcelsCollection* createParcelsCollectionObject (DocumentImpl* pDocument);
 class ParcelsCollectionImpl : public NamedObjMultiMapTmpl<Parcels, ParcelsCollection, String, ParcelsCollectionIterator, ParcelsCollectionConstIterator>
 {
 public:
-    ParcelsCollectionImpl::ParcelsCollectionImpl (DocumentImpl* pDocument);
+    ParcelsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

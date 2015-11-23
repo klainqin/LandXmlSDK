@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-CrashHistoryTmpl<T>::CrashHistoryTmpl<T> (DocumentImpl* pDoc)
+CrashHistoryTmpl<T>::CrashHistoryTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Year = L"";
@@ -29,7 +29,7 @@ CrashHistoryTmpl<T>::CrashHistoryTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-CrashHistoryTmpl<T>::~CrashHistoryTmpl<T> ()
+CrashHistoryTmpl<T>::~CrashHistoryTmpl ()
 {
 }
 

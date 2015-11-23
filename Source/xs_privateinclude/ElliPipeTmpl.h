@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ElliPipeTmpl<T> (DocumentImpl* pDoc);
+    ElliPipeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -19,7 +19,7 @@ BridgeElementCollection* createBridgeElementCollectionObject (DocumentImpl* pDoc
 class BridgeElementCollectionImpl : public ObjListTmpl<BridgeElement, BridgeElementCollection, BridgeElementCollectionIterator, BridgeElementCollectionConstIterator>
 {
 public:
-    BridgeElementCollectionImpl::BridgeElementCollectionImpl (DocumentImpl* pDocument);
+    BridgeElementCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

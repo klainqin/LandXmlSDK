@@ -42,7 +42,7 @@ namespace LX
 
 
 template<class T>
-LandXMLTmpl<T>::LandXMLTmpl<T> (DocumentImpl* pDoc)
+LandXMLTmpl<T>::LandXMLTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Units = NULL;
@@ -80,7 +80,7 @@ LandXMLTmpl<T>::LandXMLTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-LandXMLTmpl<T>::~LandXMLTmpl<T> ()
+LandXMLTmpl<T>::~LandXMLTmpl ()
 {
     if (m_Units != NULL)
     {

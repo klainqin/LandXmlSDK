@@ -14,7 +14,7 @@ namespace LX
 
 
 template<class T>
-RetWallTmpl<T>::RetWallTmpl<T> (DocumentImpl* pDoc)
+RetWallTmpl<T>::RetWallTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_RetWallPnt = createRetWallPntCollectionObject(pDoc);
@@ -29,7 +29,7 @@ RetWallTmpl<T>::RetWallTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RetWallTmpl<T>::~RetWallTmpl<T> ()
+RetWallTmpl<T>::~RetWallTmpl ()
 {
     if (m_RetWallPnt != NULL)
     {
@@ -136,10 +136,10 @@ void RetWallTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try

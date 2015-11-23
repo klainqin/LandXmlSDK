@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    BeginRunoutStaTmpl<T> (DocumentImpl* pDoc);
+    BeginRunoutStaTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -19,7 +19,7 @@ LocationAddressCollection* createLocationAddressCollectionObject (DocumentImpl* 
 class LocationAddressCollectionImpl : public ObjListTmpl<LocationAddress, LocationAddressCollection, LocationAddressCollectionIterator, LocationAddressCollectionConstIterator>
 {
 public:
-    LocationAddressCollectionImpl::LocationAddressCollectionImpl (DocumentImpl* pDocument);
+    LocationAddressCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

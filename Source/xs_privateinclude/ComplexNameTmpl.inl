@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ComplexNameTmpl<T>::ComplexNameTmpl<T> (DocumentImpl* pDoc)
+ComplexNameTmpl<T>::ComplexNameTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Desc = L"";
@@ -21,7 +21,7 @@ ComplexNameTmpl<T>::ComplexNameTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ComplexNameTmpl<T>::~ComplexNameTmpl<T> ()
+ComplexNameTmpl<T>::~ComplexNameTmpl ()
 {
 }
 

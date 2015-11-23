@@ -20,7 +20,7 @@ template<class T_Obj, class T_Base, class T_Id, class T_Iterator, class T_ConstI
 void GlobalObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::itemPreAdd (
     T_Obj* pObject)   
 {
-    ICollectable* pCollectable = castObjectToICollectable(pObject);
+    ICollectable* pCollectable = this->castObjectToICollectable(pObject);
 
     // First check to make sure the item is not already in a collection.
     if (pCollectable->getContainingCollectionLocation())
@@ -30,7 +30,7 @@ void GlobalObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::itemPre
 
     // Next make sure the id is not being used in the global collection.
     // Check for a id.
-    const T_Id* pId = getObjectId(pObject);
+    const T_Id* pId = this->getObjectId(pObject);
 
     // Make sure we have an id and the Object Id has a value.
     // If we have id and since this object has global visibility by definition, we need to make
@@ -55,7 +55,7 @@ void GlobalObjMapTmpl<T_Obj, T_Base, T_Id, T_Iterator, T_ConstIterator>::itemAdd
     NamedCollectionLocation* pLocalLocation = NULL;
     T_Iterator* pGlobalIter = NULL;
     GlobalCollectionLocation* pLocation = NULL;
-    ICollectable* pCollectable = castObjectToICollectable(pXref->m_pObject);
+    ICollectable* pCollectable = this->castObjectToICollectable(pXref->m_pObject);
 
     // Add the item to the Global collection
     pGlobalIter = getObjectsGlobalCollection(pCollectable)->addItemReturnIterator(pXref->m_pObject);

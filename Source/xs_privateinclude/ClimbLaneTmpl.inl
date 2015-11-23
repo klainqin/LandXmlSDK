@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ClimbLaneTmpl<T>::ClimbLaneTmpl<T> (DocumentImpl* pDoc)
+ClimbLaneTmpl<T>::ClimbLaneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -29,7 +29,7 @@ ClimbLaneTmpl<T>::ClimbLaneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ClimbLaneTmpl<T>::~ClimbLaneTmpl<T> ()
+ClimbLaneTmpl<T>::~ClimbLaneTmpl ()
 {
 }
 

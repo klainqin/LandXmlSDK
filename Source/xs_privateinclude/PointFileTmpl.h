@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    PointFileTmpl<T> (DocumentImpl* pDoc);
+    PointFileTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

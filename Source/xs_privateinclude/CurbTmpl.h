@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    CurbTmpl<T> (DocumentImpl* pDoc);
+    CurbTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

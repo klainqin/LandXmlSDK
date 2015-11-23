@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-PeakHourTmpl<T>::PeakHourTmpl<T> (DocumentImpl* pDoc)
+PeakHourTmpl<T>::PeakHourTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -28,7 +28,7 @@ PeakHourTmpl<T>::PeakHourTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PeakHourTmpl<T>::~PeakHourTmpl<T> ()
+PeakHourTmpl<T>::~PeakHourTmpl ()
 {
     if (m_Feature != NULL)
     {

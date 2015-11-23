@@ -19,7 +19,7 @@ ThruLaneCollection* createThruLaneCollectionObject (DocumentImpl* pDocument);
 class ThruLaneCollectionImpl : public ObjListTmpl<ThruLane, ThruLaneCollection, ThruLaneCollectionIterator, ThruLaneCollectionConstIterator>
 {
 public:
-    ThruLaneCollectionImpl::ThruLaneCollectionImpl (DocumentImpl* pDocument);
+    ThruLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    RetWallTmpl<T> (DocumentImpl* pDoc);
+    RetWallTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

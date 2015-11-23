@@ -19,7 +19,7 @@ MonumentsCollection* createMonumentsCollectionObject (DocumentImpl* pDocument);
 class MonumentsCollectionImpl : public NamedObjMultiMapTmpl<Monuments, MonumentsCollection, String, MonumentsCollectionIterator, MonumentsCollectionConstIterator>
 {
 public:
-    MonumentsCollectionImpl::MonumentsCollectionImpl (DocumentImpl* pDocument);
+    MonumentsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

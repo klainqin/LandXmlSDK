@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ZoneMaterialTmpl<T> (DocumentImpl* pDoc);
+    ZoneMaterialTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

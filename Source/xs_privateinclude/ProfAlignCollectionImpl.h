@@ -19,7 +19,7 @@ ProfAlignCollection* createProfAlignCollectionObject (DocumentImpl* pDocument);
 class ProfAlignCollectionImpl : public NamedObjMultiMapTmpl<ProfAlign, ProfAlignCollection, String, ProfAlignCollectionIterator, ProfAlignCollectionConstIterator>
 {
 public:
-    ProfAlignCollectionImpl::ProfAlignCollectionImpl (DocumentImpl* pDocument);
+    ProfAlignCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

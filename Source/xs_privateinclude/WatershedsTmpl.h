@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    WatershedsTmpl<T> (DocumentImpl* pDoc);
+    WatershedsTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

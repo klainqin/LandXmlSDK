@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-ThruLaneTmpl<T>::ThruLaneTmpl<T> (DocumentImpl* pDoc)
+ThruLaneTmpl<T>::ThruLaneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -28,7 +28,7 @@ ThruLaneTmpl<T>::ThruLaneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ThruLaneTmpl<T>::~ThruLaneTmpl<T> ()
+ThruLaneTmpl<T>::~ThruLaneTmpl ()
 {
     if (m_Feature != NULL)
     {

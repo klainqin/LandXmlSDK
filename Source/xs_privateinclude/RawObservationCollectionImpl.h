@@ -19,7 +19,7 @@ RawObservationCollection* createRawObservationCollectionObject (DocumentImpl* pD
 class RawObservationCollectionImpl : public ObjListTmpl<RawObservation, RawObservationCollection, RawObservationCollectionIterator, RawObservationCollectionConstIterator>
 {
 public:
-    RawObservationCollectionImpl::RawObservationCollectionImpl (DocumentImpl* pDocument);
+    RawObservationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-FieldNoteTmpl<T>::FieldNoteTmpl<T> (DocumentImpl* pDoc)
+FieldNoteTmpl<T>::FieldNoteTmpl (DocumentImpl* pDoc)
     : StringObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-FieldNoteTmpl<T>::~FieldNoteTmpl<T> ()
+FieldNoteTmpl<T>::~FieldNoteTmpl ()
 {
 }
 
@@ -31,7 +31,7 @@ void FieldNoteTmpl<T>::toXml (IStream& stream)
     stream.write(L"<");
     stream.write(kstrElementName);
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

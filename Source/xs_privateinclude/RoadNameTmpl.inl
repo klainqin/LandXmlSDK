@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-RoadNameTmpl<T>::RoadNameTmpl<T> (DocumentImpl* pDoc)
+RoadNameTmpl<T>::RoadNameTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_RoadNameType = L"";
@@ -26,7 +26,7 @@ RoadNameTmpl<T>::RoadNameTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RoadNameTmpl<T>::~RoadNameTmpl<T> ()
+RoadNameTmpl<T>::~RoadNameTmpl ()
 {
     if (m_PclRef != NULL)
     {

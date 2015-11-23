@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-ParaCurveTmpl<T>::ParaCurveTmpl<T> (DocumentImpl* pDoc)
+ParaCurveTmpl<T>::ParaCurveTmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
     m_Length = 0.0;
@@ -21,7 +21,7 @@ ParaCurveTmpl<T>::ParaCurveTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-ParaCurveTmpl<T>::~ParaCurveTmpl<T> ()
+ParaCurveTmpl<T>::~ParaCurveTmpl ()
 {
 }
 
@@ -99,7 +99,7 @@ void ParaCurveTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

@@ -19,7 +19,7 @@ RoadwaysCollection* createRoadwaysCollectionObject (DocumentImpl* pDocument);
 class RoadwaysCollectionImpl : public NamedObjMultiMapTmpl<Roadways, RoadwaysCollection, String, RoadwaysCollectionIterator, RoadwaysCollectionConstIterator>
 {
 public:
-    RoadwaysCollectionImpl::RoadwaysCollectionImpl (DocumentImpl* pDocument);
+    RoadwaysCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

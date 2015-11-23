@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ZoneCutFillTmpl<T> (DocumentImpl* pDoc);
+    ZoneCutFillTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

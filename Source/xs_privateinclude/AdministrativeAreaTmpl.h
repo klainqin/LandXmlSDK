@@ -17,7 +17,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    AdministrativeAreaTmpl<T> (DocumentImpl* pDoc);
+    AdministrativeAreaTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

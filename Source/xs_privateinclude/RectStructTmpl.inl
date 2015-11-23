@@ -12,7 +12,7 @@ namespace LX
 
 
 template<class T>
-RectStructTmpl<T>::RectStructTmpl<T> (DocumentImpl* pDoc)
+RectStructTmpl<T>::RectStructTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_Feature = createFeatureCollectionObject(pDoc);
@@ -36,7 +36,7 @@ RectStructTmpl<T>::RectStructTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-RectStructTmpl<T>::~RectStructTmpl<T> ()
+RectStructTmpl<T>::~RectStructTmpl ()
 {
     if (m_Feature != NULL)
     {

@@ -20,7 +20,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    RoadwaysTmpl<T> (DocumentImpl* pDoc);
+    RoadwaysTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

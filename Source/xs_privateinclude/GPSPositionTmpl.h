@@ -22,7 +22,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    GPSPositionTmpl<T> (DocumentImpl* pDoc);
+    GPSPositionTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

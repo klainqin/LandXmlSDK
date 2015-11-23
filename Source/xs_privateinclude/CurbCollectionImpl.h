@@ -19,7 +19,7 @@ CurbCollection* createCurbCollectionObject (DocumentImpl* pDocument);
 class CurbCollectionImpl : public ObjListTmpl<Curb, CurbCollection, CurbCollectionIterator, CurbCollectionConstIterator>
 {
 public:
-    CurbCollectionImpl::CurbCollectionImpl (DocumentImpl* pDocument);
+    CurbCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

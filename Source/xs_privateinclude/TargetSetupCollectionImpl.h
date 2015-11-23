@@ -19,7 +19,7 @@ TargetSetupCollection* createTargetSetupCollectionObject (DocumentImpl* pDocumen
 class TargetSetupCollectionImpl : public ObjListTmpl<TargetSetup, TargetSetupCollection, TargetSetupCollectionIterator, TargetSetupCollectionConstIterator>
 {
 public:
-    TargetSetupCollectionImpl::TargetSetupCollectionImpl (DocumentImpl* pDocument);
+    TargetSetupCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

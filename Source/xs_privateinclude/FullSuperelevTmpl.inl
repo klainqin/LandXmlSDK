@@ -10,14 +10,14 @@ namespace LX
 
 
 template<class T>
-FullSuperelevTmpl<T>::FullSuperelevTmpl<T> (DocumentImpl* pDoc)
+FullSuperelevTmpl<T>::FullSuperelevTmpl (DocumentImpl* pDoc)
     : DoubleObjectTmpl<T>(pDoc)
 {
 }
 
 
 template<class T>
-FullSuperelevTmpl<T>::~FullSuperelevTmpl<T> ()
+FullSuperelevTmpl<T>::~FullSuperelevTmpl ()
 {
 }
 
@@ -31,7 +31,7 @@ void FullSuperelevTmpl<T>::toXml (IStream& stream)
     stream.write(L"<");
     stream.write(kstrElementName);
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
     stream.write(L"</");
     stream.write(kstrElementName);
     stream.write(L">");

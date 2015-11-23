@@ -19,7 +19,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    ParcelsTmpl<T> (DocumentImpl* pDoc);
+    ParcelsTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

@@ -18,7 +18,7 @@ public:
 	virtual void toXml (IStream& stream);
 public:
 	// Constructors
-    EggPipeTmpl<T> (DocumentImpl* pDoc);
+    EggPipeTmpl (DocumentImpl* pDoc);
 
 public:
 	// Destructors

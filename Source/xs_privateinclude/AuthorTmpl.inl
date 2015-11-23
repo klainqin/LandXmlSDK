@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-AuthorTmpl<T>::AuthorTmpl<T> (DocumentImpl* pDoc)
+AuthorTmpl<T>::AuthorTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_CreatedBy = L"";
@@ -27,7 +27,7 @@ AuthorTmpl<T>::AuthorTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-AuthorTmpl<T>::~AuthorTmpl<T> ()
+AuthorTmpl<T>::~AuthorTmpl ()
 {
 }
 

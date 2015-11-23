@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-PointTypeTmpl<T>::PointTypeTmpl<T> (DocumentImpl* pDoc)
+PointTypeTmpl<T>::PointTypeTmpl (DocumentImpl* pDoc)
     : DoubleCollectionTmpl<T>(pDoc)
 {
     m_Name = L"";
@@ -53,7 +53,7 @@ PointTypeTmpl<T>::PointTypeTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-PointTypeTmpl<T>::~PointTypeTmpl<T> ()
+PointTypeTmpl<T>::~PointTypeTmpl ()
 {
 }
 
@@ -100,10 +100,10 @@ void PointTypeTmpl<T>::setName(String value)
 {
     String oldValue = m_Name;
     m_Name = value;
-    if (m_pCollectionLocation)
+    if (this->m_pCollectionLocation)
     {
         // We are in a collection. Now check to make sure we are in a named collection.
-        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(m_pCollectionLocation);
+        NamedCollectionLocation* pNamedCollLoc = dynamic_cast<NamedCollectionLocation*>(this->m_pCollectionLocation);
         if (pNamedCollLoc)
         {
             try
@@ -694,7 +694,7 @@ void PointTypeTmpl<T>::toXml (IStream& stream)
         stream.write(L"\"");
     }
     stream.write(L">");
-    toStream(stream);
+    this->toStream(stream);
 }
 
 template <class T>

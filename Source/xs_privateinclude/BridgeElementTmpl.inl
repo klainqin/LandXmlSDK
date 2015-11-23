@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-BridgeElementTmpl<T>::BridgeElementTmpl<T> (DocumentImpl* pDoc)
+BridgeElementTmpl<T>::BridgeElementTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -25,7 +25,7 @@ BridgeElementTmpl<T>::BridgeElementTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-BridgeElementTmpl<T>::~BridgeElementTmpl<T> ()
+BridgeElementTmpl<T>::~BridgeElementTmpl ()
 {
 }
 

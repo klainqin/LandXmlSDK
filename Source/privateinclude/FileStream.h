@@ -32,7 +32,8 @@ public:
 		const wchar_t* strValue);
 
 private:
-	HANDLE m_hFile;
+    // TODO: use fopen() to replace the file operation. 
+	//HANDLE m_hFile;
 };
 };
 

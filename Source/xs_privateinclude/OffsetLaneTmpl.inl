@@ -10,7 +10,7 @@ namespace LX
 
 
 template<class T>
-OffsetLaneTmpl<T>::OffsetLaneTmpl<T> (DocumentImpl* pDoc)
+OffsetLaneTmpl<T>::OffsetLaneTmpl (DocumentImpl* pDoc)
     : ObjectTmpl<T>(pDoc)
 {
     m_StaStart = 0.0;
@@ -31,7 +31,7 @@ OffsetLaneTmpl<T>::OffsetLaneTmpl<T> (DocumentImpl* pDoc)
 
 
 template<class T>
-OffsetLaneTmpl<T>::~OffsetLaneTmpl<T> ()
+OffsetLaneTmpl<T>::~OffsetLaneTmpl ()
 {
 }
 

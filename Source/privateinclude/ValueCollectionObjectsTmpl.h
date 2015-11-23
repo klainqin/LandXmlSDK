@@ -15,9 +15,9 @@ class TypeName : public IndexedListValueCollectionTmpl<ItemType, T, ItemTypeObje
 public: \
     typedef TypeName<T>* Type; \
 \
-    TypeName<T> (); \
-    TypeName<T> (DocumentImpl* m_pDoc); \
-	TypeName<T> (const TypeName<T>& value); \
+    TypeName (); \
+    TypeName (DocumentImpl* pDoc); \
+	TypeName (const TypeName<T>& value); \
     Object::ValidityEnum validate (IValidationEventSink* pEventSink) const; \
 };
 

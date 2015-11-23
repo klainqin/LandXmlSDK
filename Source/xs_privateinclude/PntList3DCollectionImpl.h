@@ -19,7 +19,7 @@ PntList3DCollection* createPntList3DCollectionObject (DocumentImpl* pDocument);
 class PntList3DCollectionImpl : public ObjListTmpl<PntList3D, PntList3DCollection, PntList3DCollectionIterator, PntList3DCollectionConstIterator>
 {
 public:
-    PntList3DCollectionImpl::PntList3DCollectionImpl (DocumentImpl* pDocument);
+    PntList3DCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX
