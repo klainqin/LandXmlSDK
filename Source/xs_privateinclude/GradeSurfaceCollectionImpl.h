@@ -19,7 +19,7 @@ GradeSurfaceCollection* createGradeSurfaceCollectionObject (DocumentImpl* pDocum
 class GradeSurfaceCollectionImpl : public NamedObjMultiMapTmpl<GradeSurface, GradeSurfaceCollection, String, GradeSurfaceCollectionIterator, GradeSurfaceCollectionConstIterator>
 {
 public:
-    GradeSurfaceCollectionImpl::GradeSurfaceCollectionImpl (DocumentImpl* pDocument);
+    GradeSurfaceCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

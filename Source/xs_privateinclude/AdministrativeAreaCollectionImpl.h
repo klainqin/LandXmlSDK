@@ -19,7 +19,7 @@ AdministrativeAreaCollection* createAdministrativeAreaCollectionObject (Document
 class AdministrativeAreaCollectionImpl : public ObjListTmpl<AdministrativeArea, AdministrativeAreaCollection, AdministrativeAreaCollectionIterator, AdministrativeAreaCollectionConstIterator>
 {
 public:
-    AdministrativeAreaCollectionImpl::AdministrativeAreaCollectionImpl (DocumentImpl* pDocument);
+    AdministrativeAreaCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

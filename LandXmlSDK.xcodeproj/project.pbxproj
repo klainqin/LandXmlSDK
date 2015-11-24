@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2024BC471C046492009CBEE7 /* ParserTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2024BC461C046492009CBEE7 /* ParserTest.mm */; };
 		20B552AB1BF5BA08003EB42C /* libLandXmlSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B5529F1BF5BA08003EB42C /* libLandXmlSDK.a */; };
 		20D416721BF5CD86003B33C5 /* CollectionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */; };
 		20D416731BF5CD86003B33C5 /* CompoundNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */; };
@@ -461,7 +462,6 @@
 		20D418351BF5CD86003B33C5 /* ZoneWidthCollectionImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D416701BF5CD86003B33C5 /* ZoneWidthCollectionImpl.cpp */; };
 		20D418361BF5CD86003B33C5 /* ZoneWidthImpl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D416711BF5CD86003B33C5 /* ZoneWidthImpl.cpp */; };
 		20D4183A1BF5D07C003B33C5 /* LandXmlSDK.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D418391BF5D07C003B33C5 /* LandXmlSDK.m */; };
-		20D4183F1BF5E611003B33C5 /* XPathQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 20D4183E1BF5E611003B33C5 /* XPathQuery.m */; };
 		20D418411BF97EAA003B33C5 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D418401BF97EAA003B33C5 /* libxml2.dylib */; };
 /* End PBXBuildFile section */
 
@@ -488,9 +488,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		2024BC451C0461F9009CBEE7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
+		2024BC461C046492009CBEE7 /* ParserTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ParserTest.mm; path = Tests/ParserTest.mm; sourceTree = "<group>"; };
 		20B5529F1BF5BA08003EB42C /* libLandXmlSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLandXmlSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B552AA1BF5BA08003EB42C /* LandXmlSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LandXmlSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		20B552B01BF5BA08003EB42C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CollectionNode.cpp; path = Source/CollectionNode.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CompoundNode.cpp; path = Source/CompoundNode.cpp; sourceTree = SOURCE_ROOT; };
 		20D40FE61BF5CD81003B33C5 /* CompoundNode.h.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CompoundNode.h.cpp; path = Source/CompoundNode.h.cpp; sourceTree = SOURCE_ROOT; };
@@ -2164,8 +2165,6 @@
 		20D418371BF5D006003B33C5 /* StdAfx.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StdAfx.h; path = Source/StdAfx.h; sourceTree = SOURCE_ROOT; };
 		20D418381BF5D07C003B33C5 /* LandXmlSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandXmlSDK.h; path = Source/LandXmlSDK.h; sourceTree = SOURCE_ROOT; };
 		20D418391BF5D07C003B33C5 /* LandXmlSDK.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandXmlSDK.m; path = Source/LandXmlSDK.m; sourceTree = SOURCE_ROOT; };
-		20D4183D1BF5E611003B33C5 /* XPathQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XPathQuery.h; sourceTree = "<group>"; };
-		20D4183E1BF5E611003B33C5 /* XPathQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XPathQuery.m; sourceTree = "<group>"; };
 		20D418401BF97EAA003B33C5 /* libxml2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.dylib; path = usr/lib/libxml2.dylib; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -2233,7 +2232,6 @@
 				20D410441BF5CD81003B33C5 /* ValueNode.cpp */,
 				20D410451BF5CD81003B33C5 /* ValueTypesObjectsImpl.cpp */,
 				20D410461BF5CD81003B33C5 /* Win32Exception.cpp */,
-				20D4183C1BF5E611003B33C5 /* libxml2 */,
 				20D40FF21BF5CD81003B33C5 /* privateinclude */,
 				20D410261BF5CD81003B33C5 /* publicinclude */,
 				20D410471BF5CD81003B33C5 /* xs_privateinclude */,
@@ -2247,6 +2245,7 @@
 		20B552AE1BF5BA08003EB42C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				2024BC461C046492009CBEE7 /* ParserTest.mm */,
 				20B552AF1BF5BA08003EB42C /* Supporting Files */,
 			);
 			name = Tests;
@@ -2256,7 +2255,7 @@
 		20B552AF1BF5BA08003EB42C /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				20B552B01BF5BA08003EB42C /* Info.plist */,
+				2024BC451C0461F9009CBEE7 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3968,16 +3967,6 @@
 			path = nodes;
 			sourceTree = "<group>";
 		};
-		20D4183C1BF5E611003B33C5 /* libxml2 */ = {
-			isa = PBXGroup;
-			children = (
-				20D4183D1BF5E611003B33C5 /* XPathQuery.h */,
-				20D4183E1BF5E611003B33C5 /* XPathQuery.m */,
-			);
-			name = libxml2;
-			path = Source/libxml2;
-			sourceTree = SOURCE_ROOT;
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -4437,7 +4426,6 @@
 				20D4176A1BF5CD86003B33C5 /* LXNodes43.cpp in Sources */,
 				20D416CE1BF5CD86003B33C5 /* CornerImpl.cpp in Sources */,
 				20D416771BF5CD86003B33C5 /* DocumentImpl.cpp in Sources */,
-				20D4183F1BF5E611003B33C5 /* XPathQuery.m in Sources */,
 				20D416E61BF5CD86003B33C5 /* DefinitionImpl.cpp in Sources */,
 				20D4170A1BF5CD86003B33C5 /* FeatureImpl.cpp in Sources */,
 				20D417CC1BF5CD86003B33C5 /* RawObservationCollectionImpl.cpp in Sources */,
@@ -4527,6 +4515,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2024BC471C046492009CBEE7 /* ParserTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4675,7 +4664,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = LandXmlSDKTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -4689,7 +4678,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = LandXmlSDKTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

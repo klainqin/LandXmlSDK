@@ -19,7 +19,7 @@ CornerCollection* createCornerCollectionObject (DocumentImpl* pDocument);
 class CornerCollectionImpl : public ObjListTmpl<Corner, CornerCollection, CornerCollectionIterator, CornerCollectionConstIterator>
 {
 public:
-    CornerCollectionImpl::CornerCollectionImpl (DocumentImpl* pDocument);
+    CornerCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

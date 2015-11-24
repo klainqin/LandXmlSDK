@@ -19,7 +19,7 @@ TrafficVolumeCollection* createTrafficVolumeCollectionObject (DocumentImpl* pDoc
 class TrafficVolumeCollectionImpl : public ObjListTmpl<TrafficVolume, TrafficVolumeCollection, TrafficVolumeCollectionIterator, TrafficVolumeCollectionConstIterator>
 {
 public:
-    TrafficVolumeCollectionImpl::TrafficVolumeCollectionImpl (DocumentImpl* pDocument);
+    TrafficVolumeCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ AddressPointCollection* createAddressPointCollectionObject (DocumentImpl* pDocum
 class AddressPointCollectionImpl : public NamedObjMultiMapTmpl<AddressPoint, AddressPointCollection, String, AddressPointCollectionIterator, AddressPointCollectionConstIterator>
 {
 public:
-    AddressPointCollectionImpl::AddressPointCollectionImpl (DocumentImpl* pDocument);
+    AddressPointCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

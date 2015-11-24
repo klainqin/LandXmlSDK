@@ -19,7 +19,7 @@ AmendmentCollection* createAmendmentCollectionObject (DocumentImpl* pDocument);
 class AmendmentCollectionImpl : public ObjListTmpl<Amendment, AmendmentCollection, AmendmentCollectionIterator, AmendmentCollectionConstIterator>
 {
 public:
-    AmendmentCollectionImpl::AmendmentCollectionImpl (DocumentImpl* pDocument);
+    AmendmentCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

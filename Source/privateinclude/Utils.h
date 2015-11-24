@@ -3,7 +3,7 @@
 
 namespace LX
 {
-
+    
 class Utils
 {
 public:
@@ -32,6 +32,14 @@ public:
 		int nLength);
 
     static void PrettyPrintXML(String filename);
+    
+    static bool wcs2mbs(const wchar_t* wstr, char** str, int& len);
+    
+    //static bool xmlChar2mbs(xmlChar* wstr, char** str, int& len);
+    
+    //static bool mbs2wcs(const char* str, wchar_t** wstr, int& len);
+    
+    //static bool mbs2wcs(const char* str, String& wstr);
 
 	const static wchar_t* k_strDelimiters;
 

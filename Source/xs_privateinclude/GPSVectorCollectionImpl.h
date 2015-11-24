@@ -19,7 +19,7 @@ GPSVectorCollection* createGPSVectorCollectionObject (DocumentImpl* pDocument);
 class GPSVectorCollectionImpl : public ObjListTmpl<GPSVector, GPSVectorCollection, GPSVectorCollectionIterator, GPSVectorCollectionConstIterator>
 {
 public:
-    GPSVectorCollectionImpl::GPSVectorCollectionImpl (DocumentImpl* pDocument);
+    GPSVectorCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -221,5 +221,63 @@ void Utils::PrettyPrintXML(String filename)
 
       fclose(pFileWrite);
 }
+    
+bool Utils::wcs2mbs(const wchar_t* wstr, char** str, int& len)
+{
+    if (wstr == NULL)
+        return false;
+    
+    std::mbstate_t state = std::mbstate_t();
+    
+    len = std::wcsrtombs(NULL, &wstr, 0, &state);
+    if (len < 0)
+        return false;
+    
+    *str = new char[len + 1];
+    *str[len] = L'\0';
+    
+    int ret = std::wcsrtombs(*str, &wstr, len, &state);
+    if (ret < 0)
+        return false;
+    
+    return true;
+}
+
+/*
+bool Utils::mbs2wcs(const char* str, wchar_t** wstr, int& len)
+{
+    if (str == NULL)
+        return false;
+    
+    std::mbstate_t state = std::mbstate_t();
+    
+    len = std::mbsrtowcs(NULL, &str, 0, &state);
+    if (len < 0)
+        return false;
+    
+    *wstr = new wchar_t[len + 1];
+    *wstr[len] = L'\0';
+    
+    int ret = std::mbsrtowcs(*wstr, &str, len, &state);
+    if (ret < 0)
+        return false;
+
+    return true;
+}
+
+bool Utils::mbs2wcs(const char* str, String& wstr)
+{
+    wchar_t* dst = NULL;
+    int len;
+    if (Utils::mbs2wcs(str, &dst, len))
+    {
+        wstr = dst;
+        delete[] dst;
+        return true;
+    }
+    
+    return false;
+}
+ */
 
 }; // End namespace LX

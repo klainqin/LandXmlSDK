@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:../Tests/ParserTest.cpp">
+   </FileRef>
+   <FileRef
       location = "self:LandXmlSDK.xcodeproj">
    </FileRef>
 </Workspace>

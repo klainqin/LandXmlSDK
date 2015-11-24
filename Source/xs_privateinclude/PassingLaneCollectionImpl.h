@@ -19,7 +19,7 @@ PassingLaneCollection* createPassingLaneCollectionObject (DocumentImpl* pDocumen
 class PassingLaneCollectionImpl : public ObjListTmpl<PassingLane, PassingLaneCollection, PassingLaneCollectionIterator, PassingLaneCollectionConstIterator>
 {
 public:
-    PassingLaneCollectionImpl::PassingLaneCollectionImpl (DocumentImpl* pDocument);
+    PassingLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

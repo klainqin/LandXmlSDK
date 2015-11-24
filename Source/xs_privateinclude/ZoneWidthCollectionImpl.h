@@ -19,7 +19,7 @@ ZoneWidthCollection* createZoneWidthCollectionObject (DocumentImpl* pDocument);
 class ZoneWidthCollectionImpl : public ObjListTmpl<ZoneWidth, ZoneWidthCollection, ZoneWidthCollectionIterator, ZoneWidthCollectionConstIterator>
 {
 public:
-    ZoneWidthCollectionImpl::ZoneWidthCollectionImpl (DocumentImpl* pDocument);
+    ZoneWidthCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

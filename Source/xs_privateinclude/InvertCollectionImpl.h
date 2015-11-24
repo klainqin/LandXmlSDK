@@ -19,7 +19,7 @@ InvertCollection* createInvertCollectionObject (DocumentImpl* pDocument);
 class InvertCollectionImpl : public ObjListTmpl<Invert, InvertCollection, InvertCollectionIterator, InvertCollectionConstIterator>
 {
 public:
-    InvertCollectionImpl::InvertCollectionImpl (DocumentImpl* pDocument);
+    InvertCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

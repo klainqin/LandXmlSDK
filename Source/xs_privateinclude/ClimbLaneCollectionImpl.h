@@ -19,7 +19,7 @@ ClimbLaneCollection* createClimbLaneCollectionObject (DocumentImpl* pDocument);
 class ClimbLaneCollectionImpl : public ObjListTmpl<ClimbLane, ClimbLaneCollection, ClimbLaneCollectionIterator, ClimbLaneCollectionConstIterator>
 {
 public:
-    ClimbLaneCollectionImpl::ClimbLaneCollectionImpl (DocumentImpl* pDocument);
+    ClimbLaneCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

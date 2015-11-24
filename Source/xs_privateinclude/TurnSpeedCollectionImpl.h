@@ -19,7 +19,7 @@ TurnSpeedCollection* createTurnSpeedCollectionObject (DocumentImpl* pDocument);
 class TurnSpeedCollectionImpl : public ObjListTmpl<TurnSpeed, TurnSpeedCollection, TurnSpeedCollectionIterator, TurnSpeedCollectionConstIterator>
 {
 public:
-    TurnSpeedCollectionImpl::TurnSpeedCollectionImpl (DocumentImpl* pDocument);
+    TurnSpeedCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

@@ -19,7 +19,7 @@ PointResultsCollection* createPointResultsCollectionObject (DocumentImpl* pDocum
 class PointResultsCollectionImpl : public ObjListTmpl<PointResults, PointResultsCollection, PointResultsCollectionIterator, PointResultsCollectionConstIterator>
 {
 public:
-    PointResultsCollectionImpl::PointResultsCollectionImpl (DocumentImpl* pDocument);
+    PointResultsCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

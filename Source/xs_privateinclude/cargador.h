@@ -359,63 +359,72 @@
 #include "ComplexNameCollection.h"
 #include "ControlChecksCollection.h"
 
-#include <xercesc/dom/DOM.hpp>
-#include <xercesc/parsers/XercesDOMParser.hpp>
-#include <xercesc/util/XMLUni.hpp>
-#include <xercesc/util/xmlstring.hpp>
+#include <locale.h>
+#include "libxml/xmlString.h"
 
+#define char_value(arg) #arg
+#define xml_char(name) BAD_CAST(char_value(name))
 
 #define GET_ATTRIBUTE(ELEM, obj, ATTR_NAME, TYPE1, Fun)  \
 	try  \
 	{  \
-		XERCES_CPP_NAMESPACE::DOMNamedNodeMap*attrs = ELEM->getAttributes();  \
-		if(attrs)  \
+        xmlChar* szAttr = NULL; \
+        if(xmlHasProp(ELEM, xml_char(ATTR_NAME)))  \
 		{  \
-			XERCES_CPP_NAMESPACE::DOMNode* node = attrs->getNamedItem((XMLCh*)(L#ATTR_NAME));  \
-			if(node)  \
-			{  \
-				wchar_t* temp = (wchar_t*)(node->getNodeValue());  \
-				if(temp)  \
-				{  \
-					TYPE1::Type value;  \
-					int len = wcslen(temp);  \
-					TYPE1::parseString(temp, len, value);  \
-					obj->set##Fun(value);  \
-				}  \
-			}  \
+            xmlAttrPtr attrPtr = ELEM->properties; \
+            while (attrPtr != NULL) \
+            {  \
+                if (0 == xmlStrcmp(attrPtr->name, xml_char(ATTR_NAME)))  \
+                {  \
+                    szAttr = xmlGetProp(ELEM, xml_char(ATTR_NAME));  \
+                    break;  \
+                }  \
+                attrPtr = attrPtr->next;  \
+            }  \
 		}  \
+        if(szAttr)  \
+        {  \
+            wchar_t* temp = NULL;  \
+            int len;  \
+            if (this->xmlChar2wcs(szAttr, &temp, len))  \
+            {  \
+                TYPE1::Type value;  \
+                TYPE1::parseString(temp, len, value);  \
+                obj->set##Fun(value);  \
+            }  \
+            delete[] temp;  \
+            xmlFree(szAttr); \
+        }  \
 	}  \
 	catch(...){}
 
 #define GET_Sub_Element(ELEM, OBJ, SUB_ELEMENT)  \
 	try  \
 	{  \
-		XERCES_CPP_NAMESPACE::DOMNodeList*list = ELEM->getElementsByTagName((XMLCh*)(L#SUB_ELEMENT));  \
-		if(list)  \
-		{  \
-			int length = list->getLength();  \
-            XERCES_CPP_NAMESPACE::DOMElement *pItem=NULL;  \
-			for(int i = 0; i < length; i++)  \
-			{  \
-                pItem = static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i));  \
-                if ((pItem->getParentNode()) == ELEM)  \
-				    OBJ->SUB_ELEMENT().addItem(Load##SUB_ELEMENT(pItem));  \
-			}  \
-		}  \
+        xmlNodePtr curNode = ELEM->xmlChildrenNode; \
+        while (curNode != NULL) \
+        {  \
+            if (0 == xmlStrcmp(curNode->name, xml_char(SUB_ELEMENT)))  \
+            {  \
+                OBJ->SUB_ELEMENT().addItem(Load##SUB_ELEMENT(curNode));  \
+            }  \
+            curNode = curNode->next;  \
+        }  \
 	}catch(...){}
 
 #define GET_Sub_Single_Element(ELEM, OBJ, SUB_ELEMENT)  \
 	try  \
 	{  \
-		XERCES_CPP_NAMESPACE::DOMNodeList*list = ELEM->getElementsByTagName((XMLCh*)(L#SUB_ELEMENT));  \
-		if(list)  \
-		{  \
-			int length = list->getLength();  \
-			if(length)  \
-			{  \
-				OBJ->set##SUB_ELEMENT(Load##SUB_ELEMENT(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(0))));  \
-			}  \
-		}  \
+        xmlNodePtr curNode = ELEM->xmlChildrenNode; \
+        while (curNode != NULL) \
+        {  \
+            if (0 == xmlStrcmp(curNode->name, xml_char(SUB_ELEMENT)))  \
+            {  \
+                OBJ->set##SUB_ELEMENT(Load##SUB_ELEMENT(curNode));  \
+                break;  \
+            }  \
+            curNode = curNode->next;  \
+        }  \
 	}  \
 	catch(...){}
 
@@ -425,8 +434,18 @@
 		TYPE* pObject1 = dynamic_cast<TYPE*>(OBJ);  \
 		if(pObject1)  \
 		{  \
-			const wchar_t* x = (const wchar_t*)elem->getTextContent();  \
-			pObject1->addParsedItems(x, wcslen(x));  \
+            xmlChar *szText = xmlNodeGetContent(ELEM);  \
+            if (szText)  \
+            {  \
+                wchar_t* x = NULL;  \
+                int len;  \
+                if (this->xmlChar2wcs(szText, &x, len))  \
+                {  \
+                    pObject1->addParsedItems(x, len);  \
+                }  \
+                delete[] x;  \
+                xmlFree(szText); \
+            }  \
 		}  \
 	}  \
 	catch(...){}
@@ -434,9 +453,13 @@
 #define GET_DOUBLE_VALUE(ELEM, OBJ)  \
 	try  \
 	{  \
-		const wchar_t* x = (const wchar_t*)elem->getTextContent();  \
-		double temp = _wtof(x);  \
-		OBJ->setValue(temp);  \
+        xmlChar *szText = xmlNodeGetContent(ELEM);  \
+        if (szText)  \
+        {  \
+            double temp = strtod((const char*)szText, NULL);  \
+            OBJ->setValue(temp);  \
+            xmlFree(szText); \
+        } \
 	}  \
 	catch(...){}
 
@@ -456,9 +479,48 @@ namespace LX
     		}
     	public:
 
+            xmlNodePtr GetFirstElementByTag(xmlNodePtr node, const char* tag)
+            {
+                xmlNodePtr curNode = node->xmlChildrenNode;
+                while (curNode != NULL)
+                {
+                    if (0 == xmlStrcmp(curNode->name, BAD_CAST(tag)))
+                    {
+                        return curNode;
+                    }
+                    curNode = curNode->next;
+                }
+                
+                return NULL;
+            }
+        
+            bool xmlChar2wcs(xmlChar* xmlString, wchar_t** wstr, int& len)
+            {
+                if (xmlString == NULL)
+                    return false;
+                
+                int charLength = xmlStrlen(xmlString);
+                if (charLength == 0)
+                    return false;
+                
+                char *origLocale = setlocale(LC_CTYPE, NULL);
+                
+                size_t wcharLength = mbtowc(NULL, (const char*) xmlString, charLength); //excludes null terminator
+                if (wcharLength != (size_t)(-1))
+                {
+                    *wstr = new wchar_t[wcharLength + 1];
+                    *wstr[wcharLength] = L'\0';
+                    mbtowc(*wstr, (const char*) xmlString, charLength);
+                    len = wcharLength;
+                }
+                
+                setlocale(LC_CTYPE, origLocale);
 
-// START HAND EDITS ***********************************************************************            
-            Units* LoadUnits(XERCES_CPP_NAMESPACE::DOMElement* elem)
+                return wcharLength != (size_t)(-1);
+            }
+
+// START HAND EDITS ***********************************************************************
+            Units* LoadUnits(xmlNodePtr elem)
             {
             	Units* pObject = factory->createUnits();
             
@@ -473,32 +535,23 @@ namespace LX
             
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listMetric = elem->getElementsByTagName((XMLCh*)(L"Metric"));
-					if (listMetric)
+                    xmlNodePtr metric = GetFirstElementByTag(elem, "Metric");
+					if (metric)
 					{
-						int length = listMetric->getLength();  
-						if(length)  
-						{  
-							pObject->setSelectedUnits(LoadMetric(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listMetric->item(0))));
-						}  
-					}  
-					
-		
-					XERCES_CPP_NAMESPACE::DOMNodeList *listImperial = elem->getElementsByTagName((XMLCh*)(L"Imperial"));
-					if (listImperial)
-					{
-						int length = listImperial->getLength();  
-						if(length)  
-						{
-							pObject->setSelectedUnits(LoadImperial(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listImperial->item(0))));
-						}  
-					}  
+                        pObject->setSelectedUnits(LoadMetric(metric));
+					}
+                    
+                    xmlNodePtr imperial = GetFirstElementByTag(elem, "Imperial");
+                    if (imperial)
+                    {
+                        pObject->setSelectedUnits(LoadImperial(imperial));
+                    }
 				}catch(...){}
             
             	return pObject;
             }
 
-            Parcels* LoadParcels(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Parcels* LoadParcels(xmlNodePtr elem)
             {
             	Parcels* pObject = factory->createParcels();
             
@@ -509,24 +562,18 @@ namespace LX
             
 				try
 				{
-					XERCES_CPP_NAMESPACE::DOMNodeList* list = elem->getChildNodes();
-            
-					if(list)
-					{
-						int length = list->getLength();
-						for(int i = 0; i < length; i++)
-						{
-							if (list->item(i)->getNodeType() != XERCES_CPP_NAMESPACE::DOMNode::ELEMENT_NODE )
-							{
-								continue;
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Parcel")))
-							{
-								pObject->Parcel().addItem(LoadParcel(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-						}
-					}
+                    for (xmlNodePtr cur_node = elem->xmlChildrenNode; cur_node; cur_node = cur_node->next)
+                    {
+                        if (cur_node->type != XML_ELEMENT_NODE)
+                        {
+                            continue;
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Parcel")))
+                        {
+                            pObject->Parcel().addItem(LoadParcel(cur_node));
+                        }
+                    }
 				}catch(...){}
 
             	GET_Sub_Element(elem, pObject, Feature );
@@ -534,7 +581,7 @@ namespace LX
             	return pObject;
             }
 
-            Equipment* LoadEquipment(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Equipment* LoadEquipment(xmlNodePtr elem)
             {
             	Equipment* pObject = factory->createEquipment();
             
@@ -548,72 +595,49 @@ namespace LX
 
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listInstrumentDetails = elem->getElementsByTagName((XMLCh*)(L"InstrumentDetails"));
-					if (listInstrumentDetails)
-					{
-						int length = listInstrumentDetails->getLength();  
-						if(length)  
-						{  
-							pObject->setEquipmentDetails(LoadInstrumentDetails(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listInstrumentDetails->item(0))));
-						}  
-					}  
+                    xmlNodePtr instrumentDetails = this->GetFirstElementByTag(elem, "InstrumentDetails");
+                    if (instrumentDetails)
+                    {
+                        pObject->setEquipmentDetails(LoadInstrumentDetails(instrumentDetails));
+                    }
+                    
+                    xmlNodePtr laserDetails = this->GetFirstElementByTag(elem, "LaserDetails");
+                    if (laserDetails)
+                    {
+                        pObject->setEquipmentDetails(LoadLaserDetails(laserDetails));
+                    }
+                    
+                    xmlNodePtr GPSReceiverDetails = this->GetFirstElementByTag(elem, "GPSReceiverDetails");
+                    if (GPSReceiverDetails)
+                    {
+                        pObject->setEquipmentDetails(LoadGPSReceiverDetails(GPSReceiverDetails));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listLaserDetails = elem->getElementsByTagName((XMLCh*)(L"LaserDetails"));
-					if (listLaserDetails)
-					{
-						int length = listLaserDetails->getLength();  
-						if(length)  
-						{
-							pObject->setEquipmentDetails(LoadLaserDetails(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listLaserDetails->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listGPSReceiverDetails = elem->getElementsByTagName((XMLCh*)(L"GPSReceiverDetails"));
-					if (listGPSReceiverDetails)
-					{
-						int length = listGPSReceiverDetails->getLength();  
-						if(length)  
-						{
-							pObject->setEquipmentDetails(LoadGPSReceiverDetails(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listGPSReceiverDetails->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listGPSAntennaDetails = elem->getElementsByTagName((XMLCh*)(L"GPSAntennaDetails"));
-					if (listGPSAntennaDetails)
-					{
-						int length = listGPSAntennaDetails->getLength();  
-						if(length)  
-						{
-							pObject->setEquipmentDetails(LoadGPSAntennaDetails(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listGPSAntennaDetails->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listFieldNote = elem->getElementsByTagName((XMLCh*)(L"FieldNote"));
-					if (listFieldNote)
-					{
-						int length = listFieldNote->getLength();  
-						if(length)  
-						{
-							pObject->setEquipmentDetails(LoadFieldNote(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listFieldNote->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listFeature = elem->getElementsByTagName((XMLCh*)(L"Feature"));
-					if (listFeature)
-					{
-						int length = listFeature->getLength();  
-						if(length)  
-						{
-							pObject->setEquipmentDetails(LoadFeature(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listFeature->item(0))));
-						}  
-					}  
+                    xmlNodePtr GPSAntennaDetails = this->GetFirstElementByTag(elem, "GPSAntennaDetails");
+                    if (GPSAntennaDetails)
+                    {
+                        pObject->setEquipmentDetails(LoadGPSAntennaDetails(GPSAntennaDetails));
+                    }
+                    
+                    xmlNodePtr fieldNoteDetails = this->GetFirstElementByTag(elem, "FieldNote");
+                    if (fieldNoteDetails)
+                    {
+                        pObject->setEquipmentDetails(LoadFieldNote(fieldNoteDetails));
+                    }
+                    
+                    xmlNodePtr featureDetails = this->GetFirstElementByTag(elem, "Feature");
+                    if (featureDetails)
+                    {
+                        pObject->setEquipmentDetails(LoadFeature(featureDetails));
+                    }
 				}catch(...){}
             
             	//get text value and put it into Double, Integer collection.
             
             	return pObject;
             }
-            CoordGeom* LoadCoordGeom(XERCES_CPP_NAMESPACE::DOMElement* elem)
+        
+            CoordGeom* LoadCoordGeom(xmlNodePtr elem)
             {
             	CoordGeom* pObject = factory->createCoordGeom();
             
@@ -629,105 +653,94 @@ namespace LX
             
 				try
 				{
-					XERCES_CPP_NAMESPACE::DOMNodeList* list = elem->getChildNodes();
-            
-					if(list)
-					{
-						int length = list->getLength();
-						for(int i = 0; i < length; i++)
-						{
-							if (list->item(i)->getNodeType() != XERCES_CPP_NAMESPACE::DOMNode::ELEMENT_NODE )
-							{
-								continue;
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Line")))
-							{
-								pObject->GeomList().addItem(LoadLine(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("IrregularLine")))
-							{
-								pObject->GeomList().addItem(LoadIrregularLine(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Curve")))
-							{
-								pObject->GeomList().addItem(LoadCurve(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Spiral")))
-							{
-								pObject->GeomList().addItem(LoadSpiral(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Chain")))
-							{
-								pObject->GeomList().addItem(LoadChain(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Feature")))
-							{
-								pObject->GeomList().addItem(LoadFeature(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-						}
-					}
+                    for (xmlNodePtr cur_node = elem->xmlChildrenNode; cur_node; cur_node = cur_node->next)
+                    {
+                        if (cur_node->type != XML_ELEMENT_NODE)
+                        {
+                            continue;
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Line")))
+                        {
+                            pObject->GeomList().addItem(LoadLine(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("IrregularLine")))
+                        {
+                            pObject->GeomList().addItem(LoadIrregularLine(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Curve")))
+                        {
+                            pObject->GeomList().addItem(LoadCurve(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Spiral")))
+                        {
+                            pObject->GeomList().addItem(LoadSpiral(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Chain")))
+                        {
+                            pObject->GeomList().addItem(LoadChain(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Feature")))
+                        {
+                            pObject->GeomList().addItem(LoadFeature(cur_node));
+                        }
+                    }
 				}catch(...){}
             
             	return pObject;
             }
-            ProfAlign* LoadProfAlign(XERCES_CPP_NAMESPACE::DOMElement* elem)
+        
+            ProfAlign* LoadProfAlign(xmlNodePtr elem)
             {
             	ProfAlign* pObject = factory->createProfAlign();
             
             
             	//fetch property values from Xerces DOM, and put them into SDK runtime objects.
             	GET_ATTRIBUTE(elem, pObject, name,             StringObjectImpl, Name             );
-            	GET_ATTRIBUTE(elem, pObject, desc,  StringObjectImpl, Desc  );
-            	GET_ATTRIBUTE(elem, pObject, state,            EnumStateTypeImpl, State            );
+            	GET_ATTRIBUTE(elem, pObject, desc,             StringObjectImpl, Desc             );
+            	GET_ATTRIBUTE(elem, pObject, state,            EnumStateTypeImpl, State           );
             
             	//recursively get sub element value.
             	//GET_Sub_Element(elem, pObject, VertGeomList  );
             
 				try
 				{
-					XERCES_CPP_NAMESPACE::DOMNodeList* list = elem->getChildNodes();
+                    for (xmlNodePtr cur_node = elem->xmlChildrenNode; cur_node; cur_node = cur_node->next)
+                    {
+                        if (cur_node->type != XML_ELEMENT_NODE)
+                        {
+                            continue;
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("PVI")))
+                        {
+                            pObject->VertGeomList().addItem(LoadPVI(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("ParaCurve")))
+                        {
+                            pObject->VertGeomList().addItem(LoadParaCurve(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("UnsymParaCurve")))
+                        {
+                            pObject->VertGeomList().addItem(LoadUnsymParaCurve(cur_node));
+                        }
             
-					if(list)
-					{
-						int length = list->getLength();
-						for(int i = 0; i < length; i++)
-						{
-							if (list->item(i)->getNodeType() != XERCES_CPP_NAMESPACE::DOMNode::ELEMENT_NODE )
-							{
-								continue;
-							}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("CircCurve")))
+                        {
+                            pObject->VertGeomList().addItem(LoadCircCurve(cur_node));
+                        }
             
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("PVI")))
-							{
-								pObject->VertGeomList().addItem(LoadPVI(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-                            }
-            
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("ParaCurve")))
-                            {
-								pObject->VertGeomList().addItem(LoadParaCurve(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-            
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("UnsymParaCurve")))
-							{
-								pObject->VertGeomList().addItem(LoadUnsymParaCurve(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-            
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("CircCurve")))
-							{
-								pObject->VertGeomList().addItem(LoadCircCurve(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-            
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Feature")))
-							{
-								pObject->VertGeomList().addItem(LoadFeature(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-						}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Feature")))
+                        {
+                            pObject->VertGeomList().addItem(LoadFeature(cur_node));
+                        }
 					}
 				}catch(...){}
             
@@ -738,7 +751,7 @@ namespace LX
             	return pObject;
             }
             
-            Breakline* LoadBreakline(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Breakline* LoadBreakline(xmlNodePtr elem)
             {
             	Breakline* pObject = factory->createBreakline();
             
@@ -757,25 +770,17 @@ namespace LX
 
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt2D = elem->getElementsByTagName((XMLCh*)(L"PntList2D"));
-					if (listPnt2D)
-					{
-						int length = listPnt2D->getLength();  
-						if(length)  
-						{  
-							pObject->setPntList(LoadPntList2D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt2D->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt3D = elem->getElementsByTagName((XMLCh*)(L"PntList3D"));
-					if (listPnt3D)
-					{
-						int length = listPnt3D->getLength();  
-						if(length)  
-						{
-							pObject->setPntList(LoadPntList3D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt3D->item(0))));
-						}  
-					}  
+                    xmlNodePtr pntList2D = this->GetFirstElementByTag(elem, "PntList2D");
+                    if (pntList2D)
+                    {
+                        pObject->setPntList(LoadPntList2D(pntList2D));
+                    }
+ 					
+                    xmlNodePtr pntList3D = this->GetFirstElementByTag(elem, "PntList3D");
+                    if (pntList3D)
+                    {
+                        pObject->setPntList(LoadPntList3D(pntList3D));
+                    }
 
 				}catch(...){}
 
@@ -785,7 +790,7 @@ namespace LX
             	return pObject;
             }
 
-            Watershed* LoadWatershed(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Watershed* LoadWatershed(xmlNodePtr elem)
             {
             	Watershed* pObject = factory->createWatershed();
             
@@ -804,25 +809,17 @@ namespace LX
 
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt2D = elem->getElementsByTagName((XMLCh*)(L"PntList2D"));
-					if (listPnt2D)
-					{
-						int length = listPnt2D->getLength();  
-						if(length)  
-						{  
-							pObject->setPntList(LoadPntList2D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt2D->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt3D = elem->getElementsByTagName((XMLCh*)(L"PntList3D"));
-					if (listPnt3D)
-					{
-						int length = listPnt3D->getLength();  
-						if(length)  
-						{
-							pObject->setPntList(LoadPntList3D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt3D->item(0))));
-						}  
-					}  
+                    xmlNodePtr pntList2D = this->GetFirstElementByTag(elem, "PntList2D");
+                    if (pntList2D)
+                    {
+                        pObject->setPntList(LoadPntList2D(pntList2D));
+                    }
+                    
+                    xmlNodePtr pntList3D = this->GetFirstElementByTag(elem, "PntList3D");
+                    if (pntList3D)
+                    {
+                        pObject->setPntList(LoadPntList3D(pntList3D));
+                    }
 
 				}catch(...){}
 
@@ -832,7 +829,7 @@ namespace LX
             	return pObject;
             }
 
-            AlignPIs* LoadAlignPIs(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AlignPIs* LoadAlignPIs(xmlNodePtr elem)
             {
                 AlignPIs* pObject = factory->createAlignPIs();
                 
@@ -841,7 +838,7 @@ namespace LX
                 return pObject;
             }
 
-            AlignPI* LoadAlignPI(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AlignPI* LoadAlignPI(xmlNodePtr elem)
             {
             	AlignPI* pObject = factory->createAlignPI();
             
@@ -853,53 +850,47 @@ namespace LX
 
 				try
 				{
-					XERCES_CPP_NAMESPACE::DOMNodeList* list = elem->getChildNodes();
+                    for (xmlNodePtr cur_node = elem->xmlChildrenNode; cur_node; cur_node = cur_node->next)
+                    {
+                        if (cur_node->type != XML_ELEMENT_NODE)
+                        {
+                            continue;
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Station")))
+                        {
+                            pObject->PIList().addItem(LoadStation(cur_node));
+                        }
+                        
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("PI")))
+                        {
+                            pObject->PIList().addItem(LoadPI(cur_node));
+                        }
 
-					if(list)
-					{
-						int length = list->getLength();
-						for(int i = 0; i < length; i++)
-						{
-							if (list->item(i)->getNodeType() != XERCES_CPP_NAMESPACE::DOMNode::ELEMENT_NODE )
-							{
-								continue;
-							}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("InSpiral")))
+                        {
+                            pObject->PIList().addItem(LoadInSpiral(cur_node));
+                        }
 
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Station")))
-							{
-								pObject->PIList().addItem(LoadStation(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Curve1")))
+                        {
+                            pObject->PIList().addItem(LoadCurve1(cur_node));
+                        }
 
-                            if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("PI")))
-							{
-								pObject->PIList().addItem(LoadPI(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("ConnSpiral")))
+                        {
+                            pObject->PIList().addItem(LoadConnSpiral(cur_node));
+                        }
 
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("InSpiral")))
-							{
-								pObject->PIList().addItem(LoadInSpiral(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("Curve2")))
+                        {
+                            pObject->PIList().addItem(LoadCurve2(cur_node));
+                        }
 
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Curve1")))
-							{
-								pObject->PIList().addItem(LoadCurve1(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("ConnSpiral")))
-							{
-								pObject->PIList().addItem(LoadConnSpiral(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("Curve2")))
-							{
-								pObject->PIList().addItem(LoadCurve2(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-
-							if ( XERCES_CPP_NAMESPACE::XMLString::equals(list->item(i)->getNodeName(), XERCES_CPP_NAMESPACE::XMLString::transcode("OutSpiral")))
-							{
-								pObject->PIList().addItem(LoadOutSpiral(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(list->item(i))));
-							}
-						}
+                        if (0 == xmlStrcmp(cur_node->name, BAD_CAST("OutSpiral")))
+                        {
+                            pObject->PIList().addItem(LoadOutSpiral(cur_node));
+                        }
 					}
 				}catch(...){}
 
@@ -911,7 +902,7 @@ namespace LX
             	return pObject;
             }
 
-            Station* LoadStation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Station* LoadStation(xmlNodePtr elem)
             {
             	Station* pObject = factory->createStation();
             
@@ -921,7 +912,7 @@ namespace LX
             }
 
 // PipeNetworks
-            Struct* LoadStruct(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Struct* LoadStruct(xmlNodePtr elem)
             {
             	Struct* pObject = factory->createStruct();
             
@@ -944,55 +935,36 @@ namespace LX
 
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listCircStruct = elem->getElementsByTagName((XMLCh*)(L"CircStruct"));
-					if (listCircStruct)
-					{
-						int length = listCircStruct->getLength();  
-						if(length)  
-						{  
-							pObject->setStructGeom(LoadCircStruct(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listCircStruct->item(0))));
-						}  
-					}  
+                    xmlNodePtr circStruct = this->GetFirstElementByTag(elem, "CircStruct");
+                    if (circStruct)
+                    {
+                        pObject->setStructGeom(LoadCircStruct(circStruct));
+                    }
+                    
+                    xmlNodePtr rectStruct = this->GetFirstElementByTag(elem, "RectStruct");
+                    if (rectStruct)
+                    {
+                        pObject->setStructGeom(LoadRectStruct(rectStruct));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listRectStruct = elem->getElementsByTagName((XMLCh*)(L"RectStruct"));
-					if (listRectStruct)
-					{
-						int length = listRectStruct->getLength();  
-						if(length)  
-						{
-							pObject->setStructGeom(LoadRectStruct(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listRectStruct->item(0))));
-						}  
-					}  
+                    xmlNodePtr inletStruct = this->GetFirstElementByTag(elem, "InletStruct");
+                    if (inletStruct)
+                    {
+                        pObject->setStructGeom(LoadInletStruct(inletStruct));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listInletStruct = elem->getElementsByTagName((XMLCh*)(L"InletStruct"));
-					if (listInletStruct)
-					{
-						int length = listInletStruct->getLength();  
-						if(length)  
-						{
-							pObject->setStructGeom(LoadInletStruct(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listInletStruct->item(0))));
-						}  
-					}  
+                    xmlNodePtr outletStruct = this->GetFirstElementByTag(elem, "OutletStruct");
+                    if (outletStruct)
+                    {
+                        pObject->setStructGeom(LoadOutletStruct(outletStruct));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listOutletStruct = elem->getElementsByTagName((XMLCh*)(L"OutletStruct"));
-					if (listOutletStruct)
-					{
-						int length = listOutletStruct->getLength();  
-						if(length)  
-						{
-							pObject->setStructGeom(LoadOutletStruct(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listOutletStruct->item(0))));
-						}  
-					}  
+                    xmlNodePtr connection = this->GetFirstElementByTag(elem, "Connection");
+                    if (connection)
+                    {
+                        pObject->setStructGeom(LoadConnection(connection));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listConnection = elem->getElementsByTagName((XMLCh*)(L"Connection"));
-					if (listConnection)
-					{
-						int length = listConnection->getLength();  
-						if(length)  
-						{
-							pObject->setStructGeom(LoadConnection(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listConnection->item(0))));
-						}  
-					}  
 				}catch(...){}
 
             	GET_Sub_Single_Element(elem, pObject, StructFlow  );
@@ -1001,7 +973,8 @@ namespace LX
             
             	return pObject;
             }
-            Pipe* LoadPipe(XERCES_CPP_NAMESPACE::DOMElement* elem)
+        
+            Pipe* LoadPipe(xmlNodePtr elem)
             {
             	Pipe* pObject = factory->createPipe();
             
@@ -1024,55 +997,36 @@ namespace LX
 
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listCircPipe = elem->getElementsByTagName((XMLCh*)(L"CircPipe"));
-					if (listCircPipe)
-					{
-						int length = listCircPipe->getLength();  
-						if(length)  
-						{  
-							pObject->setPipeGeom(LoadCircPipe(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listCircPipe->item(0))));
-						}  
-					}  
+                    xmlNodePtr circPipe = this->GetFirstElementByTag(elem, "CircPipe");
+                    if (circPipe)
+                    {
+                        pObject->setPipeGeom(LoadCircPipe(circPipe));
+                    }
+                    
+                    xmlNodePtr eggPipe = this->GetFirstElementByTag(elem, "EggPipe");
+                    if (eggPipe)
+                    {
+                        pObject->setPipeGeom(LoadEggPipe(eggPipe));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listEggPipe = elem->getElementsByTagName((XMLCh*)(L"EggPipe"));
-					if (listEggPipe)
-					{
-						int length = listEggPipe->getLength();  
-						if(length)  
-						{
-							pObject->setPipeGeom(LoadEggPipe(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listEggPipe->item(0))));
-						}  
-					}  
+                    xmlNodePtr elliPipe = this->GetFirstElementByTag(elem, "ElliPipe");
+                    if (elliPipe)
+                    {
+                        pObject->setPipeGeom(LoadElliPipe(elliPipe));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listElliPipe = elem->getElementsByTagName((XMLCh*)(L"ElliPipe"));
-					if (listEggPipe)
-					{
-						int length = listElliPipe->getLength();  
-						if(length)  
-						{
-							pObject->setPipeGeom(LoadElliPipe(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listElliPipe->item(0))));
-						}  
-					}  
+                    xmlNodePtr rectPipe = this->GetFirstElementByTag(elem, "RectPipe");
+                    if (rectPipe)
+                    {
+                        pObject->setPipeGeom(LoadRectPipe(rectPipe));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listRectPipe = elem->getElementsByTagName((XMLCh*)(L"RectPipe"));
-					if (listEggPipe)
-					{
-						int length = listRectPipe->getLength();  
-						if(length)  
-						{
-							pObject->setPipeGeom(LoadRectPipe(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listRectPipe->item(0))));
-						}  
-					}  
+                    xmlNodePtr channel = this->GetFirstElementByTag(elem, "Channel");
+                    if (channel)
+                    {
+                        pObject->setPipeGeom(LoadChannel(channel));
+                    }
 
-					XERCES_CPP_NAMESPACE::DOMNodeList *listChannel = elem->getElementsByTagName((XMLCh*)(L"Channel"));
-					if (listEggPipe)
-					{
-						int length = listChannel->getLength();  
-						if(length)  
-						{
-							pObject->setPipeGeom(LoadChannel(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listChannel->item(0))));
-						}  
-					}  
 				}catch(...){}
 
 
@@ -1085,7 +1039,7 @@ namespace LX
             }
 
 // **** SUPERELEVATION Hand fixes
-            FullSuperelev* LoadFullSuperelev(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            FullSuperelev* LoadFullSuperelev(xmlNodePtr elem)
             {
             	FullSuperelev* pObject = factory->createFullSuperelev();
             
@@ -1102,7 +1056,7 @@ namespace LX
             	return pObject;
             }
 
-            StartofRunoutSta* LoadStartofRunoutSta(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            StartofRunoutSta* LoadStartofRunoutSta(xmlNodePtr elem)
             {
             	StartofRunoutSta* pObject = factory->createStartofRunoutSta();
             
@@ -1119,7 +1073,7 @@ namespace LX
             	return pObject;
             }
 
-            FullSuperSta* LoadFullSuperSta(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            FullSuperSta* LoadFullSuperSta(xmlNodePtr elem)
             {
             	FullSuperSta* pObject = factory->createFullSuperSta();
             
@@ -1136,7 +1090,7 @@ namespace LX
             	return pObject;
             }
 
-            RunoffSta* LoadRunoffSta(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RunoffSta* LoadRunoffSta(xmlNodePtr elem)
             {
             	RunoffSta* pObject = factory->createRunoffSta();
             
@@ -1153,7 +1107,7 @@ namespace LX
             	return pObject;
             }
           
-            EndofRunoutSta* LoadEndofRunoutSta(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            EndofRunoutSta* LoadEndofRunoutSta(xmlNodePtr elem)
             {
             	EndofRunoutSta* pObject = factory->createEndofRunoutSta();
             
@@ -1170,7 +1124,7 @@ namespace LX
             	return pObject;
             }
             
-            BeginRunoffSta* LoadBeginRunoffSta(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            BeginRunoffSta* LoadBeginRunoffSta(xmlNodePtr elem)
             {
             	BeginRunoffSta* pObject = factory->createBeginRunoffSta();
             
@@ -1186,7 +1140,7 @@ namespace LX
             	return pObject;
             }
 
-            BeginRunoutSta* LoadBeginRunoutSta(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            BeginRunoutSta* LoadBeginRunoutSta(xmlNodePtr elem)
             {
             	BeginRunoutSta* pObject = factory->createBeginRunoutSta();
             
@@ -1203,7 +1157,7 @@ namespace LX
             	return pObject;
             }
 
-            AdverseSE* LoadAdverseSE(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AdverseSE* LoadAdverseSE(xmlNodePtr elem)
             {
             	AdverseSE* pObject = factory->createAdverseSE();
             
@@ -1220,7 +1174,7 @@ namespace LX
             	return pObject;
             }
 
-            Boundary* LoadBoundary(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Boundary* LoadBoundary(xmlNodePtr elem)
             {
             	Boundary* pObject = factory->createBoundary();
             
@@ -1241,32 +1195,24 @@ namespace LX
             
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt2D = elem->getElementsByTagName((XMLCh*)(L"PntList2D"));
-					if (listPnt2D)
-					{
-						int length = listPnt2D->getLength();  
-						if(length)  
-						{  
-							pObject->setPntList(LoadPntList2D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt2D->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt3D = elem->getElementsByTagName((XMLCh*)(L"PntList3D"));
-					if (listPnt3D)
-					{
-						int length = listPnt3D->getLength();  
-						if(length)  
-						{
-							pObject->setPntList(LoadPntList3D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt3D->item(0))));
-						}  
-					}  
+                    xmlNodePtr pntList2D = this->GetFirstElementByTag(elem, "PntList2D");
+                    if (pntList2D)
+                    {
+                        pObject->setPntList(LoadPntList2D(pntList2D));
+                    }
+                    
+                    xmlNodePtr pntList3D = this->GetFirstElementByTag(elem, "PntList3D");
+                    if (pntList3D)
+                    {
+                        pObject->setPntList(LoadPntList3D(pntList3D));
+                    }
 
 				}catch(...){}
             
             	return pObject;
             }
             
-            IrregularLine* LoadIrregularLine(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            IrregularLine* LoadIrregularLine(xmlNodePtr elem)
             {
             	IrregularLine* pObject = factory->createIrregularLine();
             
@@ -1292,25 +1238,17 @@ namespace LX
 
 				try
 				{
- 					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt2D = elem->getElementsByTagName((XMLCh*)(L"PntList2D"));
-					if (listPnt2D)
-					{
-						int length = listPnt2D->getLength();  
-						if(length)  
-						{  
-							pObject->setPntList(LoadPntList2D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt2D->item(0))));
-						}  
-					}  
-
-					XERCES_CPP_NAMESPACE::DOMNodeList *listPnt3D = elem->getElementsByTagName((XMLCh*)(L"PntList3D"));
-					if (listPnt3D)
-					{
-						int length = listPnt3D->getLength();  
-						if(length)  
-						{
-							pObject->setPntList(LoadPntList3D(static_cast<XERCES_CPP_NAMESPACE::DOMElement*>(listPnt3D->item(0))));
-						}  
-					}  
+                    xmlNodePtr pntList2D = this->GetFirstElementByTag(elem, "PntList2D");
+                    if (pntList2D)
+                    {
+                        pObject->setPntList(LoadPntList2D(pntList2D));
+                    }
+                    
+                    xmlNodePtr pntList3D = this->GetFirstElementByTag(elem, "PntList3D");
+                    if (pntList3D)
+                    {
+                        pObject->setPntList(LoadPntList3D(pntList3D));
+                    }
 
 				}catch(...){}
 
@@ -1322,7 +1260,7 @@ namespace LX
 
 // END HAND EDITS ***********************************************************************
             
-            NoPassingZone* LoadNoPassingZone(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            NoPassingZone* LoadNoPassingZone(xmlNodePtr elem)
             {
             	NoPassingZone* pObject = factory->createNoPassingZone();
             
@@ -1341,7 +1279,7 @@ namespace LX
             	return pObject;
             }
             
-            RectStruct* LoadRectStruct(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RectStruct* LoadRectStruct(xmlNodePtr elem)
             {
             	RectStruct* pObject = factory->createRectStruct();
             
@@ -1366,7 +1304,7 @@ namespace LX
             	return pObject;
             }
             
-            Cant* LoadCant(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Cant* LoadCant(xmlNodePtr elem)
             {
             	Cant* pObject = factory->createCant();
             
@@ -1392,7 +1330,7 @@ namespace LX
             	return pObject;
             }
             
-            RoadSign* LoadRoadSign(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RoadSign* LoadRoadSign(xmlNodePtr elem)
             {
             	RoadSign* pObject = factory->createRoadSign();
             
@@ -1416,7 +1354,7 @@ namespace LX
             	return pObject;
             }
             
-            CantStation* LoadCantStation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CantStation* LoadCantStation(xmlNodePtr elem)
             {
             	CantStation* pObject = factory->createCantStation();
             
@@ -1445,7 +1383,7 @@ namespace LX
             	return pObject;
             }
             
-            TestObservation* LoadTestObservation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TestObservation* LoadTestObservation(xmlNodePtr elem)
             {
             	TestObservation* pObject = factory->createTestObservation();
             
@@ -1488,7 +1426,7 @@ namespace LX
             	return pObject;
             }
             
-            Superelevation* LoadSuperelevation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Superelevation* LoadSuperelevation(xmlNodePtr elem)
             {
             	Superelevation* pObject = factory->createSuperelevation();
             
@@ -1515,7 +1453,7 @@ namespace LX
             	return pObject;
             }
             
-            DocFileRef* LoadDocFileRef(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DocFileRef* LoadDocFileRef(xmlNodePtr elem)
             {
             	DocFileRef* pObject = factory->createDocFileRef();
             
@@ -1535,7 +1473,7 @@ namespace LX
             	return pObject;
             }
             
-            RetWallPnt* LoadRetWallPnt(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RetWallPnt* LoadRetWallPnt(xmlNodePtr elem)
             {
             	RetWallPnt* pObject = factory->createRetWallPnt();
             
@@ -1564,7 +1502,7 @@ namespace LX
             	return pObject;
             }
             
-            InSpiral* LoadInSpiral(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            InSpiral* LoadInSpiral(xmlNodePtr elem)
             {
             	InSpiral* pObject = factory->createInSpiral();
             
@@ -1581,7 +1519,7 @@ namespace LX
             	return pObject;
             }
             
-            Annotation* LoadAnnotation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Annotation* LoadAnnotation(xmlNodePtr elem)
             {
             	Annotation* pObject = factory->createAnnotation();
             
@@ -1601,7 +1539,7 @@ namespace LX
             	return pObject;
             }
             
-            Surfaces* LoadSurfaces(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Surfaces* LoadSurfaces(xmlNodePtr elem)
             {
             	Surfaces* pObject = factory->createSurfaces();
             
@@ -1623,7 +1561,7 @@ namespace LX
             	return pObject;
             }
             
-            OffsetLane* LoadOffsetLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            OffsetLane* LoadOffsetLane(xmlNodePtr elem)
             {
             	OffsetLane* pObject = factory->createOffsetLane();
             
@@ -1646,7 +1584,7 @@ namespace LX
             	return pObject;
             }
             
-            Curve* LoadCurve(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Curve* LoadCurve(xmlNodePtr elem)
             {
             	Curve* pObject = factory->createCurve();
             
@@ -1684,7 +1622,7 @@ namespace LX
             	return pObject;
             }
             
-            UnsymParaCurve* LoadUnsymParaCurve(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            UnsymParaCurve* LoadUnsymParaCurve(xmlNodePtr elem)
             {
             	UnsymParaCurve* pObject = factory->createUnsymParaCurve();
             
@@ -1704,7 +1642,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSVector* LoadGPSVector(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSVector* LoadGPSVector(xmlNodePtr elem)
             {
             	GPSVector* pObject = factory->createGPSVector();
             
@@ -1738,7 +1676,7 @@ namespace LX
             	return pObject;
             }
             
-            Pnts* LoadPnts(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Pnts* LoadPnts(xmlNodePtr elem)
             {
             	Pnts* pObject = factory->createPnts();
             
@@ -1755,7 +1693,7 @@ namespace LX
             	return pObject;
             }
             
-            HazardRating* LoadHazardRating(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            HazardRating* LoadHazardRating(xmlNodePtr elem)
             {
             	HazardRating* pObject = factory->createHazardRating();
             
@@ -1774,7 +1712,7 @@ namespace LX
             	return pObject;
             }
             
-            Project* LoadProject(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Project* LoadProject(xmlNodePtr elem)
             {
             	Project* pObject = factory->createProject();
             
@@ -1794,7 +1732,7 @@ namespace LX
             	return pObject;
             }
             
-            Application* LoadApplication(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Application* LoadApplication(xmlNodePtr elem)
             {
             	Application* pObject = factory->createApplication();
             
@@ -1818,7 +1756,7 @@ namespace LX
             }
             
            
-            HeadOfPower* LoadHeadOfPower(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            HeadOfPower* LoadHeadOfPower(xmlNodePtr elem)
             {
             	HeadOfPower* pObject = factory->createHeadOfPower();
             
@@ -1835,7 +1773,7 @@ namespace LX
             	return pObject;
             }
             
-            CrashData* LoadCrashData(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CrashData* LoadCrashData(xmlNodePtr elem)
             {
             	CrashData* pObject = factory->createCrashData();
             
@@ -1851,7 +1789,7 @@ namespace LX
             	return pObject;
             }
             
-            MapPoint* LoadMapPoint(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            MapPoint* LoadMapPoint(xmlNodePtr elem)
             {
             	MapPoint* pObject = factory->createMapPoint();
             
@@ -1886,7 +1824,7 @@ namespace LX
             	return pObject;
             }
             
-            Center* LoadCenter(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Center* LoadCenter(xmlNodePtr elem)
             {
             	Center* pObject = factory->createCenter();
             
@@ -1922,7 +1860,7 @@ namespace LX
             }
             
             
-            LocationAddress* LoadLocationAddress(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            LocationAddress* LoadLocationAddress(xmlNodePtr elem)
             {
             	LocationAddress* pObject = factory->createLocationAddress();
             
@@ -1951,7 +1889,7 @@ namespace LX
             	return pObject;
             }
             
-            Intersections* LoadIntersections(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Intersections* LoadIntersections(xmlNodePtr elem)
             {
             	Intersections* pObject = factory->createIntersections();
             
@@ -1967,7 +1905,7 @@ namespace LX
             	return pObject;
             }
             
-            Pipes* LoadPipes(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Pipes* LoadPipes(xmlNodePtr elem)
             {
             	Pipes* pObject = factory->createPipes();
             
@@ -1986,7 +1924,7 @@ namespace LX
             	return pObject;
             }
             
-            Spiral* LoadSpiral(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Spiral* LoadSpiral(xmlNodePtr elem)
             {
             	Spiral* pObject = factory->createSpiral();
             
@@ -2025,7 +1963,7 @@ namespace LX
             	return pObject;
             }
             
-            RetWall* LoadRetWall(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RetWall* LoadRetWall(xmlNodePtr elem)
             {
             	RetWall* pObject = factory->createRetWall();
             
@@ -2046,7 +1984,7 @@ namespace LX
             	return pObject;
             }
             
-            OffsetVals* LoadOffsetVals(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            OffsetVals* LoadOffsetVals(xmlNodePtr elem)
             {
             	OffsetVals* pObject = factory->createOffsetVals();
             
@@ -2065,7 +2003,7 @@ namespace LX
             	return pObject;
             }
             
-            Outlet* LoadOutlet(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Outlet* LoadOutlet(xmlNodePtr elem)
             {
             	Outlet* pObject = factory->createOutlet();
             
@@ -2094,7 +2032,7 @@ namespace LX
             }
             
             
-            ElliPipe* LoadElliPipe(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ElliPipe* LoadElliPipe(xmlNodePtr elem)
             {
             	ElliPipe* pObject = factory->createElliPipe();
             
@@ -2118,7 +2056,7 @@ namespace LX
             	return pObject;
             }
             
-            BridgeElement* LoadBridgeElement(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            BridgeElement* LoadBridgeElement(xmlNodePtr elem)
             {
             	BridgeElement* pObject = factory->createBridgeElement();
             
@@ -2138,7 +2076,7 @@ namespace LX
             	return pObject;
             }
             
-            VolumeGeom* LoadVolumeGeom(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            VolumeGeom* LoadVolumeGeom(xmlNodePtr elem)
             {
             	VolumeGeom* pObject = factory->createVolumeGeom();
             
@@ -2159,7 +2097,7 @@ namespace LX
             	return pObject;
             }
             
-            PntList3D* LoadPntList3D(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PntList3D* LoadPntList3D(xmlNodePtr elem)
             {
             	PntList3D* pObject = factory->createPntList3D();
             
@@ -2177,7 +2115,7 @@ namespace LX
             }
             
             
-            RedHorizontalPosition* LoadRedHorizontalPosition(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RedHorizontalPosition* LoadRedHorizontalPosition(xmlNodePtr elem)
             {
             	RedHorizontalPosition* pObject = factory->createRedHorizontalPosition();
             
@@ -2211,7 +2149,7 @@ namespace LX
             	return pObject;
             }
             
-            TrafficVolume* LoadTrafficVolume(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TrafficVolume* LoadTrafficVolume(xmlNodePtr elem)
             {
             	TrafficVolume* pObject = factory->createTrafficVolume();
             
@@ -2231,7 +2169,7 @@ namespace LX
             	return pObject;
             }
             
-            Start* LoadStart(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Start* LoadStart(xmlNodePtr elem)
             {
             	Start* pObject = factory->createStart();
             
@@ -2266,7 +2204,7 @@ namespace LX
             	return pObject;
             }
             
-            CircPipe* LoadCircPipe(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CircPipe* LoadCircPipe(xmlNodePtr elem)
             {
             	CircPipe* pObject = factory->createCircPipe();
             
@@ -2289,7 +2227,7 @@ namespace LX
             	return pObject;
             }
             
-            InstrumentSetup* LoadInstrumentSetup(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            InstrumentSetup* LoadInstrumentSetup(xmlNodePtr elem)
             {
             	InstrumentSetup* pObject = factory->createInstrumentSetup();
             
@@ -2320,7 +2258,7 @@ namespace LX
             	return pObject;
             }
             
-            SurfVolumes* LoadSurfVolumes(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SurfVolumes* LoadSurfVolumes(xmlNodePtr elem)
             {
             	SurfVolumes* pObject = factory->createSurfVolumes();
             
@@ -2341,7 +2279,7 @@ namespace LX
             	return pObject;
             }
             
-            PlanFeatures* LoadPlanFeatures(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PlanFeatures* LoadPlanFeatures(xmlNodePtr elem)
             {
             	PlanFeatures* pObject = factory->createPlanFeatures();
             
@@ -2362,7 +2300,7 @@ namespace LX
             	return pObject;
             }
             
-            Boundaries* LoadBoundaries(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Boundaries* LoadBoundaries(xmlNodePtr elem)
             {
             	Boundaries* pObject = factory->createBoundaries();
             
@@ -2380,7 +2318,7 @@ namespace LX
             	return pObject;
             }
             
-            CrossSectPnt* LoadCrossSectPnt(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CrossSectPnt* LoadCrossSectPnt(xmlNodePtr elem)
             {
             	CrossSectPnt* pObject = factory->createCrossSectPnt();
             
@@ -2423,7 +2361,7 @@ namespace LX
             }
             
             
-            AmendmentItem* LoadAmendmentItem(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AmendmentItem* LoadAmendmentItem(xmlNodePtr elem)
             {
             	AmendmentItem* pObject = factory->createAmendmentItem();
             
@@ -2442,7 +2380,7 @@ namespace LX
             	return pObject;
             }
             
-            Location* LoadLocation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Location* LoadLocation(xmlNodePtr elem)
             {
             	Location* pObject = factory->createLocation();
             
@@ -2477,7 +2415,7 @@ namespace LX
             	return pObject;
             }
             
-            TurnRestriction* LoadTurnRestriction(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TurnRestriction* LoadTurnRestriction(xmlNodePtr elem)
             {
             	TurnRestriction* pObject = factory->createTurnRestriction();
             
@@ -2496,7 +2434,7 @@ namespace LX
             	return pObject;
             }
             
-            AdministrativeArea* LoadAdministrativeArea(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AdministrativeArea* LoadAdministrativeArea(xmlNodePtr elem)
             {
             	AdministrativeArea* pObject = factory->createAdministrativeArea();
             
@@ -2516,7 +2454,7 @@ namespace LX
             	return pObject;
             }
             
-            ClimbLane* LoadClimbLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ClimbLane* LoadClimbLane(xmlNodePtr elem)
             {
             	ClimbLane* pObject = factory->createClimbLane();
             
@@ -2538,7 +2476,7 @@ namespace LX
             	return pObject;
             }
             
-            ZoneCutFill* LoadZoneCutFill(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ZoneCutFill* LoadZoneCutFill(xmlNodePtr elem)
             {
             	ZoneCutFill* pObject = factory->createZoneCutFill();
             
@@ -2558,7 +2496,7 @@ namespace LX
             	return pObject;
             }
             
-            SpeedStation* LoadSpeedStation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SpeedStation* LoadSpeedStation(xmlNodePtr elem)
             {
             	SpeedStation* pObject = factory->createSpeedStation();
             
@@ -2576,7 +2514,7 @@ namespace LX
             	return pObject;
             }
             
-            DailyTrafficVolume* LoadDailyTrafficVolume(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DailyTrafficVolume* LoadDailyTrafficVolume(xmlNodePtr elem)
             {
             	DailyTrafficVolume* pObject = factory->createDailyTrafficVolume();
             
@@ -2598,7 +2536,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSPosition* LoadGPSPosition(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSPosition* LoadGPSPosition(xmlNodePtr elem)
             {
             	GPSPosition* pObject = factory->createGPSPosition();
             
@@ -2627,7 +2565,7 @@ namespace LX
             	return pObject;
             }
             
-            Profile* LoadProfile(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Profile* LoadProfile(xmlNodePtr elem)
             {
             	Profile* pObject = factory->createProfile();
             
@@ -2650,7 +2588,7 @@ namespace LX
             	return pObject;
             }
             
-            PipeNetworks* LoadPipeNetworks(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PipeNetworks* LoadPipeNetworks(xmlNodePtr elem)
             {
             	PipeNetworks* pObject = factory->createPipeNetworks();
             
@@ -2671,7 +2609,7 @@ namespace LX
             	return pObject;
             }
             
-            RectPipe* LoadRectPipe(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RectPipe* LoadRectPipe(xmlNodePtr elem)
             {
             	RectPipe* pObject = factory->createRectPipe();
             
@@ -2695,7 +2633,7 @@ namespace LX
             	return pObject;
             }
             
-            ThruLane* LoadThruLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ThruLane* LoadThruLane(xmlNodePtr elem)
             {
             	ThruLane* pObject = factory->createThruLane();
             
@@ -2716,7 +2654,7 @@ namespace LX
             	return pObject;
             }
             
-            ProfSurf* LoadProfSurf(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ProfSurf* LoadProfSurf(xmlNodePtr elem)
             {
             	ProfSurf* pObject = factory->createProfSurf();
             
@@ -2737,7 +2675,7 @@ namespace LX
             	return pObject;
             }
             
-            Author* LoadAuthor(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Author* LoadAuthor(xmlNodePtr elem)
             {
             	Author* pObject = factory->createAuthor();
             
@@ -2758,7 +2696,7 @@ namespace LX
             	return pObject;
             }
             
-            CrossSectSurf* LoadCrossSectSurf(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CrossSectSurf* LoadCrossSectSurf(xmlNodePtr elem)
             {
             	CrossSectSurf* pObject = factory->createCrossSectSurf();
             
@@ -2780,7 +2718,7 @@ namespace LX
             }
             
             
-            Roadway* LoadRoadway(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Roadway* LoadRoadway(xmlNodePtr elem)
             {
             	Roadway* pObject = factory->createRoadway();
             
@@ -2816,7 +2754,7 @@ namespace LX
             	return pObject;
             }
             
-            EggPipe* LoadEggPipe(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            EggPipe* LoadEggPipe(xmlNodePtr elem)
             {
             	EggPipe* pObject = factory->createEggPipe();
             
@@ -2840,7 +2778,7 @@ namespace LX
             	return pObject;
             }
             
-            Structs* LoadStructs(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Structs* LoadStructs(xmlNodePtr elem)
             {
             	Structs* pObject = factory->createStructs();
             
@@ -2859,7 +2797,7 @@ namespace LX
             	return pObject;
             }
             
-            Intersection* LoadIntersection(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Intersection* LoadIntersection(xmlNodePtr elem)
             {
             	Intersection* pObject = factory->createIntersection();
             
@@ -2880,7 +2818,7 @@ namespace LX
             	return pObject;
             }
             
-            FieldNote* LoadFieldNote(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            FieldNote* LoadFieldNote(xmlNodePtr elem)
             {
             	FieldNote* pObject = factory->createFieldNote();
             
@@ -2896,7 +2834,7 @@ namespace LX
             	return pObject;
             }
             
-            SurfVolume* LoadSurfVolume(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SurfVolume* LoadSurfVolume(xmlNodePtr elem)
             {
             	SurfVolume* pObject = factory->createSurfVolume();
             
@@ -2920,7 +2858,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSQCInfoLevel1* LoadGPSQCInfoLevel1(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSQCInfoLevel1* LoadGPSQCInfoLevel1(xmlNodePtr elem)
             {
             	GPSQCInfoLevel1* pObject = factory->createGPSQCInfoLevel1();
             
@@ -2940,7 +2878,7 @@ namespace LX
             	return pObject;
             }
             
-            BikeFacilities* LoadBikeFacilities(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            BikeFacilities* LoadBikeFacilities(xmlNodePtr elem)
             {
             	BikeFacilities* pObject = factory->createBikeFacilities();
             
@@ -2960,7 +2898,7 @@ namespace LX
             	return pObject;
             }
             
-            CgPoint* LoadCgPoint(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CgPoint* LoadCgPoint(xmlNodePtr elem)
             {
             	CgPoint* pObject = factory->createCgPoint();
             
@@ -3003,7 +2941,7 @@ namespace LX
             	return pObject;
             }
             
-            DrivewayDensity* LoadDrivewayDensity(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DrivewayDensity* LoadDrivewayDensity(xmlNodePtr elem)
             {
             	DrivewayDensity* pObject = factory->createDrivewayDensity();
             
@@ -3022,7 +2960,7 @@ namespace LX
             	return pObject;
             }
             
-            Monuments* LoadMonuments(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Monuments* LoadMonuments(xmlNodePtr elem)
             {
             	Monuments* pObject = factory->createMonuments();
             
@@ -3043,7 +2981,7 @@ namespace LX
             	return pObject;
             }
             
-            Corner* LoadCorner(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Corner* LoadCorner(xmlNodePtr elem)
             {
             	Corner* pObject = factory->createCorner();
             
@@ -3062,7 +3000,7 @@ namespace LX
             	return pObject;
             }
             
-            Volume* LoadVolume(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Volume* LoadVolume(xmlNodePtr elem)
             {
             	Volume* pObject = factory->createVolume();
             
@@ -3082,7 +3020,7 @@ namespace LX
             	return pObject;
             }
             
-            CircCurve* LoadCircCurve(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CircCurve* LoadCircCurve(xmlNodePtr elem)
             {
             	CircCurve* pObject = factory->createCircCurve();
             
@@ -3102,7 +3040,7 @@ namespace LX
             	return pObject;
             }
             
-            Title* LoadTitle(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Title* LoadTitle(xmlNodePtr elem)
             {
             	Title* pObject = factory->createTitle();
             
@@ -3120,7 +3058,7 @@ namespace LX
             	return pObject;
             }
             
-            DesignCrossSectSurf* LoadDesignCrossSectSurf(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DesignCrossSectSurf* LoadDesignCrossSectSurf(xmlNodePtr elem)
             {
             	DesignCrossSectSurf* pObject = factory->createDesignCrossSectSurf();
             
@@ -3148,7 +3086,7 @@ namespace LX
             	return pObject;
             }
             
-            RedVerticalObservation* LoadRedVerticalObservation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RedVerticalObservation* LoadRedVerticalObservation(xmlNodePtr elem)
             {
             	RedVerticalObservation* pObject = factory->createRedVerticalObservation();
             
@@ -3185,7 +3123,7 @@ namespace LX
             	return pObject;
             }
             
-            ZoneCrossSectStructure* LoadZoneCrossSectStructure(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ZoneCrossSectStructure* LoadZoneCrossSectStructure(xmlNodePtr elem)
             {
             	ZoneCrossSectStructure* pObject = factory->createZoneCrossSectStructure();
             
@@ -3214,7 +3152,7 @@ namespace LX
             	return pObject;
             }
             
-            Classification* LoadClassification(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Classification* LoadClassification(xmlNodePtr elem)
             {
             	Classification* pObject = factory->createClassification();
             
@@ -3234,7 +3172,7 @@ namespace LX
             	return pObject;
             }
             
-            Zones* LoadZones(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Zones* LoadZones(xmlNodePtr elem)
             {
             	Zones* pObject = factory->createZones();
             
@@ -3257,7 +3195,7 @@ namespace LX
             	return pObject;
             }
             
-            SurveyHeader* LoadSurveyHeader(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SurveyHeader* LoadSurveyHeader(xmlNodePtr elem)
             {
             	SurveyHeader* pObject = factory->createSurveyHeader();
             
@@ -3315,7 +3253,7 @@ namespace LX
             	return pObject;
             }
             
-            LaserSetup* LoadLaserSetup(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            LaserSetup* LoadLaserSetup(xmlNodePtr elem)
             {
             	LaserSetup* pObject = factory->createLaserSetup();
             
@@ -3342,7 +3280,7 @@ namespace LX
             	return pObject;
             }
             
-            Property* LoadProperty(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Property* LoadProperty(xmlNodePtr elem)
             {
             	Property* pObject = factory->createProperty();
             
@@ -3360,7 +3298,7 @@ namespace LX
             	return pObject;
             }
             
-            PointFiles* LoadPointFiles(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PointFiles* LoadPointFiles(xmlNodePtr elem)
             {
             	PointFiles* pObject = factory->createPointFiles();
             
@@ -3378,7 +3316,7 @@ namespace LX
             	return pObject;
             }
             
-            ZoneSlope* LoadZoneSlope(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ZoneSlope* LoadZoneSlope(xmlNodePtr elem)
             {
             	ZoneSlope* pObject = factory->createZoneSlope();
             
@@ -3402,7 +3340,7 @@ namespace LX
             	return pObject;
             }
             
-            Ditch* LoadDitch(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Ditch* LoadDitch(xmlNodePtr elem)
             {
             	Ditch* pObject = factory->createDitch();
             
@@ -3422,7 +3360,7 @@ namespace LX
             	return pObject;
             }
             
-            Timing* LoadTiming(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Timing* LoadTiming(xmlNodePtr elem)
             {
             	Timing* pObject = factory->createTiming();
             
@@ -3442,7 +3380,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSAntennaDetails* LoadGPSAntennaDetails(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSAntennaDetails* LoadGPSAntennaDetails(xmlNodePtr elem)
             {
             	GPSAntennaDetails* pObject = factory->createGPSAntennaDetails();
             
@@ -3467,7 +3405,7 @@ namespace LX
             	return pObject;
             }
             
-            InstrumentPoint* LoadInstrumentPoint(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            InstrumentPoint* LoadInstrumentPoint(xmlNodePtr elem)
             {
             	InstrumentPoint* pObject = factory->createInstrumentPoint();
             
@@ -3502,7 +3440,7 @@ namespace LX
             	return pObject;
             }
             
-            TurnSpeed* LoadTurnSpeed(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TurnSpeed* LoadTurnSpeed(xmlNodePtr elem)
             {
             	TurnSpeed* pObject = factory->createTurnSpeed();
             
@@ -3521,7 +3459,7 @@ namespace LX
             	return pObject;
             }
             
-            TurnLane* LoadTurnLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TurnLane* LoadTurnLane(xmlNodePtr elem)
             {
             	TurnLane* pObject = factory->createTurnLane();
             
@@ -3546,7 +3484,7 @@ namespace LX
             }
             
             
-            RawObservationType* LoadRawObservationType(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RawObservationType* LoadRawObservationType(xmlNodePtr elem)
             {
             	RawObservationType* pObject = factory->createRawObservationType();
             
@@ -3589,7 +3527,7 @@ namespace LX
             	return pObject;
             }
             
-            Curve1* LoadCurve1(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Curve1* LoadCurve1(xmlNodePtr elem)
             {
             	Curve1* pObject = factory->createCurve1();
             
@@ -3606,7 +3544,7 @@ namespace LX
             	return pObject;
             }
             
-            Parcel* LoadParcel(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Parcel* LoadParcel(xmlNodePtr elem)
             {
             	Parcel* pObject = factory->createParcel();
             
@@ -3652,7 +3590,7 @@ namespace LX
             	return pObject;
             }
             
-            Line* LoadLine(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Line* LoadLine(xmlNodePtr elem)
             {
             	Line* pObject = factory->createLine();
             
@@ -3679,7 +3617,7 @@ namespace LX
             	return pObject;
             }
             
-            Breaklines* LoadBreaklines(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Breaklines* LoadBreaklines(xmlNodePtr elem)
             {
             	Breaklines* pObject = factory->createBreaklines();
             
@@ -3698,7 +3636,7 @@ namespace LX
             	return pObject;
             }
             
-            Feature* LoadFeature(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Feature* LoadFeature(xmlNodePtr elem)
             {
             	Feature* pObject = factory->createFeature();
             
@@ -3719,7 +3657,7 @@ namespace LX
             	return pObject;
             }
             
-            OutSpiral* LoadOutSpiral(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            OutSpiral* LoadOutSpiral(xmlNodePtr elem)
             {
             	OutSpiral* pObject = factory->createOutSpiral();
             
@@ -3736,7 +3674,7 @@ namespace LX
             	return pObject;
             }
             
-            Definition* LoadDefinition(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Definition* LoadDefinition(xmlNodePtr elem)
             {
             	Definition* pObject = factory->createDefinition();
             
@@ -3760,7 +3698,7 @@ namespace LX
             	return pObject;
             }
             
-            F* LoadF(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            F* LoadF(xmlNodePtr elem)
             {
             	F* pObject = factory->createF();
             
@@ -3781,7 +3719,7 @@ namespace LX
             	return pObject;
             }
             
-            LaserDetails* LoadLaserDetails(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            LaserDetails* LoadLaserDetails(xmlNodePtr elem)
             {
             	LaserDetails* pObject = factory->createLaserDetails();
             
@@ -3802,7 +3740,7 @@ namespace LX
             	return pObject;
             }
             
-            Speeds* LoadSpeeds(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Speeds* LoadSpeeds(xmlNodePtr elem)
             {
             	Speeds* pObject = factory->createSpeeds();
             
@@ -3822,7 +3760,7 @@ namespace LX
             	return pObject;
             }
             
-            OutletStruct* LoadOutletStruct(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            OutletStruct* LoadOutletStruct(xmlNodePtr elem)
             {
             	OutletStruct* pObject = factory->createOutletStruct();
             
@@ -3840,7 +3778,7 @@ namespace LX
             }
             
             
-            Exclusions* LoadExclusions(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Exclusions* LoadExclusions(xmlNodePtr elem)
             {
             	Exclusions* pObject = factory->createExclusions();
             
@@ -3858,7 +3796,7 @@ namespace LX
             	return pObject;
             }
             
-            PVI* LoadPVI(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PVI* LoadPVI(xmlNodePtr elem)
             {
             	PVI* pObject = factory->createPVI();
             
@@ -3876,7 +3814,7 @@ namespace LX
             	return pObject;
             }
             
-            TrafficControl* LoadTrafficControl(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TrafficControl* LoadTrafficControl(xmlNodePtr elem)
             {
             	TrafficControl* pObject = factory->createTrafficControl();
             
@@ -3897,7 +3835,7 @@ namespace LX
             }
             
             
-            Corrections* LoadCorrections(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Corrections* LoadCorrections(xmlNodePtr elem)
             {
             	Corrections* pObject = factory->createCorrections();
             
@@ -3917,7 +3855,7 @@ namespace LX
             	return pObject;
             }
             
-            ReducedObservation* LoadReducedObservation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ReducedObservation* LoadReducedObservation(xmlNodePtr elem)
             {
             	ReducedObservation* pObject = factory->createReducedObservation();
             
@@ -3975,7 +3913,7 @@ namespace LX
             	return pObject;
             }
             
-            Watersheds* LoadWatersheds(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Watersheds* LoadWatersheds(xmlNodePtr elem)
             {
             	Watersheds* pObject = factory->createWatersheds();
             
@@ -3993,7 +3931,7 @@ namespace LX
             	return pObject;
             }
             
-            CircStruct* LoadCircStruct(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CircStruct* LoadCircStruct(xmlNodePtr elem)
             {
             	CircStruct* pObject = factory->createCircStruct();
             
@@ -4017,7 +3955,7 @@ namespace LX
             }
             
             
-            InletStruct* LoadInletStruct(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            InletStruct* LoadInletStruct(xmlNodePtr elem)
             {
             	InletStruct* pObject = factory->createInletStruct();
             
@@ -4034,7 +3972,7 @@ namespace LX
             	return pObject;
             }
             
-            ControlChecks* LoadControlChecks(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ControlChecks* LoadControlChecks(xmlNodePtr elem)
             {
             	ControlChecks* pObject = factory->createControlChecks();
             
@@ -4050,7 +3988,7 @@ namespace LX
             	return pObject;
             }
             
-            ReducedArcObservation* LoadReducedArcObservation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ReducedArcObservation* LoadReducedArcObservation(xmlNodePtr elem)
             {
             	ReducedArcObservation* pObject = factory->createReducedArcObservation();
             
@@ -4096,7 +4034,7 @@ namespace LX
             	return pObject;
             }
             
-            GradeModel* LoadGradeModel(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GradeModel* LoadGradeModel(xmlNodePtr elem)
             {
             	GradeModel* pObject = factory->createGradeModel();
             
@@ -4117,7 +4055,7 @@ namespace LX
             	return pObject;
             }
             
-            TargetPoint* LoadTargetPoint(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TargetPoint* LoadTargetPoint(xmlNodePtr elem)
             {
             	TargetPoint* pObject = factory->createTargetPoint();
             
@@ -4152,7 +4090,7 @@ namespace LX
             	return pObject;
             }
             
-            Curve2* LoadCurve2(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Curve2* LoadCurve2(xmlNodePtr elem)
             {
             	Curve2* pObject = factory->createCurve2();
             
@@ -4169,7 +4107,7 @@ namespace LX
             	return pObject;
             }
             
-            DesignSpeed85th* LoadDesignSpeed85th(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DesignSpeed85th* LoadDesignSpeed85th(xmlNodePtr elem)
             {
             	DesignSpeed85th* pObject = factory->createDesignSpeed85th();
             
@@ -4190,7 +4128,7 @@ namespace LX
             	return pObject;
             }
             
-            PntList2D* LoadPntList2D(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PntList2D* LoadPntList2D(xmlNodePtr elem)
             {
             	PntList2D* pObject = factory->createPntList2D();
             
@@ -4207,7 +4145,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSQCInfoLevel2* LoadGPSQCInfoLevel2(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSQCInfoLevel2* LoadGPSQCInfoLevel2(xmlNodePtr elem)
             {
             	GPSQCInfoLevel2* pObject = factory->createGPSQCInfoLevel2();
             
@@ -4237,7 +4175,7 @@ namespace LX
             	return pObject;
             }
             
-            CrashHistory* LoadCrashHistory(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CrashHistory* LoadCrashHistory(xmlNodePtr elem)
             {
             	CrashHistory* pObject = factory->createCrashHistory();
             
@@ -4259,7 +4197,7 @@ namespace LX
             	return pObject;
             }
             
-            SourceData* LoadSourceData(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SourceData* LoadSourceData(xmlNodePtr elem)
             {
             	SourceData* pObject = factory->createSourceData();
             
@@ -4282,7 +4220,7 @@ namespace LX
             	return pObject;
             }
             
-            PlanFeature* LoadPlanFeature(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PlanFeature* LoadPlanFeature(xmlNodePtr elem)
             {
             	PlanFeature* pObject = factory->createPlanFeature();
             
@@ -4306,7 +4244,7 @@ namespace LX
             }
             
             
-            Invert* LoadInvert(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Invert* LoadInvert(xmlNodePtr elem)
             {
             	Invert* pObject = factory->createInvert();
             
@@ -4326,7 +4264,7 @@ namespace LX
             	return pObject;
             }
             
-            Contours* LoadContours(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Contours* LoadContours(xmlNodePtr elem)
             {
             	Contours* pObject = factory->createContours();
             
@@ -4344,7 +4282,7 @@ namespace LX
             	return pObject;
             }
             
-            Lanes* LoadLanes(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Lanes* LoadLanes(xmlNodePtr elem)
             {
             	Lanes* pObject = factory->createLanes();
             
@@ -4368,7 +4306,7 @@ namespace LX
             	return pObject;
             }
             
-            ZoneHinge* LoadZoneHinge(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ZoneHinge* LoadZoneHinge(xmlNodePtr elem)
             {
             	ZoneHinge* pObject = factory->createZoneHinge();
             
@@ -4389,7 +4327,7 @@ namespace LX
             	return pObject;
             }
             
-            End* LoadEnd(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            End* LoadEnd(xmlNodePtr elem)
             {
             	End* pObject = factory->createEnd();
             
@@ -4425,7 +4363,7 @@ namespace LX
             }
             
             
-            DataPoints* LoadDataPoints(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DataPoints* LoadDataPoints(xmlNodePtr elem)
             {
             	DataPoints* pObject = factory->createDataPoints();
             
@@ -4451,7 +4389,7 @@ namespace LX
             }
             
            
-            Contour* LoadContour(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Contour* LoadContour(xmlNodePtr elem)
             {
             	Contour* pObject = factory->createContour();
             
@@ -4470,7 +4408,7 @@ namespace LX
             	return pObject;
             }
             
-            AdministrativeDate* LoadAdministrativeDate(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AdministrativeDate* LoadAdministrativeDate(xmlNodePtr elem)
             {
             	AdministrativeDate* pObject = factory->createAdministrativeDate();
             
@@ -4488,7 +4426,7 @@ namespace LX
             	return pObject;
             }
             
-            SurveyMonument* LoadSurveyMonument(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SurveyMonument* LoadSurveyMonument(xmlNodePtr elem)
             {
             	SurveyMonument* pObject = factory->createSurveyMonument();
             
@@ -4515,7 +4453,7 @@ namespace LX
             	return pObject;
             }
             
-            ObstructionOffset* LoadObstructionOffset(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ObstructionOffset* LoadObstructionOffset(xmlNodePtr elem)
             {
             	ObstructionOffset* pObject = factory->createObstructionOffset();
             
@@ -4535,7 +4473,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSSetup* LoadGPSSetup(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSSetup* LoadGPSSetup(xmlNodePtr elem)
             {
             	GPSSetup* pObject = factory->createGPSSetup();
             
@@ -4564,7 +4502,7 @@ namespace LX
             	return pObject;
             }
             
-            Backsight* LoadBacksight(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Backsight* LoadBacksight(xmlNodePtr elem)
             {
             	Backsight* pObject = factory->createBacksight();
             
@@ -4588,7 +4526,7 @@ namespace LX
             	return pObject;
             }
             
-            PointType* LoadPointType(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PointType* LoadPointType(xmlNodePtr elem)
             {
             	PointType* pObject = factory->createPointType();
             
@@ -4623,7 +4561,7 @@ namespace LX
             	return pObject;
             }
             
-            CrossSects* LoadCrossSects(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CrossSects* LoadCrossSects(xmlNodePtr elem)
             {
             	CrossSects* pObject = factory->createCrossSects();
             
@@ -4648,7 +4586,7 @@ namespace LX
             	return pObject;
             }
             
-            Surface* LoadSurface(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Surface* LoadSurface(xmlNodePtr elem)
             {
             	Surface* pObject = factory->createSurface();
             
@@ -4672,7 +4610,7 @@ namespace LX
             	return pObject;
             }
             
-            Curb* LoadCurb(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Curb* LoadCurb(xmlNodePtr elem)
             {
             	Curb* pObject = factory->createCurb();
             
@@ -4693,7 +4631,7 @@ namespace LX
             }
             
             
-            WideningLane* LoadWideningLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            WideningLane* LoadWideningLane(xmlNodePtr elem)
             {
             	WideningLane* pObject = factory->createWideningLane();
             
@@ -4717,7 +4655,7 @@ namespace LX
             	return pObject;
             }
             
-            SurveyorCertificate* LoadSurveyorCertificate(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            SurveyorCertificate* LoadSurveyorCertificate(xmlNodePtr elem)
             {
             	SurveyorCertificate* pObject = factory->createSurveyorCertificate();
             
@@ -4737,7 +4675,7 @@ namespace LX
             	return pObject;
             }
             
-            P* LoadP(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            P* LoadP(xmlNodePtr elem)
             {
             	P* pObject = factory->createP();
             
@@ -4774,7 +4712,7 @@ namespace LX
             }
             
             
-            TwoWayLeftTurnLane* LoadTwoWayLeftTurnLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TwoWayLeftTurnLane* LoadTwoWayLeftTurnLane(xmlNodePtr elem)
             {
             	TwoWayLeftTurnLane* pObject = factory->createTwoWayLeftTurnLane();
             
@@ -4798,7 +4736,7 @@ namespace LX
             	return pObject;
             }
             
-            RawObservation* LoadRawObservation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RawObservation* LoadRawObservation(xmlNodePtr elem)
             {
             	RawObservation* pObject = factory->createRawObservation();
             
@@ -4840,7 +4778,7 @@ namespace LX
             	return pObject;
             }
             
-            TargetSetup* LoadTargetSetup(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            TargetSetup* LoadTargetSetup(xmlNodePtr elem)
             {
             	TargetSetup* pObject = factory->createTargetSetup();
             
@@ -4862,7 +4800,7 @@ namespace LX
             	return pObject;
             }
             
-            Channel* LoadChannel(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Channel* LoadChannel(xmlNodePtr elem)
             {
             	Channel* pObject = factory->createChannel();
             
@@ -4887,7 +4825,7 @@ namespace LX
             	return pObject;
             }
             
-            PipeFlow* LoadPipeFlow(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PipeFlow* LoadPipeFlow(xmlNodePtr elem)
             {
             	PipeFlow* pObject = factory->createPipeFlow();
             
@@ -4915,7 +4853,7 @@ namespace LX
             	return pObject;
             }
             
-            PointFile* LoadPointFile(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PointFile* LoadPointFile(xmlNodePtr elem)
             {
             	PointFile* pObject = factory->createPointFile();
             
@@ -4934,7 +4872,7 @@ namespace LX
             	return pObject;
             }
             
-            BacksightPoint* LoadBacksightPoint(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            BacksightPoint* LoadBacksightPoint(xmlNodePtr elem)
             {
             	BacksightPoint* pObject = factory->createBacksightPoint();
             
@@ -4969,7 +4907,7 @@ namespace LX
             	return pObject;
             }
             
-            Personnel* LoadPersonnel(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Personnel* LoadPersonnel(xmlNodePtr elem)
             {
             	Personnel* pObject = factory->createPersonnel();
             
@@ -4989,7 +4927,7 @@ namespace LX
             	return pObject;
             }
             
-            Monument* LoadMonument(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Monument* LoadMonument(xmlNodePtr elem)
             {
             	Monument* pObject = factory->createMonument();
             
@@ -5018,7 +4956,7 @@ namespace LX
             	return pObject;
             }
             
-            Amendment* LoadAmendment(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Amendment* LoadAmendment(xmlNodePtr elem)
             {
             	Amendment* pObject = factory->createAmendment();
             
@@ -5038,7 +4976,7 @@ namespace LX
             	return pObject;
             }
             
-            InstrumentDetails* LoadInstrumentDetails(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            InstrumentDetails* LoadInstrumentDetails(xmlNodePtr elem)
             {
             	InstrumentDetails* pObject = factory->createInstrumentDetails();
             
@@ -5069,7 +5007,7 @@ namespace LX
             	return pObject;
             }
             
-            StructFlow* LoadStructFlow(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            StructFlow* LoadStructFlow(xmlNodePtr elem)
             {
             	StructFlow* pObject = factory->createStructFlow();
             
@@ -5095,7 +5033,7 @@ namespace LX
             	return pObject;
             }
             
-            LandXML* LoadLandXML(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            LandXML* LoadLandXML(xmlNodePtr elem)
             {
             	LandXML* pObject = factory->createLandXML();
             
@@ -5135,7 +5073,7 @@ namespace LX
             	return pObject;
             }
             
-            Faces* LoadFaces(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Faces* LoadFaces(xmlNodePtr elem)
             {
             	Faces* pObject = factory->createFaces();
             
@@ -5156,7 +5094,7 @@ namespace LX
             	return pObject;
             }
             
-            DecisionSightDistance* LoadDecisionSightDistance(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DecisionSightDistance* LoadDecisionSightDistance(xmlNodePtr elem)
             {
             	DecisionSightDistance* pObject = factory->createDecisionSightDistance();
             
@@ -5174,7 +5112,7 @@ namespace LX
             	return pObject;
             }
             
-            Roadways* LoadRoadways(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Roadways* LoadRoadways(xmlNodePtr elem)
             {
             	Roadways* pObject = factory->createRoadways();
             
@@ -5196,7 +5134,7 @@ namespace LX
             	return pObject;
             }
             
-            FeatureDictionary* LoadFeatureDictionary(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            FeatureDictionary* LoadFeatureDictionary(xmlNodePtr elem)
             {
             	FeatureDictionary* pObject = factory->createFeatureDictionary();
             
@@ -5215,7 +5153,7 @@ namespace LX
             	return pObject;
             }
             
-            ZoneWidth* LoadZoneWidth(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ZoneWidth* LoadZoneWidth(xmlNodePtr elem)
             {
             	ZoneWidth* pObject = factory->createZoneWidth();
             
@@ -5236,7 +5174,7 @@ namespace LX
             	return pObject;
             }
             
-            ParaCurve* LoadParaCurve(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ParaCurve* LoadParaCurve(xmlNodePtr elem)
             {
             	ParaCurve* pObject = factory->createParaCurve();
             
@@ -5255,7 +5193,7 @@ namespace LX
             	return pObject;
             }
             
-            CgPoints* LoadCgPoints(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CgPoints* LoadCgPoints(xmlNodePtr elem)
             {
             	CgPoints* pObject = factory->createCgPoints();
             
@@ -5279,7 +5217,7 @@ namespace LX
             	return pObject;
             }
             
-            DesignHour* LoadDesignHour(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DesignHour* LoadDesignHour(xmlNodePtr elem)
             {
             	DesignHour* pObject = factory->createDesignHour();
             
@@ -5299,7 +5237,7 @@ namespace LX
             	return pObject;
             }
             
-            ConnSpiral* LoadConnSpiral(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ConnSpiral* LoadConnSpiral(xmlNodePtr elem)
             {
             	ConnSpiral* pObject = factory->createConnSpiral();
             
@@ -5316,7 +5254,7 @@ namespace LX
             	return pObject;
             }
             
-            Alignment* LoadAlignment(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Alignment* LoadAlignment(xmlNodePtr elem)
             {
             	Alignment* pObject = factory->createAlignment();
             
@@ -5347,7 +5285,7 @@ namespace LX
             	return pObject;
             }
             
-            POI* LoadPI(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            POI* LoadPI(xmlNodePtr elem)
             {
             	POI* pObject = factory->createPOI();
             
@@ -5382,7 +5320,7 @@ namespace LX
             	return pObject;
             }
             
-            Alignments* LoadAlignments(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Alignments* LoadAlignments(xmlNodePtr elem)
             {
             	Alignments* pObject = factory->createAlignments();
             
@@ -5403,7 +5341,7 @@ namespace LX
             	return pObject;
             }
             
-            Roadside* LoadRoadside(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Roadside* LoadRoadside(xmlNodePtr elem)
             {
             	Roadside* pObject = factory->createRoadside();
             
@@ -5419,7 +5357,7 @@ namespace LX
             	return pObject;
             }
             
-            PeakHour* LoadPeakHour(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PeakHour* LoadPeakHour(xmlNodePtr elem)
             {
             	PeakHour* pObject = factory->createPeakHour();
             
@@ -5440,7 +5378,7 @@ namespace LX
             	return pObject;
             }
             
-            Chain* LoadChain(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Chain* LoadChain(xmlNodePtr elem)
             {
             	Chain* pObject = factory->createChain();
             
@@ -5468,7 +5406,7 @@ namespace LX
             	return pObject;
             }
             
-            ObservationGroup* LoadObservationGroup(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ObservationGroup* LoadObservationGroup(xmlNodePtr elem)
             {
             	ObservationGroup* pObject = factory->createObservationGroup();
             
@@ -5502,7 +5440,7 @@ namespace LX
             	return pObject;
             }
             
-            ComplexName* LoadComplexName(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ComplexName* LoadComplexName(xmlNodePtr elem)
             {
             	ComplexName* pObject = factory->createComplexName();
             
@@ -5520,7 +5458,7 @@ namespace LX
             	return pObject;
             }
             
-            AddressPoint* LoadAddressPoint(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            AddressPoint* LoadAddressPoint(xmlNodePtr elem)
             {
             	AddressPoint* pObject = factory->createAddressPoint();
             
@@ -5556,7 +5494,7 @@ namespace LX
             	return pObject;
             }
             
-            PointType3dReq* LoadPointType3dReq(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PointType3dReq* LoadPointType3dReq(xmlNodePtr elem)
             {
             	PointType3dReq* pObject = factory->createPointType3dReq();
             
@@ -5583,7 +5521,7 @@ namespace LX
             	return pObject;
             }
             
-            PassingLane* LoadPassingLane(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PassingLane* LoadPassingLane(xmlNodePtr elem)
             {
             	PassingLane* pObject = factory->createPassingLane();
             
@@ -5605,7 +5543,7 @@ namespace LX
             	return pObject;
             }
             
-            ZoneMaterial* LoadZoneMaterial(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            ZoneMaterial* LoadZoneMaterial(xmlNodePtr elem)
             {
             	ZoneMaterial* pObject = factory->createZoneMaterial();
             
@@ -5624,7 +5562,7 @@ namespace LX
             	return pObject;
             }
             
-            Metric* LoadMetric(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Metric* LoadMetric(xmlNodePtr elem)
             {
             	Metric* pObject = factory->createMetric();
             
@@ -5657,7 +5595,7 @@ namespace LX
             
            
             
-            PipeNetwork* LoadPipeNetwork(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PipeNetwork* LoadPipeNetwork(xmlNodePtr elem)
             {
             	PipeNetwork* pObject = factory->createPipeNetwork();
             
@@ -5682,7 +5620,7 @@ namespace LX
             	return pObject;
             }
             
-            CoordinateSystem* LoadCoordinateSystem(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CoordinateSystem* LoadCoordinateSystem(xmlNodePtr elem)
             {
             	CoordinateSystem* pObject = factory->createCoordinateSystem();
             
@@ -5719,7 +5657,7 @@ namespace LX
             	return pObject;
             }
             
-            CrossSect* LoadCrossSect(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            CrossSect* LoadCrossSect(xmlNodePtr elem)
             {
             	CrossSect* pObject = factory->createCrossSect();
             
@@ -5749,7 +5687,7 @@ namespace LX
             	return pObject;
             }
             
-            PointResults* LoadPointResults(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PointResults* LoadPointResults(xmlNodePtr elem)
             {
             	PointResults* pObject = factory->createPointResults();
             
@@ -5776,7 +5714,7 @@ namespace LX
             	return pObject;
             }
             
-            PostedSpeed* LoadPostedSpeed(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PostedSpeed* LoadPostedSpeed(xmlNodePtr elem)
             {
             	PostedSpeed* pObject = factory->createPostedSpeed();
             
@@ -5796,7 +5734,7 @@ namespace LX
             	return pObject;
             }
             
-            GPSReceiverDetails* LoadGPSReceiverDetails(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GPSReceiverDetails* LoadGPSReceiverDetails(xmlNodePtr elem)
             {
             	GPSReceiverDetails* pObject = factory->createGPSReceiverDetails();
             
@@ -5816,7 +5754,7 @@ namespace LX
             	return pObject;
             }
             
-            PurposeOfSurvey* LoadPurposeOfSurvey(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            PurposeOfSurvey* LoadPurposeOfSurvey(xmlNodePtr elem)
             {
             	PurposeOfSurvey* pObject = factory->createPurposeOfSurvey();
             
@@ -5833,7 +5771,7 @@ namespace LX
             	return pObject;
             }
             
-            RoadName* LoadRoadName(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            RoadName* LoadRoadName(xmlNodePtr elem)
             {
             	RoadName* pObject = factory->createRoadName();
             
@@ -5854,7 +5792,7 @@ namespace LX
             	return pObject;
             }
             
-            Zone* LoadZone(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Zone* LoadZone(xmlNodePtr elem)
             {
             	Zone* pObject = factory->createZone();
             
@@ -5889,7 +5827,7 @@ namespace LX
             	return pObject;
             }
             
-            StaEquation* LoadStaEquation(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            StaEquation* LoadStaEquation(xmlNodePtr elem)
             {
             	StaEquation* pObject = factory->createStaEquation();
             
@@ -5911,7 +5849,7 @@ namespace LX
             	return pObject;
             }
             
-            GradeSurface* LoadGradeSurface(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            GradeSurface* LoadGradeSurface(xmlNodePtr elem)
             {
             	GradeSurface* pObject = factory->createGradeSurface();
             
@@ -5939,7 +5877,7 @@ namespace LX
             	return pObject;
             }
             
-            Survey* LoadSurvey(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Survey* LoadSurvey(xmlNodePtr elem)
             {
             	Survey* pObject = factory->createSurvey();
             
@@ -5976,7 +5914,7 @@ namespace LX
             	return pObject;
             }
             
-            Imperial* LoadImperial(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Imperial* LoadImperial(xmlNodePtr elem)
             {
             	Imperial* pObject = factory->createImperial();
             
@@ -6007,7 +5945,7 @@ namespace LX
             }
             
             
-            DesignSpeed* LoadDesignSpeed(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            DesignSpeed* LoadDesignSpeed(xmlNodePtr elem)
             {
             	DesignSpeed* pObject = factory->createDesignSpeed();
             
@@ -6027,7 +5965,7 @@ namespace LX
             	return pObject;
             }
             
-            Connection* LoadConnection(XERCES_CPP_NAMESPACE::DOMElement* elem)
+            Connection* LoadConnection(xmlNodePtr elem)
             {
             	Connection* pObject = factory->createConnection();
             

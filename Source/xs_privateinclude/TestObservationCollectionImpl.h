@@ -19,7 +19,7 @@ TestObservationCollection* createTestObservationCollectionObject (DocumentImpl* 
 class TestObservationCollectionImpl : public ObjListTmpl<TestObservation, TestObservationCollection, TestObservationCollectionIterator, TestObservationCollectionConstIterator>
 {
 public:
-    TestObservationCollectionImpl::TestObservationCollectionImpl (DocumentImpl* pDocument);
+    TestObservationCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

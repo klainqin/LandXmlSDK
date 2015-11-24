@@ -19,7 +19,7 @@ DesignCrossSectSurfCollection* createDesignCrossSectSurfCollectionObject (Docume
 class DesignCrossSectSurfCollectionImpl : public NamedObjMultiMapTmpl<DesignCrossSectSurf, DesignCrossSectSurfCollection, String, DesignCrossSectSurfCollectionIterator, DesignCrossSectSurfCollectionConstIterator>
 {
 public:
-    DesignCrossSectSurfCollectionImpl::DesignCrossSectSurfCollectionImpl (DocumentImpl* pDocument);
+    DesignCrossSectSurfCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

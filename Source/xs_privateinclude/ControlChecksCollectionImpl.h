@@ -19,7 +19,7 @@ ControlChecksCollection* createControlChecksCollectionObject (DocumentImpl* pDoc
 class ControlChecksCollectionImpl : public ObjListTmpl<ControlChecks, ControlChecksCollection, ControlChecksCollectionIterator, ControlChecksCollectionConstIterator>
 {
 public:
-    ControlChecksCollectionImpl::ControlChecksCollectionImpl (DocumentImpl* pDocument);
+    ControlChecksCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX

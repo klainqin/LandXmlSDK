@@ -19,7 +19,7 @@ TrafficControlCollection* createTrafficControlCollectionObject (DocumentImpl* pD
 class TrafficControlCollectionImpl : public ObjListTmpl<TrafficControl, TrafficControlCollection, TrafficControlCollectionIterator, TrafficControlCollectionConstIterator>
 {
 public:
-    TrafficControlCollectionImpl::TrafficControlCollectionImpl (DocumentImpl* pDocument);
+    TrafficControlCollectionImpl (DocumentImpl* pDocument);
 };
 #endif
 }; // namespace : LX
