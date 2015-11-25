@@ -31,6 +31,11 @@ ValueObjectTmpl<T>::ValueObjectTmpl (
 {
 	m_bNothing = true;
 }
+    
+template<class T>
+ValueObjectTmpl<T>::~ValueObjectTmpl ()
+{
+}
 
 template<class T>
 bool ValueObjectTmpl<T>::isNothing () const

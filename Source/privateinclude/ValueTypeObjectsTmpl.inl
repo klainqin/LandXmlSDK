@@ -72,6 +72,10 @@ StringObjectTmpl<T>::StringObjectTmpl (
 	this->m_bNothing = false;
 }
 
+template<class T>
+StringObjectTmpl<T>::~StringObjectTmpl()
+{
+}
 
 template <class T>
 String StringObjectTmpl<T>::value () const
@@ -219,6 +223,10 @@ DoubleObjectTmpl<T>::DoubleObjectTmpl (
 	this->m_bNothing = false;
 }
 
+template<class T>
+DoubleObjectTmpl<T>::~DoubleObjectTmpl ()
+{
+}
 
 template <class T>
 double DoubleObjectTmpl<T>::value () const
@@ -355,6 +363,10 @@ IntegerObjectTmpl<T>::IntegerObjectTmpl (
 	this->m_bNothing = false;
 }
 
+template<class T>
+IntegerObjectTmpl<T>::~IntegerObjectTmpl ()
+{
+}
 
 template <class T>
 int IntegerObjectTmpl<T>::value () const
@@ -467,7 +479,11 @@ BooleanObjectTmpl<T>::BooleanObjectTmpl (
 	m_bValue = bValue;
 	this->m_bNothing = false;	
 }
-
+    
+template<class T>
+BooleanObjectTmpl<T>::~BooleanObjectTmpl ()
+{
+}
 
 template <class T>
 bool BooleanObjectTmpl<T>::value () const
@@ -586,6 +602,11 @@ UIntegerObjectTmpl<T>::UIntegerObjectTmpl (
 	this->m_bNothing = false;
 }
 
+template<class T>
+UIntegerObjectTmpl<T>::~UIntegerObjectTmpl ()
+{
+        
+}
 
 template <class T>
 unsigned int UIntegerObjectTmpl<T>::value () const

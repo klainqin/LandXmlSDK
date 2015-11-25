@@ -389,7 +389,7 @@
             if (this->xmlChar2wcs(szAttr, &temp, len))  \
             {  \
                 TYPE1::Type value;  \
-                TYPE1::parseString(temp, len, value);  \
+                TYPE1::parseString(static_cast<wchar_t const*>(temp), len, value);  \
                 obj->set##Fun(value);  \
             }  \
             delete[] temp;  \
@@ -508,9 +508,11 @@ namespace LX
                 size_t wcharLength = mbtowc(NULL, (const char*) xmlString, charLength); //excludes null terminator
                 if (wcharLength != (size_t)(-1))
                 {
-                    *wstr = new wchar_t[wcharLength + 1];
-                    *wstr[wcharLength] = L'\0';
-                    mbtowc(*wstr, (const char*) xmlString, charLength);
+                    wchar_t* temp = new wchar_t[wcharLength + 1];
+                    temp[wcharLength] = L'\0';
+                    mbtowc(temp, (const char*) xmlString, charLength);
+                    
+                    *wstr = temp;
                     len = wcharLength;
                 }
                 

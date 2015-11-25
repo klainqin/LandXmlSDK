@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2024BC471C046492009CBEE7 /* ParserTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2024BC461C046492009CBEE7 /* ParserTest.mm */; };
+		2024BC4A1C046AD0009CBEE7 /* ParserTest.mm in Sources */ = {isa = PBXBuildFile; fileRef = 2024BC491C046AD0009CBEE7 /* ParserTest.mm */; };
+		2024BC4B1C046BF0009CBEE7 /* libxml2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 20D418401BF97EAA003B33C5 /* libxml2.dylib */; };
+		2024CEFB1C05BE1E009CBEE7 /* DateTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2024CEFA1C05BE1E009CBEE7 /* DateTime.cpp */; };
 		20B552AB1BF5BA08003EB42C /* libLandXmlSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B5529F1BF5BA08003EB42C /* libLandXmlSDK.a */; };
 		20D416721BF5CD86003B33C5 /* CollectionNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */; };
 		20D416731BF5CD86003B33C5 /* CompoundNode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */; };
@@ -489,7 +491,8 @@
 
 /* Begin PBXFileReference section */
 		2024BC451C0461F9009CBEE7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Tests/Info.plist; sourceTree = SOURCE_ROOT; };
-		2024BC461C046492009CBEE7 /* ParserTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ParserTest.mm; path = Tests/ParserTest.mm; sourceTree = "<group>"; };
+		2024BC491C046AD0009CBEE7 /* ParserTest.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = ParserTest.mm; path = Tests/ParserTest.mm; sourceTree = SOURCE_ROOT; };
+		2024CEFA1C05BE1E009CBEE7 /* DateTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = DateTime.cpp; path = Source/DateTime.cpp; sourceTree = SOURCE_ROOT; };
 		20B5529F1BF5BA08003EB42C /* libLandXmlSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLandXmlSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B552AA1BF5BA08003EB42C /* LandXmlSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LandXmlSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CollectionNode.cpp; path = Source/CollectionNode.cpp; sourceTree = SOURCE_ROOT; };
@@ -2181,6 +2184,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2024BC4B1C046BF0009CBEE7 /* libxml2.dylib in Frameworks */,
 				20B552AB1BF5BA08003EB42C /* libLandXmlSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2216,6 +2220,7 @@
 				20D40FE41BF5CD81003B33C5 /* CollectionNode.cpp */,
 				20D40FE51BF5CD81003B33C5 /* CompoundNode.cpp */,
 				20D40FE61BF5CD81003B33C5 /* CompoundNode.h.cpp */,
+				2024CEFA1C05BE1E009CBEE7 /* DateTime.cpp */,
 				20D40FE81BF5CD81003B33C5 /* Debug.cpp */,
 				20D40FE91BF5CD81003B33C5 /* DocumentImpl.cpp */,
 				20D40FEA1BF5CD81003B33C5 /* Exception.cpp */,
@@ -2245,7 +2250,7 @@
 		20B552AE1BF5BA08003EB42C /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				2024BC461C046492009CBEE7 /* ParserTest.mm */,
+				2024BC491C046AD0009CBEE7 /* ParserTest.mm */,
 				20B552AF1BF5BA08003EB42C /* Supporting Files */,
 			);
 			name = Tests;
@@ -4515,7 +4520,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2024BC471C046492009CBEE7 /* ParserTest.mm in Sources */,
+				2024CEFB1C05BE1E009CBEE7 /* DateTime.cpp in Sources */,
+				2024BC4A1C046AD0009CBEE7 /* ParserTest.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4622,11 +4628,11 @@
 					./source/privateinclude,
 					./source/xs_publicinclude,
 					./source/xs_privateinclude,
-					./source/libxml2,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -4644,11 +4650,11 @@
 					./source/privateinclude,
 					./source/xs_publicinclude,
 					./source/xs_privateinclude,
-					./source/libxml2,
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Release;
 		};
@@ -4664,9 +4670,15 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/opt/libxml2/include/libxml2,
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Debug;
 		};
@@ -4678,9 +4690,15 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					/usr/local/opt/libxml2/include/libxml2,
+				);
 				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALID_ARCHS = "arm64 armv7 armv7s i386";
 			};
 			name = Release;
 		};

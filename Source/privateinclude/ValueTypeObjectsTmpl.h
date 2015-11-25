@@ -39,6 +39,8 @@ public:
 	StringObjectTmpl  (
 		wchar_t* strValue, 
 		int nValueLen);
+    
+    virtual ~StringObjectTmpl();
 
 	String value () const;
 
@@ -83,6 +85,8 @@ public:
 
 	DoubleObjectTmpl  (
 		double dValue);
+    
+    virtual ~DoubleObjectTmpl();
 
 	double value() const;
 
@@ -127,6 +131,8 @@ public:
 
 	IntegerObjectTmpl  (
 		int nValue);
+    
+    virtual ~IntegerObjectTmpl();
 
 	int value() const;
 
@@ -170,6 +176,8 @@ public:
 
 	UIntegerObjectTmpl  (
 		unsigned int nValue);
+    
+    virtual ~UIntegerObjectTmpl();
 
 	unsigned int value() const;
 
@@ -213,6 +221,8 @@ public:
 
 	BooleanObjectTmpl  (
 		bool nValue);
+    
+    virtual ~BooleanObjectTmpl();
 
 	bool value() const;
 

@@ -30,6 +30,8 @@ public:
 
     ValueObjectTmpl (
         DocumentImpl* pDoc);
+    
+    virtual ~ValueObjectTmpl();
 
 	bool isNothing () const;
 
